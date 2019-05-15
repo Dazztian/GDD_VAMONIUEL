@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.AbmRol
 {
-    public partial class Form1 : Form
+    public partial class CrearRol : Form
     {
-        public Form1()
+        public CrearRol()
         {
             InitializeComponent();
         }
