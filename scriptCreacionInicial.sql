@@ -152,7 +152,6 @@ CREATE TABLE [VAMONIUEL].[CABINA]
 	[CABINA_PISO] [decimal](18, 0) NULL,
 	[CABINA_TIPO] [nvarchar](255) NULL,
 	[CABINA_TIPO_PORC_RECARGO] [decimal](18, 2) NULL,	
-	ocupada bit not null,
 	ID_Crucero int not null,
 	CONSTRAINT FK_Cabina_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)		
 );
@@ -177,6 +176,12 @@ INSERT INTO [VAMONIUEL].[CRUCERO]
  ([CRU_FABRICANTE],[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR])
  select  distinct [CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],[CRU_FABRICANTE] 
 from gd_esquema.Maestra
+/*
+INSERT INTO [VAMONIUEL].[CABINA]
+([CABINA_NRO],[CABINA_PISO],[CABINA_TIPO],[CABINA_TIPO_PORC_RECARGO],[ID_Crucero])
+select  distinct [CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],[CRU_FABRICANTE] 
+from gd_esquema.Maestra
+*/
 
 INSERT INTO [VAMONIUEL].[Tramo]
  ([PUERTO_DESDE] ,[PUERTO_HASTA],[RECORRIDO_PRECIO_BASE])
@@ -192,7 +197,11 @@ select  distinct [PUERTO_HASTA]
 from gd_esquema.Maestra
 WHERE [PUERTO_HASTA] NOT IN (select  distinct [PUERTO_DESDE] from gd_esquema.Maestra)
 
-INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_recorrido])
-select   p.id,T.id from VAMONIUEL.Puerto P 
-JOIN gd_esquema.Maestra M ON M.[PUERTO_HASTA]= P.Nombre 
-JOIN VAMONIUEL.Tramo T ON M.PUERTO_DESDE= T.PUERTO_DESDE   AND M.PUERTO_HASTA= T.PUERTO_HASTA 
+INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_puerto]) VALUES (1,1)
+
+/* Ta tirando error
+INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_puerto])
+select   P.ID,T.ID from gd_esquema.Maestra M 
+JOIN  VAMONIUEL.Puerto P  ON P.Nombre  =M.[PUERTO_HASTA]
+JOIN VAMONIUEL.Tramo T ON  T.PUERTO_DESDE =M.PUERTO_DESDE  AND  T.PUERTO_HASTA = M.PUERTO_HASTA
+*/
