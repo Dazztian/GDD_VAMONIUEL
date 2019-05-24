@@ -100,6 +100,14 @@ CREATE TABLE [VAMONIUEL].[RECORRIDO]
 	CONSTRAINT FK_Recorrido_Viaje FOREIGN KEY (ID_Viaje) REFERENCES VAMONIUEL.[Viaje](ID)		
 );
 
+CREATE TABLE [VAMONIUEL].Tramo
+(
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[PUERTO_DESDE] [nvarchar](255) NULL,
+	[PUERTO_HASTA] [nvarchar](255) NULL,
+	[RECORRIDO_PRECIO_BASE] [decimal](18, 2) NULL,
+)
+
 CREATE TABLE [VAMONIUEL].[ViajeXRecorrido]
 (
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -115,7 +123,7 @@ CREATE TABLE [VAMONIUEL].[Puerto]
 (	
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[Nombre] [nvarchar](255) NULL,
-	[Habilitado] bit not null
+	[Habilitado] bit DEFAULT 1
 );
 
 CREATE TABLE [VAMONIUEL].[RecorridoXViaje]
@@ -154,3 +162,23 @@ select  distinct[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION] ,[CLI_TELE
 -- ,(select ID from ESKHERE.Usuario where CAST([Cli_Dni] as nvarchar(50)) = Usuario)
 from gd_esquema.Maestra
 where [Cli_Dni]  IS NOT NULL
+
+INSERT INTO [VAMONIUEL].[CRUCERO]
+ ([CRU_FABRICANTE],[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR])
+ select  distinct [CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],[CRU_FABRICANTE] 
+from gd_esquema.Maestra
+
+INSERT INTO [VAMONIUEL].[Tramo]
+ ([PUERTO_DESDE] ,[PUERTO_HASTA],[RECORRIDO_PRECIO_BASE])
+select  distinct [PUERTO_DESDE],[PUERTO_HASTA], [RECORRIDO_PRECIO_BASE]
+from gd_esquema.Maestra
+
+INSERT INTO [VAMONIUEL].[Puerto]([Nombre])
+select  distinct [PUERTO_DESDE]
+from gd_esquema.Maestra
+
+INSERT INTO [VAMONIUEL].[Puerto]([Nombre])
+select  distinct [PUERTO_HASTA]
+from gd_esquema.Maestra
+WHERE [PUERTO_HASTA] NOT IN (select  distinct [PUERTO_DESDE] from gd_esquema.Maestra)
+
