@@ -10,6 +10,7 @@ EXEC ('CREATE SCHEMA [VAMONIUEL] AUTHORIZATION [gdCrucero2019]')
 END
 
 
+
 CREATE TABLE VAMONIUEL.[Rol](
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[Nombre] [nvarchar](50) NOT NULL UNIQUE,
@@ -42,6 +43,7 @@ CREATE TABLE VAMONIUEL.[Usuario](
 
 CREATE TABLE [VAMONIUEL].[CLIENTE]	
 (
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[CLI_NOMBRE] [nvarchar](255) NULL,
 	[CLI_APELLIDO] [nvarchar](255) NULL,
 	[CLI_DNI] [decimal](18, 0) NULL,
@@ -49,10 +51,11 @@ CREATE TABLE [VAMONIUEL].[CLIENTE]
 	[CLI_TELEFONO] [int] NULL,
 	[CLI_MAIL] [nvarchar](255) NULL,
 	[CLI_FECHA_NAC] [datetime2](3) NULL	
-;
+);
 
 CREATE TABLE [VAMONIUEL].[PASAJE]
 (
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[PASAJE_CODIGO] [decimal](18, 0) NULL,
 	[PASAJE_PRECIO] [decimal](18, 2) NULL,
 	[PASAJE_FECHA_COMPRA] [datetime2](3) NULL,
@@ -63,9 +66,17 @@ CREATE TABLE [VAMONIUEL].[PASAJE]
 	CONSTRAINT FK_Pasaje_Cliente FOREIGN KEY (ID_Cliente) REFERENCES VAMONIUEL.[Cliente](ID)			
 );
 
+CREATE TABLE [VAMONIUEL].[CRUCERO]
+(	
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[CRU_FABRICANTE] [nvarchar](255) NULL,
+	[CRUCERO_MODELO] [nvarchar](50) NULL,
+	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL	
+);
+
 CREATE TABLE [VAMONIUEL].[VIAJE]
 (
-	ID int not null,
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	Origen [nvarchar](255) not null,
 	Destino [nvarchar](255) not null,
 	FechaInicio [datetime2](3) not null,
@@ -78,6 +89,7 @@ CREATE TABLE [VAMONIUEL].[VIAJE]
 
 CREATE TABLE [VAMONIUEL].[RECORRIDO]
 (
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[RECORRIDO_CODIGO] [decimal](18, 0) NULL,
 	[RECORRIDO_PRECIO_BASE] [decimal](18, 2) NULL,
 	[PUERTO_DESDE] [nvarchar](255) NULL,
@@ -88,10 +100,10 @@ CREATE TABLE [VAMONIUEL].[RECORRIDO]
 
 CREATE TABLE [VAMONIUEL].[ViajeXRecorrido]
 (
-	ID INT NOT NULL,
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	ID_Viaje int not null,
 	ID_Recorrido int not null,
-	int orden not null,
+	orden int  not null,
 	CONSTRAINT FK_ViajeXRecorrido_Viaje FOREIGN KEY (ID_Viaje) REFERENCES VAMONIUEL.[Viaje](ID),			
 	CONSTRAINT FK_ViajeXRecorrido_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[RECORRIDO](ID)			
 );
@@ -99,7 +111,7 @@ CREATE TABLE [VAMONIUEL].[ViajeXRecorrido]
 
 CREATE TABLE [VAMONIUEL].[Puerto]
 (	
-	ID int not null,
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[Nombre] [nvarchar](255) NULL,
 	[Habilitado] bit not null
 );
@@ -109,8 +121,8 @@ CREATE TABLE [VAMONIUEL].[RecorridoXViaje]
 	ID INT NOT NULL,
 	ID_Recorrido int not null,
 	ID_Puerto int not null,
-	CONSTRAINT FK_RecorridoXViaje_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[Recorrid](ID),			
-	CONSTRAINT FK_RecorridoXViaje_PuertoFOREIGN KEY (ID_Puerto) REFERENCES VAMONIUEL.[Puerto](ID)	
+	CONSTRAINT FK_RecorridoXViaje_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[Recorrido](ID),			
+	CONSTRAINT FK_RecorridoXViaje_PuertoFOREIGN FOREIGN KEY (ID_Puerto) REFERENCES VAMONIUEL.[Puerto](ID)	
 );
 
 
@@ -125,14 +137,6 @@ CREATE TABLE [VAMONIUEL].[CABINA]
 	CONSTRAINT FK_Cabina_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)		
 );
 
-CREATE TABLE [VAMONIUEL].[CRUCERO]
-(	
-	ID int not null,
-	[CRU_FABRICANTE] [nvarchar](255) NULL,
-	[CRUCERO_MODELO] [nvarchar](50) NULL,
-	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL	
-);
-
 CREATE TABLE [VAMONIUEL].[RESERVA]
 (
 	[RESERVA_CODIGO] [decimal](18, 0) NULL,
@@ -140,5 +144,3 @@ CREATE TABLE [VAMONIUEL].[RESERVA]
 	ID_Pasaje int not null,
 	CONSTRAINT FK_Reserva_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
-
-	
