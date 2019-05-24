@@ -126,6 +126,16 @@ CREATE TABLE [VAMONIUEL].[Puerto]
 	[Habilitado] bit DEFAULT 1
 );
 
+CREATE TABLE [VAMONIUEL].[TramoXPuerto]
+(	
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	id_tramo int not null,
+	id_puerto int not null,
+	CONSTRAINT FK_tramoXPuerto_tramo FOREIGN KEY (id_tramo) REFERENCES VAMONIUEL.Tramo(ID),			
+	CONSTRAINT FK_tramoXPuerto_puerto FOREIGN KEY (id_puerto) REFERENCES VAMONIUEL.Puerto(ID)	
+)
+
+
 CREATE TABLE [VAMONIUEL].[RecorridoXViaje]
 (
 	ID INT NOT NULL,
@@ -176,9 +186,13 @@ from gd_esquema.Maestra
 INSERT INTO [VAMONIUEL].[Puerto]([Nombre])
 select  distinct [PUERTO_DESDE]
 from gd_esquema.Maestra
-
+--Pareceria que no hace falta esto, pero x las dudas...
 INSERT INTO [VAMONIUEL].[Puerto]([Nombre])
 select  distinct [PUERTO_HASTA]
 from gd_esquema.Maestra
 WHERE [PUERTO_HASTA] NOT IN (select  distinct [PUERTO_DESDE] from gd_esquema.Maestra)
 
+INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_recorrido])
+select   p.id,T.id from VAMONIUEL.Puerto P 
+JOIN gd_esquema.Maestra M ON M.[PUERTO_HASTA]= P.Nombre 
+JOIN VAMONIUEL.Tramo T ON M.PUERTO_DESDE= T.PUERTO_DESDE   AND M.PUERTO_HASTA= T.PUERTO_HASTA 
