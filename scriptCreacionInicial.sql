@@ -50,7 +50,9 @@ CREATE TABLE [VAMONIUEL].[CLIENTE]
 	[CLI_DIRECCION] [nvarchar](255) NULL,
 	[CLI_TELEFONO] [int] NULL,
 	[CLI_MAIL] [nvarchar](255) NULL,
-	[CLI_FECHA_NAC] [datetime2](3) NULL	
+	[CLI_FECHA_NAC] [datetime2](3) NULL,
+	id_usuario int  null,
+	CONSTRAINT FK_Cliente_usuario FOREIGN KEY (id_usuario) REFERENCES VAMONIUEL.Usuario(ID)
 );
 
 CREATE TABLE [VAMONIUEL].[PASAJE]
@@ -144,3 +146,11 @@ CREATE TABLE [VAMONIUEL].[RESERVA]
 	ID_Pasaje int not null,
 	CONSTRAINT FK_Reserva_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
+
+--------------------------------------------- MIGRACION ----------------------------------------------------------------------------------------------------
+ INSERT INTO VAMONIUEL.[Cliente]
+(	[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION],[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC])--, [ID_Usuario])
+select  distinct[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION] ,[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC]
+-- ,(select ID from ESKHERE.Usuario where CAST([Cli_Dni] as nvarchar(50)) = Usuario)
+from gd_esquema.Maestra
+where [Cli_Dni]  IS NOT NULL
