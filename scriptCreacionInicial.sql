@@ -93,11 +93,8 @@ CREATE TABLE [VAMONIUEL].[RECORRIDO]
 (
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[RECORRIDO_CODIGO] [decimal](18, 0) NULL,
-	[RECORRIDO_PRECIO_BASE] [decimal](18, 2) NULL,
 	[PUERTO_DESDE] [nvarchar](255) NULL,
-	[PUERTO_HASTA] [nvarchar](255) NULL,
-	ID_Viaje int not null,
-	CONSTRAINT FK_Recorrido_Viaje FOREIGN KEY (ID_Viaje) REFERENCES VAMONIUEL.[Viaje](ID)		
+	[PUERTO_HASTA] [nvarchar](255) NULL	
 );
 
 CREATE TABLE [VAMONIUEL].Tramo
@@ -145,6 +142,14 @@ CREATE TABLE [VAMONIUEL].[RecorridoXViaje]
 	CONSTRAINT FK_RecorridoXViaje_PuertoFOREIGN FOREIGN KEY (ID_Puerto) REFERENCES VAMONIUEL.[Puerto](ID)	
 );
 
+CREATE TABLE [VAMONIUEL].[TramoXRecorrido]
+(	
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	id_recorrido int not null,
+	id_tramo int not null,
+	CONSTRAINT FK_tramoXRecorrido_tramo FOREIGN KEY (id_tramo) REFERENCES VAMONIUEL.Tramo(ID),			
+	CONSTRAINT FK_tramoXRecorrido_recorrido FOREIGN KEY (id_recorrido) REFERENCES VAMONIUEL.Recorrido(ID)	
+)
 
 CREATE TABLE [VAMONIUEL].[CABINA]
 (
@@ -177,6 +182,7 @@ INSERT INTO [VAMONIUEL].[CRUCERO]
  select  distinct [CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],[CRU_FABRICANTE] 
 from gd_esquema.Maestra
 
+/* ESTA EN EVALUACION AUN*/
 INSERT INTO [VAMONIUEL].[CABINA]
 ([CABINA_NRO],[CABINA_PISO],[CABINA_TIPO],[CABINA_TIPO_PORC_RECARGO],[ID_Crucero])
 select  distinct [CABINA_NRO],[CABINA_PISO],[CABINA_TIPO],[CABINA_TIPO_PORC_RECARGO],
@@ -201,8 +207,13 @@ from gd_esquema.Maestra
 WHERE [PUERTO_HASTA] NOT IN (select  distinct [PUERTO_DESDE] from gd_esquema.Maestra)
 
 
-INSERT INTO [VAMONIUEL].[TramoXPuerto]
- ([id_tramo],[id_puerto])
+INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_puerto])
 select distinct  T.ID,P.ID from gd_esquema.Maestra M 
 JOIN  VAMONIUEL.Puerto P  ON M.PUERTO_DESDE= P.Nombre  
 JOIN VAMONIUEL.Tramo T ON  M.PUERTO_DESDE = T.PUERTO_DESDE  AND   M.PUERTO_HASTA=T.PUERTO_HASTA
+
+select * from VAMONIUEL.RECORRIDO
+
+INSERT INTO [VAMONIUEL].[RECORRIDO]([RECORRIDO_CODIGO] ,[PUERTO_DESDE],[PUERTO_HASTA])
+select  distinct [RECORRIDO_CODIGO],[PUERTO_DESDE],[PUERTO_HASTA]
+from gd_esquema.Maestra
