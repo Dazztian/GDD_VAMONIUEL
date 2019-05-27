@@ -45,6 +45,7 @@
             this.btnLimpiar.TabIndex = 13;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
@@ -54,6 +55,7 @@
             this.btnGuardar.TabIndex = 12;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnRegresar
             // 
@@ -63,6 +65,7 @@
             this.btnRegresar.TabIndex = 11;
             this.btnRegresar.Text = "Regresar";
             this.btnRegresar.UseVisualStyleBackColor = true;
+            this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click);
             // 
             // checkedListBoxFuncionalidades
             // 
@@ -111,6 +114,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ModificarRol";
             this.Text = "ModificarRol";
+            this.Load += new System.EventHandler(this.ModificarRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

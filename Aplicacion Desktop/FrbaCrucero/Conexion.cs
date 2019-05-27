@@ -59,7 +59,7 @@ namespace FrbaCrucero
         //Nombres de tablas basicas de la BD
         public static class Tabla
         {
-
+            //public static string NombreTabla { get { return "VAMONIUEL.[NombreTabla]"; } }
         }
 
         private string PonerFiltros(string comando, Dictionary<string, string> filtros)
