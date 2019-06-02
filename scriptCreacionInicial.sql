@@ -41,6 +41,14 @@ CREATE TABLE VAMONIUEL.[Usuario](
 );
 
 
+CREATE TABLE VAMONIUEL.[Rol_X_Usuario](
+  	ID_ROL int,
+  	ID_Usuario int,
+	PRIMARY KEY(ID_ROL, ID_USUARIO),
+  	CONSTRAINT FK_Rol_X_Usuario FOREIGN KEY (ID_Rol) REFERENCES VAMONIUEL.Rol(ID),
+	CONSTRAINT FK_Usuario_X_Rol FOREIGN KEY(ID_Usuario) REFERENCES VAMONIUEL.Usuario(ID)
+);
+
 CREATE TABLE [VAMONIUEL].[CLIENTE]	
 (
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -157,7 +165,7 @@ CREATE TABLE [VAMONIUEL].[CABINA]
 	[CABINA_PISO] [decimal](18, 0) NULL,
 	[CABINA_TIPO] [nvarchar](255) NULL,
 	[CABINA_TIPO_PORC_RECARGO] [decimal](18, 2) NULL,	
-	ID_Crucero int not null,
+	ID_Crucero int  null,
 	CONSTRAINT FK_Cabina_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)		
 );
 
@@ -168,6 +176,21 @@ CREATE TABLE [VAMONIUEL].[RESERVA]
 	ID_Pasaje int not null,
 	CONSTRAINT FK_Reserva_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
+--------------------------------------------------------------------------- INSERTS DE VALORES GENERICOS ------------------------------------------------------------------------------------------------
+
+INSERT INTO VAMONIUEL.[Usuario]([Usuario],[Contrasenia],habilitado) 
+VALUES ('admin',HASHBYTES('SHA2_256', N'w23e'),1)
+
+INSERT INTO VAMONIUEL.[Rol] ([Nombre])
+VALUES ('Empresa'),('Administrativo'),('Cliente')
+
+--INSERT INTO VAMONIUEL.Funcion VALUES 
+
+INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
+VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(3,5),(3,9),(3,4),(1,6),(1,7)
+
+INSERT INTO VAMONIUEL.[Rol_X_Usuario] ([ID_ROL],[ID_Usuario])
+VALUES (2,1)
 
 --------------------------------------------- MIGRACION ----------------------------------------------------------------------------------------------------
  INSERT INTO VAMONIUEL.[Cliente]
@@ -182,16 +205,21 @@ INSERT INTO [VAMONIUEL].[CRUCERO]
  select  distinct [CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],[CRU_FABRICANTE] 
 from gd_esquema.Maestra
 
+delete from VAMONIUEL.CABINA
 /* ESTA EN EVALUACION AUN*/
-INSERT INTO [VAMONIUEL].[CABINA]
-([CABINA_NRO],[CABINA_PISO],[CABINA_TIPO],[CABINA_TIPO_PORC_RECARGO],[ID_Crucero])
-select  distinct [CABINA_NRO],[CABINA_PISO],[CABINA_TIPO],[CABINA_TIPO_PORC_RECARGO],
-(SELECT ID FROM VAMONIUEL.CRUCERO C WHERE  C.CRU_FABRICANTE = M.CRU_FABRICANTE
-								   /* AND C.CRUCERO_IDENTIFICADOR = M.CRU_FABRICANTE
-									AND C.CRUCERO_MODELO = M.CRUCERO_MODELO*/ )
+INSERT INTO [VAMONIUEL].[CABINA] ([CABINA_NRO],[CABINA_PISO],[CABINA_TIPO],[CABINA_TIPO_PORC_RECARGO],[ID_Crucero])
+select  distinct [CABINA_NRO],[CABINA_PISO],[CABINA_TIPO],[CABINA_TIPO_PORC_RECARGO],C.ID
 from gd_esquema.Maestra M 
+LEFT JOIN VAMONIUEL.CRUCERO C ON	(M.CRU_FABRICANTE= C.CRU_FABRICANTE 
+						AND M.CRUCERO_IDENTIFICADOR = C.CRUCERO_IDENTIFICADOR 
+						AND M.CRUCERO_MODELO = C.CRUCERO_MODELO)
 
+--Devuelve correctamente
+SELECT id FROM VAMONIUEL.CRUCERO C LEFT JOIN gd_esquema.Maestra M ON  M.CRU_FABRICANTE= C.CRU_FABRICANTE 
+								    AND M.CRUCERO_IDENTIFICADOR = C.CRUCERO_IDENTIFICADOR 
+									AND M.CRUCERO_MODELO = C.CRUCERO_MODELO
 
+select * from VAMONIUEL.Tramo
 INSERT INTO [VAMONIUEL].[Tramo]
  ([PUERTO_DESDE] ,[PUERTO_HASTA],[RECORRIDO_PRECIO_BASE])
 select  distinct [PUERTO_DESDE],[PUERTO_HASTA], [RECORRIDO_PRECIO_BASE]
