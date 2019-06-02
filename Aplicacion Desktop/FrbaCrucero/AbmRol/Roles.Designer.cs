@@ -52,6 +52,7 @@
             this.btnAgregarRol.TabIndex = 1;
             this.btnAgregarRol.Text = "Agregar rol";
             this.btnAgregarRol.UseVisualStyleBackColor = true;
+            this.btnAgregarRol.Click += new System.EventHandler(this.btnAgregarRol_Click);
             // 
             // btnModificar
             // 
@@ -61,6 +62,7 @@
             this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnHabilitar
             // 
@@ -70,6 +72,7 @@
             this.btnHabilitar.TabIndex = 3;
             this.btnHabilitar.Text = "Habilitar";
             this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
             // 
             // btnDeshabilitar
             // 
@@ -79,6 +82,7 @@
             this.btnDeshabilitar.TabIndex = 4;
             this.btnDeshabilitar.Text = "Deshabilitar";
             this.btnDeshabilitar.UseVisualStyleBackColor = true;
+            this.btnDeshabilitar.Click += new System.EventHandler(this.btnDeshabilitar_Click);
             // 
             // Roles
             // 
@@ -92,6 +96,7 @@
             this.Controls.Add(this.dataGridViewRoles);
             this.Name = "Roles";
             this.Text = "Roles";
+            this.Load += new System.EventHandler(this.Roles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoles)).EndInit();
             this.ResumeLayout(false);
 

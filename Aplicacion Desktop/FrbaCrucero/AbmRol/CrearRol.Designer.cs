@@ -30,7 +30,7 @@
         {
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnRegresar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.checkedListBoxFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,6 +45,7 @@
             this.btnLimpiar.TabIndex = 20;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
@@ -54,15 +55,17 @@
             this.btnGuardar.TabIndex = 19;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // btnRegresar
+            // btnCancelar
             // 
-            this.btnRegresar.Location = new System.Drawing.Point(54, 258);
-            this.btnRegresar.Name = "btnRegresar";
-            this.btnRegresar.Size = new System.Drawing.Size(75, 23);
-            this.btnRegresar.TabIndex = 18;
-            this.btnRegresar.Text = "Regresar";
-            this.btnRegresar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Location = new System.Drawing.Point(54, 258);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 18;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // checkedListBoxFuncionalidades
             // 
@@ -104,13 +107,14 @@
             this.ClientSize = new System.Drawing.Size(312, 300);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.btnRegresar);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.checkedListBoxFuncionalidades);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "CrearRol";
             this.Text = "Crear rol";
+            this.Load += new System.EventHandler(this.CrearRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,7 +124,7 @@
 
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Button btnRegresar;
+        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.CheckedListBox checkedListBoxFuncionalidades;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label2;
