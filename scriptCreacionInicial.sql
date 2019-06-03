@@ -246,7 +246,43 @@ DECLARE @RECORRIDO_PRECIO_BASE decimal(18,2)
 END
 GO	
 
---------------------------------------------- MIGRACION ----------------------------------------------------------------------------------------------------
+------------------------------------------------ tr_creacion_recorridoxtramo ----------------------------------------------------
+--ESTE TRIGGER TIENE SENTIDO SER INVOCADO SOLO EN LA MIGRACION, X ESO LO DESTRUYO TERMINADA LA MIGRACION
+go
+CREATE TRIGGER tr_creacion_recorridoxtramo ON VAMONIUEL.TRAMO
+AFTER INSERT
+AS 
+BEGIN	
+	--VARIABLES RELACIONADAS AL RECORRIDOXTRAMO
+	DECLARE @ID_Tramo int
+	DECLARE @ID_Recorrido int
+
+	DECLARE obtenerDatos CURSOR FOR
+	SELECT I.ID, R.ID
+	FROM VAMONIUEL.Tramo I
+	LEFT JOIN VAMONIUEL.RECORRIDO R ON ( I.PUERTO_DESDE= R.PUERTO_DESDE AND I.PUERTO_HASTA= R.PUERTO_HASTA )
+
+	OPEN obtenerDatos
+	FETCH NEXT FROM obtenerDatos INTO @ID_Tramo, @ID_Recorrido
+
+	WHILE @@FETCH_STATUS=0
+	BEGIN
+		--INSERTO EN LA TABLA INTERMEDIA
+		BEGIN	
+		INSERT INTO [VAMONIUEL].[TramoXRecorrido] ([id_recorrido],[id_tramo])
+		VALUES  (@ID_Tramo, @ID_Recorrido)
+
+		END
+	
+	FETCH NEXT FROM obtenerDatos INTO @ID_Tramo, @ID_Recorrido
+	END
+	CLOSE obtenerDatos
+	DEALLOCATE obtenerDatos
+
+END
+GO	
+
+------------------------------------------- INICIO  MIGRACION ----------------------------------------------------------------------------------------------------
  INSERT INTO VAMONIUEL.[Cliente]
 (	[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION],[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC])--, [ID_Usuario])
 select  distinct[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION] ,[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC]
@@ -282,18 +318,20 @@ select  distinct [PUERTO_HASTA]
 from gd_esquema.Maestra
 WHERE [PUERTO_HASTA] NOT IN (select  distinct [PUERTO_DESDE] from gd_esquema.Maestra)
 
+INSERT INTO [VAMONIUEL].[RECORRIDO]([RECORRIDO_CODIGO] ,[PUERTO_DESDE],[PUERTO_HASTA])
+select  distinct [RECORRIDO_CODIGO],[PUERTO_DESDE],[PUERTO_HASTA]
+from gd_esquema.Maestra
+
+
 --Cada vez que inserto un tramo ejecuto un trigger que me insertara en la tabla intermedia TramoXPuerto, los puerto de origen y destino
+--La insercion en tramoxpuerto esta solucionada x el trigger
 INSERT INTO [VAMONIUEL].[Tramo]
  ([PUERTO_DESDE] ,[PUERTO_HASTA],[RECORRIDO_PRECIO_BASE])
 select  distinct [PUERTO_DESDE],[PUERTO_HASTA], [RECORRIDO_PRECIO_BASE]
 from gd_esquema.Maestra
 
 
-
-select * from VAMONIUEL.RECORRIDO
-
-INSERT INTO [VAMONIUEL].[RECORRIDO]([RECORRIDO_CODIGO] ,[PUERTO_DESDE],[PUERTO_HASTA])
-select  distinct [RECORRIDO_CODIGO],[PUERTO_DESDE],[PUERTO_HASTA]
-from gd_esquema.Maestra
-
-
+----------BORRO ESTE TRIGGER YA QUE LUEGO DE LA MIGRACION NO ME SIRVE/ME TRAE PROBLEMAS----------------------------------
+DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
+-------------------------------------------------------------------------------------------------------------------------
+------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
