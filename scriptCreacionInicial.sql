@@ -19,16 +19,16 @@ CREATE TABLE VAMONIUEL.[Rol](
 
 
 CREATE TABLE VAMONIUEL.[Funcion](
-	[ID] [int] NOT NULL PRIMARY KEY,
+	[ID] [int] NOT NULL PRIMARY KEY ,
 	[nombre] [nvarchar](50) NOT NULL,
 );
 
 CREATE TABLE VAMONIUEL.[Rol_X_Funcion](
-	[ID_Rol] [int],
-	[ID_Funcion] [int],
-	PRIMARY KEY(ID_ROL, ID_Funcion),
-	CONSTRAINT FK_Rol FOREIGN KEY (ID_Rol) REFERENCES VAMONIUEL.[Rol](ID),
-	CONSTRAINT FK_Funcion FOREIGN KEY (ID_Funcion) REFERENCES VAMONIUEL.[Funcion](ID)
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[ID_Rol] [int] not null,
+	[ID_Funcion] [int] not null,
+	CONSTRAINT FK_RolXFuncion_Rol FOREIGN KEY (ID_Rol) REFERENCES VAMONIUEL.[Rol](ID),
+	CONSTRAINT FK_RolXFuncion_Funcion FOREIGN KEY (ID_Funcion) REFERENCES VAMONIUEL.[Funcion](ID)
 );
 
 CREATE TABLE VAMONIUEL.[Usuario](
@@ -184,13 +184,67 @@ VALUES ('admin',HASHBYTES('SHA2_256', N'w23e'),1)
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
 VALUES ('Empresa'),('Administrativo'),('Cliente')
 
---INSERT INTO VAMONIUEL.Funcion VALUES 
+--Esto hay que actualizarlo segun este TP
+INSERT INTO [VAMONIUEL].[Funcion] 
+VALUES (1, 'ABM Cliente'),(2,'ABM Empresa Espectaculo'),
+(3,'ABM Grado'),(4, 'Canje de Puntos'), (5, 'Comprar')
+, (6, 'Editar Publicacion'), (7, 'Generar Publicacion')
+, (8, 'Generar Rendicion de Comisiones'), (9, 'Historial de Compras de Cliente')
+, (10, 'Listado Estadistico'), (11, 'ABM Rol')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
 VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(3,5),(3,9),(3,4),(1,6),(1,7)
 
-INSERT INTO VAMONIUEL.[Rol_X_Usuario] ([ID_ROL],[ID_Usuario])
-VALUES (2,1)
+-------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
+
+go
+CREATE TRIGGER tr_creacion_tramoxpuerto ON VAMONIUEL.TRAMO
+AFTER INSERT
+AS 
+BEGIN	
+	--VARIABLES RELACIONADAS AL TRAMO
+	
+DECLARE @PUERTO_DESDE nvarchar(255)
+DECLARE @PUERTO_HASTA nvarchar(255)
+DECLARE @RECORRIDO_PRECIO_BASE decimal(18,2)
+	--VARIABLES RELACIONADAS AL TRAMOXPUERTO
+	DECLARE @ID_Tramo int
+	DECLARE @ID_PUERTO_DESDE int
+	DECLARE @ID_PUERTO_HASTA int
+
+	--VARIABLES RELACIONADAS AL PUERTO
+
+	--OBTENGO LOS DATOS ASOCIADOS A CADA INSERCION DE TRAMO
+	DECLARE obtenerDatos CURSOR FOR
+
+  SELECT I.ID, P1.ID, P2.ID
+	FROM VAMONIUEL.Tramo I
+	LEFT JOIN VAMONIUEL.Puerto P1 ON I.PUERTO_DESDE= P1.Nombre --Origen
+	LEFT JOIN VAMONIUEL.Puerto P2 ON I.PUERTO_HASTA = P2.Nombre --Destino
+
+	OPEN obtenerDatos
+	FETCH NEXT FROM obtenerDatos INTO @ID_Tramo, @ID_PUERTO_DESDE, @ID_PUERTO_HASTA
+
+	WHILE @@FETCH_STATUS=0
+	BEGIN
+		--HAGO 2 INSERTS EN LA TABLA TRAMOXPUERTO,
+		--UNO PARA INDICAR EL ORIGEN Y OTRA PARA DESTINO
+		BEGIN
+		INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_puerto])
+		VALUES   (@ID_Tramo, @ID_PUERTO_DESDE)
+	
+		INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_puerto])
+		VALUES   (@ID_Tramo,  @ID_PUERTO_HASTA)
+
+		END
+	
+	FETCH NEXT FROM obtenerDatos INTO @ID_Tramo, @ID_PUERTO_DESDE, @ID_PUERTO_HASTA
+	END
+	CLOSE obtenerDatos
+	DEALLOCATE obtenerDatos
+
+END
+GO	
 
 --------------------------------------------- MIGRACION ----------------------------------------------------------------------------------------------------
  INSERT INTO VAMONIUEL.[Cliente]
@@ -219,12 +273,6 @@ SELECT id FROM VAMONIUEL.CRUCERO C LEFT JOIN gd_esquema.Maestra M ON  M.CRU_FABR
 								    AND M.CRUCERO_IDENTIFICADOR = C.CRUCERO_IDENTIFICADOR 
 									AND M.CRUCERO_MODELO = C.CRUCERO_MODELO
 
-select * from VAMONIUEL.Tramo
-INSERT INTO [VAMONIUEL].[Tramo]
- ([PUERTO_DESDE] ,[PUERTO_HASTA],[RECORRIDO_PRECIO_BASE])
-select  distinct [PUERTO_DESDE],[PUERTO_HASTA], [RECORRIDO_PRECIO_BASE]
-from gd_esquema.Maestra
-
 INSERT INTO [VAMONIUEL].[Puerto]([Nombre])
 select  distinct [PUERTO_DESDE]
 from gd_esquema.Maestra
@@ -234,14 +282,18 @@ select  distinct [PUERTO_HASTA]
 from gd_esquema.Maestra
 WHERE [PUERTO_HASTA] NOT IN (select  distinct [PUERTO_DESDE] from gd_esquema.Maestra)
 
+--Cada vez que inserto un tramo ejecuto un trigger que me insertara en la tabla intermedia TramoXPuerto, los puerto de origen y destino
+INSERT INTO [VAMONIUEL].[Tramo]
+ ([PUERTO_DESDE] ,[PUERTO_HASTA],[RECORRIDO_PRECIO_BASE])
+select  distinct [PUERTO_DESDE],[PUERTO_HASTA], [RECORRIDO_PRECIO_BASE]
+from gd_esquema.Maestra
 
-INSERT INTO [VAMONIUEL].[TramoXPuerto] ([id_tramo],[id_puerto])
-select distinct  T.ID,P.ID from gd_esquema.Maestra M 
-JOIN  VAMONIUEL.Puerto P  ON M.PUERTO_DESDE= P.Nombre  
-JOIN VAMONIUEL.Tramo T ON  M.PUERTO_DESDE = T.PUERTO_DESDE  AND   M.PUERTO_HASTA=T.PUERTO_HASTA
+
 
 select * from VAMONIUEL.RECORRIDO
 
 INSERT INTO [VAMONIUEL].[RECORRIDO]([RECORRIDO_CODIGO] ,[PUERTO_DESDE],[PUERTO_HASTA])
 select  distinct [RECORRIDO_CODIGO],[PUERTO_DESDE],[PUERTO_HASTA]
 from gd_esquema.Maestra
+
+
