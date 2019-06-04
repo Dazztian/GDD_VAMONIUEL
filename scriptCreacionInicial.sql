@@ -84,6 +84,15 @@ CREATE TABLE [VAMONIUEL].[CRUCERO]
 	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL	
 );
 
+
+CREATE TABLE [VAMONIUEL].[RECORRIDO]
+(
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[RECORRIDO_CODIGO] [decimal](18, 0) NULL,
+	[PUERTO_DESDE] [nvarchar](255) NULL,
+	[PUERTO_HASTA] [nvarchar](255) NULL	
+);
+
 CREATE TABLE [VAMONIUEL].[VIAJE]
 (
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -93,17 +102,12 @@ CREATE TABLE [VAMONIUEL].[VIAJE]
 	FechaFin [datetime2](3) not null,
 	ID_Pasaje int not null,
 	ID_Crucero	 int not null,
+	ID_Recorrido int not null,
+	CONSTRAINT FK_Viaje_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[Recorrido](ID),	
 	CONSTRAINT FK_Viaje_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID),			
 	CONSTRAINT FK_Viaje_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)			
 );
 
-CREATE TABLE [VAMONIUEL].[RECORRIDO]
-(
-	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[RECORRIDO_CODIGO] [decimal](18, 0) NULL,
-	[PUERTO_DESDE] [nvarchar](255) NULL,
-	[PUERTO_HASTA] [nvarchar](255) NULL	
-);
 
 CREATE TABLE [VAMONIUEL].Tramo
 (
@@ -171,9 +175,11 @@ CREATE TABLE [VAMONIUEL].[CABINA]
 
 CREATE TABLE [VAMONIUEL].[RESERVA]
 (
+
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[RESERVA_CODIGO] [decimal](18, 0) NULL,
 	[RESERVA_FECHA] [datetime2](3) NULL,
-	ID_Pasaje int not null,
+	ID_Pasaje int  null,
 	CONSTRAINT FK_Reserva_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
 --------------------------------------------------------------------------- INSERTS DE VALORES GENERICOS ------------------------------------------------------------------------------------------------
@@ -196,7 +202,6 @@ INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
 VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(3,5),(3,9),(3,4),(1,6),(1,7)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
-
 go
 CREATE TRIGGER tr_creacion_tramoxpuerto ON VAMONIUEL.TRAMO
 AFTER INSERT
@@ -259,7 +264,7 @@ BEGIN
 
 	DECLARE obtenerDatos CURSOR FOR
 	SELECT I.ID, R.ID
-	FROM VAMONIUEL.Tramo I
+	FROM inserted I
 	LEFT JOIN VAMONIUEL.RECORRIDO R ON ( I.PUERTO_DESDE= R.PUERTO_DESDE AND I.PUERTO_HASTA= R.PUERTO_HASTA )
 
 	OPEN obtenerDatos
@@ -282,6 +287,100 @@ BEGIN
 END
 GO	
 
+------------------------------------------------ tr_creacion_pasajeATravesDeCreacionReservas----------------------------------------------------
+
+go--Creo los pasajes asociados a las reservas
+CREATE TRIGGER tr_creacion_pasajeTemporalesATravesDeCreacionReservas ON VAMONIUEL.RESERVA
+AFTER INSERT
+AS 
+BEGIN	
+	--VARIABLES RELACIONADAS AL PASAJE Y LA RESERVA
+	DECLARE @RESERVA_CODIGO decimal(18,0)
+	DECLARE @RESERVA_FECHA datetime2(3)
+	DECLARE @ID_Pasaje INT
+	DECLARE @FECHA_SALIDA datetime2(3)
+	DECLARE @FECHA_LLEGADA datetime2(3)
+	DECLARE @FECHA_LLEGADA_ESTIMADA datetime2(3)
+	DECLARE @PASAJE_CODIGO decimal(18,0)
+
+	DECLARE obtenerDatos CURSOR FOR
+	SELECT I.[RESERVA_CODIGO],I.[RESERVA_FECHA], I.ID_PASAJE, M.[FECHA_SALIDA],M.[FECHA_LLEGADA],M.[FECHA_LLEGADA_ESTIMADA]
+	FROM inserted I
+	LEFT JOIN gd_esquema.Maestra M ON ( I.RESERVA_CODIGO = M.[RESERVA_CODIGO] AND I.[RESERVA_FECHA]=  M.[RESERVA_FECHA])
+
+	OPEN obtenerDatos
+	FETCH NEXT FROM obtenerDatos INTO @RESERVA_CODIGO, @RESERVA_FECHA, @ID_Pasaje, @FECHA_SALIDA, @FECHA_LLEGADA, @FECHA_LLEGADA_ESTIMADA
+
+	WHILE @@FETCH_STATUS=0
+	BEGIN
+		--1)INSERTO EN PASAJE
+		--2)INSERTO EN RESERVA
+		BEGIN	
+		SET @PASAJE_CODIGO=@RESERVA_CODIGO+1
+
+		if(@ID_Pasaje is null)
+		begin
+
+		INSERT INTO [VAMONIUEL].[PASAJE]([PASAJE_CODIGO],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
+		VALUES (@PASAJE_CODIGO,@FECHA_SALIDA, @FECHA_LLEGADA, @FECHA_LLEGADA_ESTIMADA, 1)--ACA TIENE EL USER HARDCODEADO, TA MAL
+
+		--insert into VAMONIUEL.RESERVA ([RESERVA_CODIGO],[RESERVA_FECHA],[ID_Pasaje])
+		--VALUES (@RESERVA_CODIGO, @RESERVA_FECHA, 
+		--(select top 1 id from VAMONIUEL.PASAJE where PASAJE_CODIGO=@PASAJE_CODIGO))
+		end
+		--UPDATE [VAMONIUEL].[RESERVA]
+		--SET [ID_Pasaje] = 33333--@ID_Pasaje
+		--WHERE [RESERVA_CODIGO] = @PASAJE_CODIGO-1
+		--and RESERVA_CODIGO is not null
+		
+		END
+		FETCH NEXT FROM obtenerDatos INTO @RESERVA_CODIGO, @RESERVA_FECHA, @ID_Pasaje, @FECHA_SALIDA, @FECHA_LLEGADA, @FECHA_LLEGADA_ESTIMADA
+	
+	END
+	--UPDATE [VAMONIUEL].[RESERVA]
+	--	SET [ID_Pasaje] = 33333--@ID_Pasaje
+	CLOSE obtenerDatos
+	DEALLOCATE obtenerDatos
+
+END
+GO	
+
+--DROP PROCEDURE sp_vinculacion_pasajeTemporalConReservas
+------------------------------------------------ sp_vinculacion_pasajeTemporalConReservas----------------------------------------------------
+/*
+go --Con este procedure pretendo a todas las reservas asociarle su id pasaje
+CREATE PROCEDURE sp_vinculacion_pasajeTemporalConReservas 
+AS 
+BEGIN	
+	--VARIABLES RELACIONADAS AL PASAJE Y LA RESERVA	
+	DECLARE @PASAJE_CODIGO decimal(18,0)
+	DECLARE @ID_Pasaje INT
+
+	DECLARE obtenerDatosTR CURSOR FOR
+	SELECT  I.ID, I.PASAJE_CODIGO
+	FROM VAMONIUEL.PASAJE I
+	LEFT JOIN VAMONIUEL.RESERVA R ON ( I.PASAJE_CODIGO = R.[RESERVA_CODIGO]-1)
+	WHERE I.PASAJE_PRECIO IS NULL AND I.PASAJE_FECHA_COMPRA IS NULL
+
+	OPEN obtenerDatosTR
+	FETCH NEXT FROM obtenerDatosTR INTO @ID_Pasaje, @PASAJE_CODIGO
+
+	WHILE @@FETCH_STATUS=0
+	BEGIN
+		--ESTA VERGA ME LOOPEA EL TRIGGER
+		UPDATE [VAMONIUEL].[RESERVA]
+		SET [ID_Pasaje] = @ID_Pasaje
+		WHERE [RESERVA_CODIGO] = @PASAJE_CODIGO-1
+		and RESERVA_CODIGO is not null
+	
+		FETCH NEXT FROM obtenerDatosTR INTO @ID_Pasaje, @PASAJE_CODIGO
+	END
+	CLOSE obtenerDatosTR
+	DEALLOCATE obtenerDatosTR
+
+END
+GO	
+*/
 ------------------------------------------- INICIO  MIGRACION ----------------------------------------------------------------------------------------------------
  INSERT INTO VAMONIUEL.[Cliente]
 (	[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION],[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC])--, [ID_Usuario])
@@ -341,14 +440,44 @@ LEFT JOIN VAMONIUEL.CLIENTE C ON (M.[CLI_NOMBRE] = C.[CLI_NOMBRE]
       AND M.[CLI_TELEFONO] = c.[CLI_TELEFONO]
       AND M.[CLI_MAIL] = c.[CLI_MAIL]
       AND M.[CLI_FECHA_NAC] = c.[CLI_FECHA_NAC])
+--Sacandole esta condicion hago insercion incluso de aquellas que me representan las reservas
 WHERE [PASAJE_CODIGO] IS NOT NULL
       AND [PASAJE_PRECIO] IS NOT NULL
       AND [PASAJE_FECHA_COMPRA] IS NOT NULL
 
 --Cada vez que cargue una reserva se va a ejecutar un trigger que me va a generar un 'pasaje temporal'
 
+--Esto funca sin insertar el id_pasaje
+INSERT INTO [VAMONIUEL].[RESERVA]
+([RESERVA_CODIGO],[RESERVA_FECHA])
+SELECT DISTINCT M.[RESERVA_CODIGO],M.[RESERVA_FECHA]
+FROM gd_esquema.Maestra M
 
+--Esto NO funca queriendo insertar el id_pasaje
+/*INSERT INTO [VAMONIUEL].[RESERVA]
+([RESERVA_CODIGO],[RESERVA_FECHA], ID_Pasaje)
+SELECT DISTINCT M.[RESERVA_CODIGO],M.[RESERVA_FECHA], P.ID
+FROM gd_esquema.Maestra M JOIN VAMONIUEL.PASAJE P ON (
+      M.[FECHA_SALIDA] = P.[FECHA_SALIDA] AND
+      M.[FECHA_LLEGADA] = P.[FECHA_LLEGADA] AND
+      M.[FECHA_LLEGADA_ESTIMADA] =P.[FECHA_LLEGADA_ESTIMADA] AND
+	  P.ID_Cliente= (select  CLI.ID FROM VAMONIUEL.CLIENTE CLI WHERE M.CLI_APELLIDO=CLI.CLI_APELLIDO AND M.[CLI_DNI]=CLI.[CLI_DNI] AND M.[CLI_DIRECCION]= CLI.[CLI_DIRECCION] AND M.[CLI_TELEFONO]= CLI.[CLI_TELEFONO] AND M.[CLI_MAIL]= CLI.[CLI_MAIL] AND M.[CLI_FECHA_NAC]= CLI.[CLI_FECHA_NAC])
+	  AND  M.PASAJE_CODIGO IS NULL)
+WHERE [RESERVA_CODIGO] IS NOT NULL 
+	AND [RESERVA_FECHA] IS NOT NULL
+	*/
+	
+select count(P.ID) from VAMONIUEL.PASAJE P JOIN VAMONIUEL.RESERVA R ON 
+(P.PASAJE_CODIGO = R.RESERVA_CODIGO+1)
+
+--Ultimo elemento a migrar ya que recibe las FK	de todas las demas tablas que necesitan estar ya creadas
+INSERT INTO [VAMONIUEL].[VIAJE]([Origen] ,[Destino],[FechaInicio],[FechaFin],[ID_Pasaje],[ID_Crucero],[ID_Recorrido])
+SELECT M.PUERTO_DESDE, M.PUERTO_HASTA, M.FECHA_SALIDA, M.FECHA_LLEGADA, R.ID,1,2
+FROM gd_esquema.Maestra M JOIN VAMONIUEL.RECORRIDO R ON ( M.PUERTO_DESDE = R.PUERTO_DESDE AND M.PUERTO_HASTA = R.PUERTO_HASTA)
+	
 ----------BORRO ESTE TRIGGER YA QUE LUEGO DE LA MIGRACION NO ME SIRVE/ME TRAE PROBLEMAS----------------------------------
 DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 -------------------------------------------------------------------------------------------------------------------------
+
+--execute sp_vinculacion_pasajeTemporalConReservas
 ------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------

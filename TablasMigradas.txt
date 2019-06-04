@@ -1,0 +1,14 @@
+PENDIENTE VIAJE
+PENDIENTE PASAJE
+------------------------------------------------ tr_creacion_pasajeATravesDeCreacionReservas----------------------------------------------------
+go--CHEQUEAR TRIGGER!!!!!
+
+OK Cliente 
+OK Crucero
+WORKING Cabina --IMPORTANTE ESTO XQ NO ME ESTA INSERTANDO EL ID CRUCERO
+OK Tramo
+OK Puerto
+OK TramoXPuerto
+OK Recorrido
+OK RecorridoXTramo
+A REVISAR Rol_X_Funcion
