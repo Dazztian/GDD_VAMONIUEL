@@ -68,6 +68,7 @@
     <Compile Include="AbmRecorrido\Recorridos.Designer.cs">
       <DependentUpon>Recorridos.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRecorrido\Tramo.cs" />
     <Compile Include="AbmRol\CrearRol.cs">
       <SubType>Form</SubType>
     </Compile>
