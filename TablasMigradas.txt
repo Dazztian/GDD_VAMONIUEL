@@ -1,21 +1,3 @@
-EN TEORIA POR ENUNCIADO CADA RECORRIDO ES UNICO PARA LA MIGRACION
-
-A Revisar id_pasaje en reserva
-A Revisar id_cliente en pasajes creados a partir de reservas
-
-
-PENDIENTE PASAJE
------------------------------------------------- tr_creacion_pasajeATravesDeCreacionReservas----------------------------------------------------
-go--CHEQUEAR TRIGGER!!!!!
-
-OK Cliente 
-OK Crucero
-WORKING Cabina --IMPORTANTE ESTO XQ NO ME ESTA INSERTANDO EL ID CRUCERO
-OK Tramo
-OK Puerto
-OK TramoXPuerto
-OK Recorrido
-OK RecorridoXTramo
-OK Viaje
-
-A REVISAR Rol_X_Funcion
+MIGRACION
+Falta asociar id_cliente a los pasajes nuevos creados a partir de una reserva
+Falta asociar id_pasaje a las reservas
