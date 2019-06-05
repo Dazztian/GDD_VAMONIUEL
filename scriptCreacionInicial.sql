@@ -197,11 +197,10 @@ VALUES ('Administrativo'),('Cliente')
 
 --Esto hay que actualizarlo segun este TP
 INSERT INTO [VAMONIUEL].[Funcion] 
-VALUES (1, 'ABM Cliente'),(2,'ABM Empresa Espectaculo'),
-(3,'ABM Grado'),(4, 'Canje de Puntos'), (5, 'Comprar')
-, (6, 'Editar Publicacion'), (7, 'Generar Publicacion')
-, (8, 'Generar Rendicion de Comisiones'), (9, 'Historial de Compras de Cliente')
-, (10, 'Listado Estadistico'), (11, 'ABM Rol')
+VALUES (1, 'ABM Rol'),(2,'ABM Puerto'),
+(3,'ABM Puerto'),(4, 'ABM Recorrido'), (5, 'ABM Crucero')
+, (6, 'Generar viaje'), (7, 'Compra y/o reserva de viaje')
+, (8, 'Pago Reserva'), (9, 'Listado estadistico')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
 VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(1,5),(2,9),(1,4),(1,6),(1,7)
