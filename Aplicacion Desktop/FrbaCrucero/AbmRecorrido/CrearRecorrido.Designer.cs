@@ -62,6 +62,7 @@
             // 
             // comboBoxOrigen
             // 
+            this.comboBoxOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(156, 68);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
@@ -70,6 +71,7 @@
             // 
             // comboBoxDestino
             // 
+            this.comboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDestino.FormattingEnabled = true;
             this.comboBoxDestino.Location = new System.Drawing.Point(156, 96);
             this.comboBoxDestino.Name = "comboBoxDestino";
@@ -156,6 +158,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CrearRecorrido";
             this.Text = "Crear Recorrido";
+            this.Load += new System.EventHandler(this.CrearRecorrido_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTramos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

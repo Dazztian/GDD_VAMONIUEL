@@ -60,6 +60,9 @@ namespace FrbaCrucero
         public static class Tabla
         {
             //public static string NombreTabla { get { return "VAMONIUEL.[NombreTabla]"; } }
+            public static string Recorrido { get { return "[VAMONIUEL].[RECORRIDO]"; } }
+            public static string Puerto { get { return "[VAMONIUEL].[Puerto]"; } }
+            
         }
 
         private string PonerFiltros(string comando, Dictionary<string, string> filtros)
