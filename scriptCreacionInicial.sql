@@ -183,12 +183,17 @@ CREATE TABLE [VAMONIUEL].[RESERVA]
 	CONSTRAINT FK_Reserva_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
 --------------------------------------------------------------------------- INSERTS DE VALORES GENERICOS ------------------------------------------------------------------------------------------------
-
+--CON ESTO INSERTAMOS UN SET DE USUARIOS ADMINISTRADORES
 INSERT INTO VAMONIUEL.[Usuario]([Usuario],[Contrasenia],habilitado) 
-VALUES ('admin',HASHBYTES('SHA2_256', N'w23e'),1)
+VALUES ('admin1',HASHBYTES('SHA2_256', N'w23e'),1), 
+	   ('admin2',HASHBYTES('SHA2_256', N'w23e'),1),
+	   ('admin3',HASHBYTES('SHA2_256', N'w23e'),1),
+	   ('admin4',HASHBYTES('SHA2_256', N'w23e'),1),
+	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1),
+	   ('admin6',HASHBYTES('SHA2_256', N'w23e'),1),
 
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
-VALUES ('Empresa'),('Administrativo'),('Cliente')
+VALUES ('Administrativo'),('Cliente')
 
 --Esto hay que actualizarlo segun este TP
 INSERT INTO [VAMONIUEL].[Funcion] 
@@ -199,7 +204,7 @@ VALUES (1, 'ABM Cliente'),(2,'ABM Empresa Espectaculo'),
 , (10, 'Listado Estadistico'), (11, 'ABM Rol')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
-VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(3,5),(3,9),(3,4),(1,6),(1,7)
+VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(1,5),(2,9),(1,4),(1,6),(1,7)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
 go
@@ -286,87 +291,6 @@ BEGIN
 
 END
 GO	
-
------------------------------------------------- tr_creacion_pasajeATravesDeCreacionReservas----------------------------------------------------
-/*
-go--Creo los pasajes asociados a las reservas
-CREATE TRIGGER tr_creacion_pasajeTemporalesATravesDeCreacionReservas ON VAMONIUEL.RESERVA
-AFTER INSERT
-AS 
-BEGIN	
-	--VARIABLES RELACIONADAS AL PASAJE Y LA RESERVA
-	DECLARE @RESERVA_CODIGO decimal(18,0)
-	DECLARE @RESERVA_FECHA datetime2(3)
-	DECLARE @ID_Pasaje INT
-	DECLARE @FECHA_SALIDA datetime2(3)
-	DECLARE @FECHA_LLEGADA datetime2(3)
-	DECLARE @FECHA_LLEGADA_ESTIMADA datetime2(3)
-	DECLARE @PASAJE_CODIGO decimal(18,0)
-
-	DECLARE obtenerDatos CURSOR FOR
-	SELECT I.[RESERVA_CODIGO],I.[RESERVA_FECHA], I.ID_PASAJE, M.[FECHA_SALIDA],M.[FECHA_LLEGADA],M.[FECHA_LLEGADA_ESTIMADA]
-	FROM inserted I
-	LEFT JOIN gd_esquema.Maestra M ON ( I.RESERVA_CODIGO = M.[RESERVA_CODIGO] AND I.[RESERVA_FECHA]=  M.[RESERVA_FECHA])
-
-	OPEN obtenerDatos
-	FETCH NEXT FROM obtenerDatos INTO @RESERVA_CODIGO, @RESERVA_FECHA, @ID_Pasaje, @FECHA_SALIDA, @FECHA_LLEGADA, @FECHA_LLEGADA_ESTIMADA
-
-	WHILE @@FETCH_STATUS=0
-	BEGIN
-		--1)INSERTO EN PASAJE
-
-		if(@ID_Pasaje is null)
-		begin
-
-		INSERT INTO [VAMONIUEL].[PASAJE]([PASAJE_CODIGO],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
-		VALUES (@RESERVA_CODIGO,@FECHA_SALIDA, @FECHA_LLEGADA, @FECHA_LLEGADA_ESTIMADA, 1)--ACA TIENE EL USER HARDCODEADO, TA MAL
-
-		end
-		
-	FETCH NEXT FROM obtenerDatos INTO @RESERVA_CODIGO, @RESERVA_FECHA, @ID_Pasaje, @FECHA_SALIDA, @FECHA_LLEGADA, @FECHA_LLEGADA_ESTIMADA
-	
-	END
-	CLOSE obtenerDatos
-	DEALLOCATE obtenerDatos
-
-END
-GO	
-*/
---DROP PROCEDURE sp_vinculacion_pasajeTemporalConReservas
------------------------------------------------- sp_vinculacion_pasajeTemporalConReservas----------------------------------------------------
-/*go--Creo los pasajes asociados a las reservas
-CREATE TRIGGER tr_cargarIDPasajeAReservas ON VAMONIUEL.PASAJE
-AFTER INSERT
-AS 
-BEGIN	
-	--VARIABLES RELACIONADAS AL PASAJE Y LA RESERVA
-	DECLARE @ID_Pasaje INT
-	DECLARE @PASAJE_CODIGO decimal(18,0)
-	DECLARE @ID_Reserva INT
-
-	DECLARE cursorObtenerDatos CURSOR FOR
-	SELECT I.ID, I.PASAJE_CODIGO, R.ID
-	FROM inserted I --Con esto me traigo solo aquellos que matcheen, ya que podria haber pasajes sin reservas & so on...
-	JOIN VAMONIUEL.RESERVA R ON ( I.PASAJE_CODIGO = R.RESERVA_CODIGO)
-
-	OPEN cursorObtenerDatos
-	FETCH NEXT FROM cursorObtenerDatos INTO @ID_Pasaje, @PASAJE_CODIGO,@ID_Reserva
-
-	WHILE @@FETCH_STATUS=0
-	BEGIN
-	--1)ACTUALIZO RESERVAS
-	UPDATE VAMONIUEL.RESERVA
-	SET ID_Pasaje = @ID_Pasaje
-	WHERE  ID=@ID_Reserva
-
-	FETCH NEXT FROM cursorObtenerDatos INTO @ID_Pasaje, @PASAJE_CODIGO, @ID_Reserva
-	
-	END
-	CLOSE cursorObtenerDatos
-	DEALLOCATE cursorObtenerDatos
-
-END
-GO	*/
 ------------------------------------------- INICIO  MIGRACION ----------------------------------------------------------------------------------------------------
  INSERT INTO VAMONIUEL.[Cliente]
 (	[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION],[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC])--, [ID_Usuario])
