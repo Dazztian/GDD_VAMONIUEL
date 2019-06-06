@@ -26,18 +26,18 @@ namespace FrbaCrucero.GeneracionViaje
         private void FormGenerarViajes(object sender, EventArgs e)
         {
 
-            this.cargar_dgv_cruceros_disponibles();//Para los cruceros que son capaces de realizar cualquier recorrido
+            //this.cargar_dgv_cruceros_disponibles();//Para los cruceros que son capaces de realizar cualquier recorrido
 
 
                 //Obtengo todos los recorridos del sistema
                 Dictionary<string, string> filtrosRecorridos = new Dictionary<string, string>();
                 Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Recorrido, ref dgv_recorridos_disponibles, filtrosRecorridos);
-                //cargaElComboDeIdsDeRecorridos();   
+                cargaElComboDeIdsDeRecorridos();
     
                 //Obtengo todos los cruceros  del sistema, capaz de hacer algun recorrido
                 Dictionary<string, string> filtrosCruceros = new Dictionary<string, string>();
                 Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.CRUCERO, ref dgv_cruceros_disponibles, filtrosCruceros);
-                cargaElComboDeIdsDeRecorridos();
+                cargaElComboDeIdsDeCruceros();
         }
 
         //CUANDO CAMBIO EL DTP ACTUALIZO LOS CRUCEROS DISPONIBLES
@@ -58,7 +58,7 @@ namespace FrbaCrucero.GeneracionViaje
             */
         }
 
-        private void cargaElComboDeIdsDeRecorridos()
+        private void cargaElComboDeIdsDeCruceros()
         {
             cmb_cruceros.Items.Clear();
             List<String> idCruceros = new List<String>();
@@ -74,6 +74,24 @@ namespace FrbaCrucero.GeneracionViaje
                 cmb_cruceros.Items.Add(listaIdCruceros[i].ToString());
             }
         }
+
+        private void  cargaElComboDeIdsDeRecorridos()
+        {
+            cmb_recorridos.Items.Clear();
+            List<String> idRecorridos = new List<String>();
+            for (int rows = 0; rows < dgv_recorridos_disponibles.Rows.Count - 1; rows++)
+            {
+                idRecorridos.Add(dgv_recorridos_disponibles.Rows[rows].Cells["ID"].Value.ToString());
+            }
+            List<int> listaidRecorridos = idRecorridos.ConvertAll(int.Parse);
+            listaidRecorridos.Sort();
+            idRecorridos = idRecorridos.Distinct().ToList();
+            for (int i = 0; i < idRecorridos.Count(); i++)
+            {
+                cmb_recorridos.Items.Add(listaidRecorridos[i].ToString());
+            }
+        }
+
         private void label6_Click(object sender, EventArgs e)
         {
 
