@@ -37,6 +37,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dtp_fecha_fin = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmb_cruceros = new System.Windows.Forms.ComboBox();
+            this.cmb_recorridos = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_cruceros_disponibles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_recorridos_disponibles)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +64,7 @@
             // 
             // dtp_fecha_inicio
             // 
-            this.dtp_fecha_inicio.Location = new System.Drawing.Point(35, 289);
+            this.dtp_fecha_inicio.Location = new System.Drawing.Point(73, 351);
             this.dtp_fecha_inicio.Name = "dtp_fecha_inicio";
             this.dtp_fecha_inicio.Size = new System.Drawing.Size(240, 20);
             this.dtp_fecha_inicio.TabIndex = 2;
@@ -69,16 +73,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 261);
+            this.label2.Location = new System.Drawing.Point(130, 326);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Seleccionar fecha inicio";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(534, 37);
+            this.label3.Location = new System.Drawing.Point(495, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 13);
             this.label3.TabIndex = 5;
@@ -94,7 +99,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(364, 348);
+            this.button1.Location = new System.Drawing.Point(315, 417);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(159, 23);
             this.button1.TabIndex = 6;
@@ -104,7 +109,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 323);
+            this.label4.Location = new System.Drawing.Point(493, 326);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(107, 13);
             this.label4.TabIndex = 8;
@@ -112,16 +117,55 @@
             // 
             // dtp_fecha_fin
             // 
-            this.dtp_fecha_fin.Location = new System.Drawing.Point(35, 351);
+            this.dtp_fecha_fin.Location = new System.Drawing.Point(442, 351);
             this.dtp_fecha_fin.Name = "dtp_fecha_fin";
             this.dtp_fecha_fin.Size = new System.Drawing.Size(240, 20);
             this.dtp_fecha_fin.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(493, 246);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(118, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Seleccionar id recorrido";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(130, 246);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(113, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Seleccionar id crucero";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // cmb_cruceros
+            // 
+            this.cmb_cruceros.FormattingEnabled = true;
+            this.cmb_cruceros.Location = new System.Drawing.Point(129, 273);
+            this.cmb_cruceros.Name = "cmb_cruceros";
+            this.cmb_cruceros.Size = new System.Drawing.Size(121, 21);
+            this.cmb_cruceros.TabIndex = 13;
+            // 
+            // cmb_recorridos
+            // 
+            this.cmb_recorridos.FormattingEnabled = true;
+            this.cmb_recorridos.Location = new System.Drawing.Point(498, 273);
+            this.cmb_recorridos.Name = "cmb_recorridos";
+            this.cmb_recorridos.Size = new System.Drawing.Size(121, 21);
+            this.cmb_recorridos.TabIndex = 14;
             // 
             // Form_generar_viaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 447);
+            this.ClientSize = new System.Drawing.Size(738, 479);
+            this.Controls.Add(this.cmb_recorridos);
+            this.Controls.Add(this.cmb_cruceros);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dtp_fecha_fin);
             this.Controls.Add(this.button1);
@@ -152,5 +196,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtp_fecha_fin;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmb_cruceros;
+        private System.Windows.Forms.ComboBox cmb_recorridos;
     }
 }
