@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.GeneracionViaje
 {
-    public partial class Form1 : Form
+    public partial class Form_generar_viaje : Form
     {
-        public Form1()
+        public Form_generar_viaje()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
