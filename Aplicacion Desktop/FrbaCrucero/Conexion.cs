@@ -62,22 +62,22 @@ namespace FrbaCrucero
             //public static string NombreTabla { get { return "VAMONIUEL.[NombreTabla]"; } }
             public static string Recorrido { get { return "[VAMONIUEL].[RECORRIDO]"; } }
             public static string Puerto { get { return "[VAMONIUEL].[Puerto]"; } }
-            public static string Puerto { get { return "VAMONIUEL.CABINA"; } }
-             public static string Puerto { get { return "VAMONIUEL.TramoXPuerto"; } }
-             public static string Puerto { get { return "VAMONIUEL.RecorridoXViaje"; } }
-             public static string Puerto { get { return "VAMONIUEL.TramoXRecorrido"; } }
-             public static string Puerto { get { return "VAMONIUEL.tramo"; } }
-             public static string Puerto { get { return "VAMONIUEL.ViajeXRecorrido"; } }
-             public static string Puerto { get { return "VAMONIUEL.VIAJE"; } }
-             public static string Puerto { get { return "VAMONIUEL.RESERVA"; } }
-             public static string Puerto { get { return "VAMONIUEL.CRUCERO"; } }
-             public static string Puerto { get { return "VAMONIUEL.Rol_X_Funcion"; } }
-             public static string Puerto { get { return "VAMONIUEL.Rol_X_Usuario"; } }
-             public static string Puerto { get { return "VAMONIUEL.Rol"; } }
-             public static string Puerto { get { return "VAMONIUEL.Funcion"; } }
-             public static string Puerto { get { return "[VAMONIUEL].[PASAJE]"; } }
-             public static string Puerto { get { return "VAMONIUEL.Cliente"; } }
-             public static string Puerto { get { return "VAMONIUEL.Usuario"; } }
+            public static string Cabina { get { return "VAMONIUEL.CABINA"; } }
+            public static string TramoXPuerto { get { return "VAMONIUEL.TramoXPuerto"; } }
+            public static string RecorridoXViaje { get { return "VAMONIUEL.RecorridoXViaje"; } }
+            public static string TramoXRecorrido { get { return "VAMONIUEL.TramoXRecorrido"; } }
+            public static string tramo { get { return "VAMONIUEL.tramo"; } }
+            public static string ViajeXRecorrido { get { return "VAMONIUEL.ViajeXRecorrido"; } }
+            public static string VIAJE { get { return "VAMONIUEL.VIAJE"; } }
+            public static string RESERVA { get { return "VAMONIUEL.RESERVA"; } }
+            public static string CRUCERO { get { return "VAMONIUEL.CRUCERO"; } }
+            public static string Rol_X_Funcion { get { return "VAMONIUEL.Rol_X_Funcion"; } }
+            public static string Rol_X_Usuario { get { return "VAMONIUEL.Rol_X_Usuario"; } }
+            public static string Rol { get { return "VAMONIUEL.Rol"; } }
+            public static string Funcion { get { return "VAMONIUEL.Funcion"; } }
+            public static string PASAJE { get { return "[VAMONIUEL].[PASAJE]"; } }
+            public static string Cliente { get { return "VAMONIUEL.Cliente"; } }
+            public static string Usuario { get { return "VAMONIUEL.Usuario"; } }
 
             
         }
