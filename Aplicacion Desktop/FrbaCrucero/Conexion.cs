@@ -62,6 +62,23 @@ namespace FrbaCrucero
             //public static string NombreTabla { get { return "VAMONIUEL.[NombreTabla]"; } }
             public static string Recorrido { get { return "[VAMONIUEL].[RECORRIDO]"; } }
             public static string Puerto { get { return "[VAMONIUEL].[Puerto]"; } }
+            public static string Puerto { get { return "VAMONIUEL.CABINA"; } }
+             public static string Puerto { get { return "VAMONIUEL.TramoXPuerto"; } }
+             public static string Puerto { get { return "VAMONIUEL.RecorridoXViaje"; } }
+             public static string Puerto { get { return "VAMONIUEL.TramoXRecorrido"; } }
+             public static string Puerto { get { return "VAMONIUEL.tramo"; } }
+             public static string Puerto { get { return "VAMONIUEL.ViajeXRecorrido"; } }
+             public static string Puerto { get { return "VAMONIUEL.VIAJE"; } }
+             public static string Puerto { get { return "VAMONIUEL.RESERVA"; } }
+             public static string Puerto { get { return "VAMONIUEL.CRUCERO"; } }
+             public static string Puerto { get { return "VAMONIUEL.Rol_X_Funcion"; } }
+             public static string Puerto { get { return "VAMONIUEL.Rol_X_Usuario"; } }
+             public static string Puerto { get { return "VAMONIUEL.Rol"; } }
+             public static string Puerto { get { return "VAMONIUEL.Funcion"; } }
+             public static string Puerto { get { return "[VAMONIUEL].[PASAJE]"; } }
+             public static string Puerto { get { return "VAMONIUEL.Cliente"; } }
+             public static string Puerto { get { return "VAMONIUEL.Usuario"; } }
+
             
         }
 
