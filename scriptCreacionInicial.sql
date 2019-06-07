@@ -201,12 +201,7 @@ VALUES ('admin1',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin2',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin3',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin4',HASHBYTES('SHA2_256', N'w23e'),1),
-<<<<<<< HEAD
-	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1),
-	   ('admin6',HASHBYTES('SHA2_256', N'w23e'),1)
-=======
 	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1)
->>>>>>> origin/master
 
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
 VALUES ('Administrativo'),('Cliente')
@@ -219,11 +214,7 @@ VALUES (1, 'ABM Rol'),(2,'ABM Puerto'),
 , (8, 'Pago Reserva'), (9, 'Listado estadistico')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
-<<<<<<< HEAD
 VALUES (1,1),(1,2),(1,3),(1,4),(2,5),(1,6),(1,7),(1,7),(1,8),(1,9)
-=======
-VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(1,5),(2,9),(1,4),(1,6),(1,7)
->>>>>>> origin/master
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
 go
