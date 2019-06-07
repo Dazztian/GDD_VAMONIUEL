@@ -105,6 +105,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Generar Viaje";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btn_generar_viaje);
             // 
             // label4
             // 
@@ -156,6 +157,7 @@
             this.cmb_recorridos.Name = "cmb_recorridos";
             this.cmb_recorridos.Size = new System.Drawing.Size(121, 21);
             this.cmb_recorridos.TabIndex = 14;
+            this.cmb_recorridos.SelectedValueChanged += new System.EventHandler(this.cmb_seleccionar_recorrido);
             // 
             // Form_generar_viaje
             // 

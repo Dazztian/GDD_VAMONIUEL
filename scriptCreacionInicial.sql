@@ -80,9 +80,20 @@ CREATE TABLE [VAMONIUEL].[CRUCERO]
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[CRU_FABRICANTE] [nvarchar](255) NULL,
 	[CRUCERO_MODELO] [nvarchar](50) NULL,
-	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL	
+	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL,
+	habilitado bit null
 );
 
+
+CREATE TABLE [VAMONIUEL].Estado_del_Crucero
+(	
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	Fecha_fuera_de_servicio datetime,
+	Fecha_reinicio_de_servicio datetime,
+	Fecha_baja_definitiva datetime,
+	ID_Crucero int not null,
+	CONSTRAINT FK_Estado_del_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.Crucero(ID)		
+);
 
 CREATE TABLE [VAMONIUEL].[RECORRIDO]
 (
@@ -189,8 +200,7 @@ VALUES ('admin1',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin2',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin3',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin4',HASHBYTES('SHA2_256', N'w23e'),1),
-	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1),
-	   ('admin6',HASHBYTES('SHA2_256', N'w23e'),1),
+	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1)
 
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
 VALUES ('Administrativo'),('Cliente')
@@ -203,7 +213,7 @@ VALUES (1, 'ABM Rol'),(2,'ABM Puerto'),
 , (8, 'Pago Reserva'), (9, 'Listado estadistico')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
-VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(1,5),(2,9),(1,4),(1,6),(1,7)
+VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(1,5),(2,9),(1,4),(1,6),(1,7)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
 go

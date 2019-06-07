@@ -21,14 +21,15 @@ namespace FrbaCrucero.GeneracionViaje
         private List<TextBox> textos = new List<TextBox>();
         private Dictionary<string, object> datos = new Dictionary<string, object>();
         private Dictionary<string, object> datosPuntos = new Dictionary<string, object>();
-
         
+        //Lo voy a usar para crear el nuevo viaje
+        private void AgregarParaInsert(string nombreCol, object data)
+        {
+            datos[nombreCol] = data;
+        }
+             
         private void FormGenerarViajes(object sender, EventArgs e)
         {
-
-            //this.cargar_dgv_cruceros_disponibles();//Para los cruceros que son capaces de realizar cualquier recorrido
-
-
                 //Obtengo todos los recorridos del sistema
                 Dictionary<string, string> filtrosRecorridos = new Dictionary<string, string>();
                 Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Recorrido, ref dgv_recorridos_disponibles, filtrosRecorridos);
@@ -100,6 +101,28 @@ namespace FrbaCrucero.GeneracionViaje
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        //Logica del modulo
+        private void btn_generar_viaje(object sender, EventArgs e)
+        {   //Exijo que seleccione un recorrido 
+            if ( !string.IsNullOrWhiteSpace(cmb_recorridos.Text) )
+            {
+                //Aca filtro los cruceros que son capaces de efectuar dicho recorrido
+                //Debe estar disponible y no estar haciendo ningun viaje en dicha fecha
+                Dictionary<string, string> filtroCrucerosDisponibles = new Dictionary<string, string>();
+                filtroCrucerosDisponibles.Add("ID_Cliente", Conexion.Filtro.Exacto(cmb_recorridos.SelectedText.ToString()));
+                List<string> columnasCliente = new List<string>();
+                columnasCliente.Add("Total_puntos");
+
+            }
+            
+        }
+
+        private void cmb_seleccionar_recorrido(object sender, EventArgs e)
+        {
+        //Una vez seleccionado el recorrido me tiene que actualizar el dgv de cruceros que pueden ejecutar dicho viaje
         }
 
 
