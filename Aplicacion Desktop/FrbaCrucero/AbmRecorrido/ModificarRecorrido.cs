@@ -12,9 +12,19 @@ namespace FrbaCrucero.AbmRecorrido
 {
     public partial class ModificarRecorrido : Form
     {
-        public ModificarRecorrido()
+        int idRecorrido;
+        private Dictionary<string, string> filtros = new Dictionary<string, string>();
+
+        public ModificarRecorrido(int id)
         {
             InitializeComponent();
+            idRecorrido = id;
+        }
+
+        private void ModificarRecorrido_Load(object sender, EventArgs e)
+        {
+            filtros.Add("idRecorrido", Conexion.Filtro.Exacto(idRecorrido.ToString()));
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Tramos_asociados_a_recorridos, ref dataGridViewTramos, filtros);
         }
     }
 }

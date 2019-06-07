@@ -130,6 +130,9 @@
     <EmbeddedResource Include="AbmRecorrido\CrearRecorrido.resx">
       <DependentUpon>CrearRecorrido.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\ModificarRecorrido.resx">
+      <DependentUpon>ModificarRecorrido.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\Recorridos.resx">
       <DependentUpon>Recorridos.cs</DependentUpon>
     </EmbeddedResource>

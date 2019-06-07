@@ -290,7 +290,7 @@ BEGIN
 		--INSERTO EN LA TABLA INTERMEDIA
 		BEGIN	
 		INSERT INTO [VAMONIUEL].[TramoXRecorrido] ([id_recorrido],[id_tramo])
-		VALUES  (@ID_Tramo, @ID_Recorrido)
+		VALUES  (@ID_Recorrido, @ID_Tramo )
 
 		END
 	
@@ -406,3 +406,11 @@ DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 
 --execute sp_vinculacion_pasajeTemporalConReservas
 ------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
+
+------VIEWS---------
+CREATE VIEW VAMONIUEL.tramos_asociados_a_recorridos
+AS
+SELECT r.id idRecorrido, t.PUERTO_DESDE parada1, t.PUERTO_HASTA parada2, t.RECORRIDO_PRECIO_BASE Precio
+From VAMONIUEL.RECORRIDO r JOIN VAMONIUEL.TramoXRecorrido tr ON (r.ID = tr.id_recorrido)
+JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
+
