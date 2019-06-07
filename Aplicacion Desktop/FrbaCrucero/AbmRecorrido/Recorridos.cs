@@ -59,5 +59,25 @@ namespace FrbaCrucero.AbmRecorrido
         {
             MostrarResultado(new CrearRecorrido().ShowDialog());
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewRecorridos.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("Debe seleccionar un recorrido");
+            }
+            else
+                //pasar parametros
+                new ModificarRecorrido().ShowDialog();
+        }
+
+        private void btnBaja_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewRecorridos.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("Debe seleccionar un recorrido");
+            }
+
+        }
     }
 }

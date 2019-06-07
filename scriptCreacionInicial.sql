@@ -89,7 +89,8 @@ CREATE TABLE [VAMONIUEL].[RECORRIDO]
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[RECORRIDO_CODIGO] [decimal](18, 0) NULL,
 	[PUERTO_DESDE] [nvarchar](255) NULL,
-	[PUERTO_HASTA] [nvarchar](255) NULL	
+	[PUERTO_HASTA] [nvarchar](255) NULL,
+	[Habilitado] [bit] default 1
 );
 
 CREATE TABLE [VAMONIUEL].[VIAJE]
@@ -151,7 +152,7 @@ CREATE TABLE [VAMONIUEL].[RecorridoXViaje]
 	ID_Recorrido int not null,
 	ID_Puerto int not null,
 	CONSTRAINT FK_RecorridoXViaje_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[Recorrido](ID),			
-	CONSTRAINT FK_RecorridoXViaje_PuertoFOREIGN FOREIGN KEY (ID_Puerto) REFERENCES VAMONIUEL.[Puerto](ID)	
+	CONSTRAINT FK_RecorridoXViaje_Puerto FOREIGN KEY (ID_Puerto) REFERENCES VAMONIUEL.[Puerto](ID)	
 );
 
 CREATE TABLE [VAMONIUEL].[TramoXRecorrido]
@@ -190,7 +191,7 @@ VALUES ('admin1',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin3',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin4',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1),
-	   ('admin6',HASHBYTES('SHA2_256', N'w23e'),1),
+	   ('admin6',HASHBYTES('SHA2_256', N'w23e'),1)
 
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
 VALUES ('Administrativo'),('Cliente')
@@ -203,7 +204,7 @@ VALUES (1, 'ABM Rol'),(2,'ABM Puerto'),
 , (8, 'Pago Reserva'), (9, 'Listado estadistico')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
-VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(1,5),(2,9),(1,4),(1,6),(1,7)
+VALUES (1,1),(1,2),(1,3),(1,4),(2,5),(1,6),(1,7),(1,7),(1,8),(1,9)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
 go

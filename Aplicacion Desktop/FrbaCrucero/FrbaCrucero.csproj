@@ -62,6 +62,12 @@
     <Compile Include="AbmRecorrido\CrearRecorrido.Designer.cs">
       <DependentUpon>CrearRecorrido.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRecorrido\ModificarRecorrido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\ModificarRecorrido.Designer.cs">
+      <DependentUpon>ModificarRecorrido.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRecorrido\Recorridos.cs">
       <SubType>Form</SubType>
     </Compile>
