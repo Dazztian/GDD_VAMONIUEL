@@ -9,6 +9,9 @@ BEGIN
 EXEC ('CREATE SCHEMA [VAMONIUEL] AUTHORIZATION [gdCruceros2019]')
 END
 
+------------------------------------ importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy ------------------------------------
+		SET DATEFORMAT ymd; 
+------------------------------------ importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy ------------------------------------
 
 CREATE TABLE VAMONIUEL.[Rol](
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -368,7 +371,7 @@ WHERE [PASAJE_CODIGO] IS NOT NULL
       AND [PASAJE_FECHA_COMPRA] IS NOT NULL
 
 --PRIMERO INSERTO LOS PASAJES Y LUEGO LAS RESERVAS
---VOY A TRATAR DE CREAR LOS PASAJES A TRAVÉS DE INSERCION DE LAS RESERVAS
+--VOY A TRATAR DE CREAR LOS PASAJES A TRAVÃ‰S DE INSERCION DE LAS RESERVAS
 INSERT INTO [VAMONIUEL].[PASAJE] 
 ([PASAJE_CODIGO],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
 SELECT DISTINCT RESERVA_CODIGO,[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA], C.ID
