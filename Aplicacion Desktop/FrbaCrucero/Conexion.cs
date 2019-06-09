@@ -274,7 +274,7 @@ namespace FrbaCrucero
             return retorno;
         }
 
-
+        //SOLO TIENE SENTIDO USARLA A LA HORA DE FILTRAR ELEMENTOS DE LA BD
         public string darFormatoFechaYYYYMMDD( DateTimePicker dtp)
         {
             String formatoFechaInicio = String.Concat("'", String.Concat(dtp.Value.ToString("yyyy/MM/dd"), "'"));
