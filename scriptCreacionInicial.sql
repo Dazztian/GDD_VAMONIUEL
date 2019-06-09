@@ -9,7 +9,10 @@ BEGIN
 EXEC ('CREATE SCHEMA [VAMONIUEL] AUTHORIZATION [gdCruceros2019]')
 END
 
-SET DATEFORMAT ymd; -- importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy
+
+------------------------------------ importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy ------------------------------------
+		SET DATEFORMAT ymd; 
+------------------------------------ importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy ------------------------------------
 
 CREATE TABLE VAMONIUEL.[Rol](
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -101,7 +104,8 @@ CREATE TABLE [VAMONIUEL].[RECORRIDO]
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[RECORRIDO_CODIGO] [decimal](18, 0) NULL,
 	[PUERTO_DESDE] [nvarchar](255) NULL,
-	[PUERTO_HASTA] [nvarchar](255) NULL	
+	[PUERTO_HASTA] [nvarchar](255) NULL,
+	[Habilitado] [bit] default 1
 );
 
 --CREATE TABLE [VAMONIUEL].[VIAJE]
@@ -178,7 +182,7 @@ CREATE TABLE [VAMONIUEL].[RecorridoXViaje]
 	ID_Recorrido int not null,
 	ID_Puerto int not null,
 	CONSTRAINT FK_RecorridoXViaje_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[Recorrido](ID),			
-	CONSTRAINT FK_RecorridoXViaje_PuertoFOREIGN FOREIGN KEY (ID_Puerto) REFERENCES VAMONIUEL.[Puerto](ID)	
+	CONSTRAINT FK_RecorridoXViaje_Puerto FOREIGN KEY (ID_Puerto) REFERENCES VAMONIUEL.[Puerto](ID)	
 );
 
 CREATE TABLE [VAMONIUEL].[TramoXRecorrido]
@@ -229,7 +233,7 @@ VALUES (1, 'ABM Rol'),(2,'ABM Puerto'),
 , (8, 'Pago Reserva'), (9, 'Listado estadistico')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
-VALUES (2,3),(2,2),(2,1),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(1,5),(2,9),(1,4),(1,6),(1,7)
+VALUES (1,1),(1,2),(1,3),(1,4),(2,5),(1,6),(1,7),(1,7),(1,8),(1,9)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
 go
@@ -305,7 +309,7 @@ BEGIN
 		--INSERTO EN LA TABLA INTERMEDIA
 		BEGIN	
 		INSERT INTO [VAMONIUEL].[TramoXRecorrido] ([id_recorrido],[id_tramo])
-		VALUES  (@ID_Tramo, @ID_Recorrido)
+		VALUES  (@ID_Recorrido, @ID_Tramo )
 
 		END
 	
@@ -383,7 +387,7 @@ WHERE [PASAJE_CODIGO] IS NOT NULL
       AND [PASAJE_FECHA_COMPRA] IS NOT NULL
 
 --PRIMERO INSERTO LOS PASAJES Y LUEGO LAS RESERVAS
---VOY A TRATAR DE CREAR LOS PASAJES A TRAVÉS DE INSERCION DE LAS RESERVAS
+--VOY A TRATAR DE CREAR LOS PASAJES A TRAVÃ‰S DE INSERCION DE LAS RESERVAS
 INSERT INTO [VAMONIUEL].[PASAJE] 
 ([PASAJE_CODIGO],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
 SELECT DISTINCT RESERVA_CODIGO,[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA], C.ID
@@ -421,26 +425,7 @@ DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 
 ------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
 
-------------------------------------------- CREACION DE SP------------------------------------------------------------------------------------------
-
---GO
---CREATE  procedure  VAMONIUEL.cruceros_disponibles_por_fecha @fecha_inicio datetime, @fecha_fin datetime
---AS
---BEGIN
-----Esto me trae el crucero que esta disponible para dicha fecha
---SELECT DISTINCT Cru.[ID],Cru.[CRU_FABRICANTE],Cru.[CRUCERO_MODELO],Cru.[CRUCERO_IDENTIFICADOR],Cru.[habilitado]
---FROM [GD1C2019].[VAMONIUEL].[CRUCERO] Cru JOIN VAMONIUEL.VIAJE V ON (CRU.ID = V.ID_Crucero)
---where cru.habilitado = 1
---AND @fecha_inicio  not between  v.FechaInicio AND v.FechaFin
---AND @fecha_fin not between  v.FechaInicio AND v.FechaFin
---order by cru.ID
-
---END
---GO
-
---drop procedure VAMONIUEL.cruceros_disponibles_por_fecha
---exec VAMONIUEL.cruceros_disponibles_por_fecha @fecha_inicio= '2019-06-07 12:23:43.637' , @fecha_fin= '2019-06-07 12:23:43.637'
-------------------------------------------- FIN DE SP------------------------------------------------------------------------------------------
+------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
 
 ------------------------------------------- CREACION DE VISTAS------------------------------------------------------------------------------------------
 GO --Yo voy a tener que consultar esto de tal manera que no se cumpla la condición
@@ -450,4 +435,9 @@ FROM [GD1C2019].[VAMONIUEL].[CRUCERO] Cru JOIN VAMONIUEL.VIAJE V ON (CRU.ID = V.
 where cru.habilitado = 1
 GO
 
+CREATE VIEW VAMONIUEL.tramos_asociados_a_recorridos
+AS
+SELECT r.id idRecorrido, t.PUERTO_DESDE parada1, t.PUERTO_HASTA parada2, t.RECORRIDO_PRECIO_BASE Precio
+From VAMONIUEL.RECORRIDO r JOIN VAMONIUEL.TramoXRecorrido tr ON (r.ID = tr.id_recorrido)
+JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
 

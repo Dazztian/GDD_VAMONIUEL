@@ -83,6 +83,7 @@ namespace FrbaCrucero
             public static string Cliente { get { return "VAMONIUEL.Cliente"; } }
             public static string Usuario { get { return "VAMONIUEL.Usuario"; } }
             public static string Cruceros_ocupados_por_fecha { get { return "VAMONIUEL.cruceros_ocupados_por_fecha"; } }
+            public static string Tramos_asociados_a_recorridos { get { return "VAMONIUEL.tramos_asociados_a_recorridos"; } }
 
             
         }
@@ -318,6 +319,33 @@ namespace FrbaCrucero
             return retorno;
         }
 
+        private void cambiarHabilitacion(string tabla, int id, string cambio)
+        {
+            string comandoString = string.Copy(comandoUpdate) + tabla + " SET habilitado = " + cambio + " WHERE id = @id";
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.CommandText = comandoString;
+                    command.CommandType = CommandType.Text;
+                    command.Connection = connection;
+                    command.Parameters.AddWithValue("@id", id);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void deshabilitar(string tabla, int id)
+        {
+            cambiarHabilitacion(tabla, id, "0");
+        }
+
+        public void habilitar(string tabla, int id)
+        {
+            cambiarHabilitacion(tabla, id, "1");
+        }
 
     }
 }

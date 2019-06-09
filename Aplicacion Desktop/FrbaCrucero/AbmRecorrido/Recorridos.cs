@@ -13,6 +13,7 @@ namespace FrbaCrucero.AbmRecorrido
     public partial class Recorridos : Form
     {
         private Dictionary<string, string> filtros = new Dictionary<string, string>();
+        private Dictionary<string, bool> datos = new Dictionary<string, bool>();
 
         public Recorridos()
         {
@@ -58,6 +59,27 @@ namespace FrbaCrucero.AbmRecorrido
         private void btnCrear_Click(object sender, EventArgs e)
         {
             MostrarResultado(new CrearRecorrido().ShowDialog());
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewRecorridos.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("Debe seleccionar un recorrido");
+            }
+            else
+                new ModificarRecorrido(Convert.ToInt32(dataGridViewRecorridos.SelectedCells[0].OwningRow.Cells["ID"].Value)).ShowDialog();
+        }
+
+        private void btnBaja_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewRecorridos.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("Debe seleccionar un recorrido");
+            }
+            else
+                Conexion.getInstance().deshabilitar(Conexion.Tabla.Recorrido,Convert.ToInt32(dataGridViewRecorridos.SelectedCells[0].OwningRow.Cells["ID"].Value));
+
         }
     }
 }

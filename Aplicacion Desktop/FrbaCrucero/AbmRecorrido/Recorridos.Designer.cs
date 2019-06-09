@@ -44,7 +44,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(66, 36);
+            this.label1.Location = new System.Drawing.Point(108, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 0;
@@ -53,7 +53,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(66, 61);
+            this.label2.Location = new System.Drawing.Point(108, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 1;
@@ -61,21 +61,21 @@
             // 
             // txtOrigen
             // 
-            this.txtOrigen.Location = new System.Drawing.Point(146, 33);
+            this.txtOrigen.Location = new System.Drawing.Point(188, 31);
             this.txtOrigen.Name = "txtOrigen";
             this.txtOrigen.Size = new System.Drawing.Size(120, 20);
             this.txtOrigen.TabIndex = 2;
             // 
             // txtDestino
             // 
-            this.txtDestino.Location = new System.Drawing.Point(146, 58);
+            this.txtDestino.Location = new System.Drawing.Point(188, 56);
             this.txtDestino.Name = "txtDestino";
             this.txtDestino.Size = new System.Drawing.Size(120, 20);
             this.txtDestino.TabIndex = 3;
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(69, 104);
+            this.btnLimpiar.Location = new System.Drawing.Point(111, 102);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(191, 104);
+            this.btnBuscar.Location = new System.Drawing.Point(233, 102);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 5;
@@ -98,12 +98,12 @@
             this.dataGridViewRecorridos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRecorridos.Location = new System.Drawing.Point(12, 150);
             this.dataGridViewRecorridos.Name = "dataGridViewRecorridos";
-            this.dataGridViewRecorridos.Size = new System.Drawing.Size(330, 150);
+            this.dataGridViewRecorridos.Size = new System.Drawing.Size(410, 150);
             this.dataGridViewRecorridos.TabIndex = 6;
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(12, 322);
+            this.btnCrear.Location = new System.Drawing.Point(54, 320);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(75, 23);
             this.btnCrear.TabIndex = 7;
@@ -113,27 +113,29 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(142, 322);
+            this.btnModificar.Location = new System.Drawing.Point(184, 320);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
             this.btnModificar.TabIndex = 8;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(267, 322);
+            this.btnBaja.Location = new System.Drawing.Point(309, 320);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(75, 23);
             this.btnBaja.TabIndex = 9;
             this.btnBaja.Text = "Dar de baja";
             this.btnBaja.UseVisualStyleBackColor = true;
+            this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click);
             // 
             // Recorridos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 383);
+            this.ClientSize = new System.Drawing.Size(434, 383);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnCrear);
