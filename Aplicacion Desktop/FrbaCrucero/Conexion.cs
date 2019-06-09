@@ -45,6 +45,10 @@ namespace FrbaCrucero
             {
                 return "BETWEEN " + menor + " AND " + mayor;
             }
+            public static string NotBetween(string menor, string mayor)
+            {
+                return "NOT BETWEEN " + menor + " AND " + mayor;
+            }
             public static string MenorIgual(string valor)
             {
                 return "<= " + valor;
@@ -78,6 +82,7 @@ namespace FrbaCrucero
             public static string PASAJE { get { return "[VAMONIUEL].[PASAJE]"; } }
             public static string Cliente { get { return "VAMONIUEL.Cliente"; } }
             public static string Usuario { get { return "VAMONIUEL.Usuario"; } }
+            public static string Cruceros_ocupados_por_fecha { get { return "VAMONIUEL.cruceros_ocupados_por_fecha"; } }
 
             
         }
@@ -126,7 +131,10 @@ namespace FrbaCrucero
             }
             catch (Exception e)
             {
+                //Esto para poder ver el error
+                MessageBox.Show(e.ToString());
                 return -1;
+
             }
 
         }
@@ -265,6 +273,14 @@ namespace FrbaCrucero
             colum.ForEach(c => retorno.Add(c.Split(' ').Last(), new List<object>()));
             return retorno;
         }
+
+
+        public string darFormatoFechaYYYYMMDD( DateTimePicker dtp)
+        {
+            String formatoFechaInicio = String.Concat("'", String.Concat(dtp.Value.ToString("yyyy/MM/dd"), "'"));
+            return formatoFechaInicio;
+        }
+
 
 
         //Recibe el nombre de la tabla sacado de Conexion.Tabla, una lista de strings con los nombres de las columnas a buscar

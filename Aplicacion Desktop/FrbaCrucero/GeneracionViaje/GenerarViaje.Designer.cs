@@ -64,7 +64,7 @@
             // 
             // dtp_fecha_inicio
             // 
-            this.dtp_fecha_inicio.Location = new System.Drawing.Point(73, 351);
+            this.dtp_fecha_inicio.Location = new System.Drawing.Point(75, 270);
             this.dtp_fecha_inicio.Name = "dtp_fecha_inicio";
             this.dtp_fecha_inicio.Size = new System.Drawing.Size(240, 20);
             this.dtp_fecha_inicio.TabIndex = 2;
@@ -73,7 +73,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(130, 326);
+            this.label2.Location = new System.Drawing.Point(132, 245);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 13);
             this.label2.TabIndex = 3;
@@ -99,9 +99,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(315, 417);
+            this.button1.Location = new System.Drawing.Point(320, 398);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(159, 23);
+            this.button1.Size = new System.Drawing.Size(159, 52);
             this.button1.TabIndex = 6;
             this.button1.Text = "Generar Viaje";
             this.button1.UseVisualStyleBackColor = true;
@@ -110,7 +110,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(493, 326);
+            this.label4.Location = new System.Drawing.Point(132, 317);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(107, 13);
             this.label4.TabIndex = 8;
@@ -118,7 +118,7 @@
             // 
             // dtp_fecha_fin
             // 
-            this.dtp_fecha_fin.Location = new System.Drawing.Point(442, 351);
+            this.dtp_fecha_fin.Location = new System.Drawing.Point(75, 352);
             this.dtp_fecha_fin.Name = "dtp_fecha_fin";
             this.dtp_fecha_fin.Size = new System.Drawing.Size(240, 20);
             this.dtp_fecha_fin.TabIndex = 7;
@@ -135,7 +135,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(130, 246);
+            this.label6.Location = new System.Drawing.Point(495, 317);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 10;
@@ -145,7 +145,7 @@
             // cmb_cruceros
             // 
             this.cmb_cruceros.FormattingEnabled = true;
-            this.cmb_cruceros.Location = new System.Drawing.Point(129, 273);
+            this.cmb_cruceros.Location = new System.Drawing.Point(498, 351);
             this.cmb_cruceros.Name = "cmb_cruceros";
             this.cmb_cruceros.Size = new System.Drawing.Size(121, 21);
             this.cmb_cruceros.TabIndex = 13;

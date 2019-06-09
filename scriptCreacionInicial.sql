@@ -9,6 +9,7 @@ BEGIN
 EXEC ('CREATE SCHEMA [VAMONIUEL] AUTHORIZATION [gdCruceros2019]')
 END
 
+SET DATEFORMAT ymd; -- importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy
 
 CREATE TABLE VAMONIUEL.[Rol](
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -81,7 +82,7 @@ CREATE TABLE [VAMONIUEL].[CRUCERO]
 	[CRU_FABRICANTE] [nvarchar](255) NULL,
 	[CRUCERO_MODELO] [nvarchar](50) NULL,
 	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL,
-	habilitado bit null
+	habilitado bit not null
 );
 
 
@@ -103,14 +104,29 @@ CREATE TABLE [VAMONIUEL].[RECORRIDO]
 	[PUERTO_HASTA] [nvarchar](255) NULL	
 );
 
+--CREATE TABLE [VAMONIUEL].[VIAJE]
+--(
+--	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+--	Origen [nvarchar](255) not null,
+--	Destino [nvarchar](255) not null,
+--	FechaInicio [datetime2](3) not null,
+--	FechaFin [datetime2](3) not null,
+--	[CRUCERO_IDENTIFICADOR] [nvarchar](50)not NULL, -- Es como el id de crucero xq no se repite y no deberia
+--	ID_Pasaje int  null,
+--	ID_Crucero	 int  null,
+--	ID_Recorrido int  null,
+--	CONSTRAINT FK_Viaje_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[Recorrido](ID),	
+--	CONSTRAINT FK_Viaje_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID),			
+--	CONSTRAINT FK_Viaje_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)			
+--);
 CREATE TABLE [VAMONIUEL].[VIAJE]
 (
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
-	Origen [nvarchar](255) not null,
-	Destino [nvarchar](255) not null,
-	FechaInicio [datetime2](3) not null,
-	FechaFin [datetime2](3) not null,
-	[CRUCERO_IDENTIFICADOR] [nvarchar](50)not NULL, -- Es como el id de crucero xq no se repite y no deberia
+	Origen [nvarchar](255)  null,
+	Destino [nvarchar](255)  null,
+	FechaInicio [datetime2](3)  null,
+	FechaFin [datetime2](3)  null,
+	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL, -- Es como el id de crucero xq no se repite y no deberia
 	ID_Pasaje int  null,
 	ID_Crucero	 int  null,
 	ID_Recorrido int  null,
@@ -309,8 +325,8 @@ from gd_esquema.Maestra
 where [Cli_Dni]  IS NOT NULL
 
 INSERT INTO [VAMONIUEL].[CRUCERO]
- ([CRU_FABRICANTE],[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR])
- select  distinct [CRU_FABRICANTE] ,[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR]
+ ([CRU_FABRICANTE],[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],[habilitado])
+ select  distinct [CRU_FABRICANTE] ,[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],1
 from gd_esquema.Maestra
 
 delete from VAMONIUEL.CABINA
@@ -403,5 +419,35 @@ LEFT JOIN VAMONIUEL.PASAJE P ON
 DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 -------------------------------------------------------------------------------------------------------------------------
 
---execute sp_vinculacion_pasajeTemporalConReservas
 ------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
+
+------------------------------------------- CREACION DE SP------------------------------------------------------------------------------------------
+
+--GO
+--CREATE  procedure  VAMONIUEL.cruceros_disponibles_por_fecha @fecha_inicio datetime, @fecha_fin datetime
+--AS
+--BEGIN
+----Esto me trae el crucero que esta disponible para dicha fecha
+--SELECT DISTINCT Cru.[ID],Cru.[CRU_FABRICANTE],Cru.[CRUCERO_MODELO],Cru.[CRUCERO_IDENTIFICADOR],Cru.[habilitado]
+--FROM [GD1C2019].[VAMONIUEL].[CRUCERO] Cru JOIN VAMONIUEL.VIAJE V ON (CRU.ID = V.ID_Crucero)
+--where cru.habilitado = 1
+--AND @fecha_inicio  not between  v.FechaInicio AND v.FechaFin
+--AND @fecha_fin not between  v.FechaInicio AND v.FechaFin
+--order by cru.ID
+
+--END
+--GO
+
+--drop procedure VAMONIUEL.cruceros_disponibles_por_fecha
+--exec VAMONIUEL.cruceros_disponibles_por_fecha @fecha_inicio= '2019-06-07 12:23:43.637' , @fecha_fin= '2019-06-07 12:23:43.637'
+------------------------------------------- FIN DE SP------------------------------------------------------------------------------------------
+
+------------------------------------------- CREACION DE VISTAS------------------------------------------------------------------------------------------
+GO --Yo voy a tener que consultar esto de tal manera que no se cumpla la condición
+CREATE VIEW VAMONIUEL.cruceros_ocupados_por_fecha AS
+SELECT DISTINCT Cru.[ID],Cru.[CRU_FABRICANTE],Cru.[CRUCERO_MODELO],Cru.[CRUCERO_IDENTIFICADOR],Cru.[habilitado], V.FechaInicio, V.FechaFin
+FROM [GD1C2019].[VAMONIUEL].[CRUCERO] Cru JOIN VAMONIUEL.VIAJE V ON (CRU.ID = V.ID_Crucero)
+where cru.habilitado = 1
+GO
+
+
