@@ -206,13 +206,23 @@ CREATE TABLE [VAMONIUEL].[CABINA]
 
 CREATE TABLE [VAMONIUEL].[RESERVA]
 (
-
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[RESERVA_CODIGO] [decimal](18, 0) NULL,
 	[RESERVA_FECHA] [datetime2](3) NULL,
+	Habilitado bit null,
 	ID_Pasaje int  null,
 	CONSTRAINT FK_Reserva_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
+
+CREATE TABLE [VAMONIUEL].PAGO
+(
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	fecha_pago DATETIME NULL,
+	ID_Pasaje int  null,
+	CONSTRAINT FK_Pago_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
+);
+
+
 --------------------------------------------------------------------------- INSERTS DE VALORES GENERICOS ------------------------------------------------------------------------------------------------
 --CON ESTO INSERTAMOS UN SET DE USUARIOS ADMINISTRADORES
 INSERT INTO VAMONIUEL.[Usuario]([Usuario],[Contrasenia],habilitado) 
@@ -425,7 +435,6 @@ DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 
 ------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
 
-------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
 
 ------------------------------------------- CREACION DE VISTAS------------------------------------------------------------------------------------------
 GO --Yo voy a tener que consultar esto de tal manera que no se cumpla la condición
@@ -441,3 +450,28 @@ SELECT r.id idRecorrido, t.PUERTO_DESDE parada1, t.PUERTO_HASTA parada2, t.RECOR
 From VAMONIUEL.RECORRIDO r JOIN VAMONIUEL.TramoXRecorrido tr ON (r.ID = tr.id_recorrido)
 JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
 
+------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
+GO --FUNCIONA PERFECTO
+CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
+AS--Cada vez que se loguea algún admin checkeo si hay alguna reserva pa dar de baja
+BEGIN 
+	UPDATE [VAMONIUEL].[RESERVA]
+	SET Habilitado = 0
+	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) > 3--Datediff, al 2do le resto el 1ero
+END
+GO
+
+GO --FUNCIONA PERFECTO
+CREATE TRIGGER VAMONIUEL.dar_de_baja_reservas_por_pago_de_reserva_de_cliente ON VAMONIUEL.PAGO
+INSTEAD OF INSERT
+AS--Cada vez que un cliente quiere pagar, verifico si tiene una reserva valida
+BEGIN 
+	SELECT R.ID FROM inserted i JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
+	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) < 4--Si se pasa de los dias, devuelve null
+
+	/*
+	UPDATE [VAMONIUEL].[RESERVA]
+	SET Habilitado = 0
+	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) > 3*/--Datediff, al 2do le resto el 1ero
+END
+GO
