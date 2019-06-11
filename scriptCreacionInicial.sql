@@ -10,6 +10,10 @@ EXEC ('CREATE SCHEMA [VAMONIUEL] AUTHORIZATION [gdCruceros2019]')
 END
 
 
+------------------------------------ importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy ------------------------------------
+		SET DATEFORMAT ymd; 
+------------------------------------ importante!! es para que me tome  yyyy mm dd en lugar de mm dd yyyy ------------------------------------
+
 CREATE TABLE VAMONIUEL.[Rol](
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[Nombre] [nvarchar](50) NOT NULL UNIQUE,
@@ -81,7 +85,7 @@ CREATE TABLE [VAMONIUEL].[CRUCERO]
 	[CRU_FABRICANTE] [nvarchar](255) NULL,
 	[CRUCERO_MODELO] [nvarchar](50) NULL,
 	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL,
-	habilitado bit null
+	habilitado bit not null
 );
 
 
@@ -104,14 +108,29 @@ CREATE TABLE [VAMONIUEL].[RECORRIDO]
 	[Habilitado] [bit] default 1
 );
 
+--CREATE TABLE [VAMONIUEL].[VIAJE]
+--(
+--	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+--	Origen [nvarchar](255) not null,
+--	Destino [nvarchar](255) not null,
+--	FechaInicio [datetime2](3) not null,
+--	FechaFin [datetime2](3) not null,
+--	[CRUCERO_IDENTIFICADOR] [nvarchar](50)not NULL, -- Es como el id de crucero xq no se repite y no deberia
+--	ID_Pasaje int  null,
+--	ID_Crucero	 int  null,
+--	ID_Recorrido int  null,
+--	CONSTRAINT FK_Viaje_Recorrido FOREIGN KEY (ID_Recorrido) REFERENCES VAMONIUEL.[Recorrido](ID),	
+--	CONSTRAINT FK_Viaje_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID),			
+--	CONSTRAINT FK_Viaje_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)			
+--);
 CREATE TABLE [VAMONIUEL].[VIAJE]
 (
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
-	Origen [nvarchar](255) not null,
-	Destino [nvarchar](255) not null,
-	FechaInicio [datetime2](3) not null,
-	FechaFin [datetime2](3) not null,
-	[CRUCERO_IDENTIFICADOR] [nvarchar](50)not NULL, -- Es como el id de crucero xq no se repite y no deberia
+	Origen [nvarchar](255)  null,
+	Destino [nvarchar](255)  null,
+	FechaInicio [datetime2](3)  null,
+	FechaFin [datetime2](3)  null,
+	[CRUCERO_IDENTIFICADOR] [nvarchar](50) NULL, -- Es como el id de crucero xq no se repite y no deberia
 	ID_Pasaje int  null,
 	ID_Crucero	 int  null,
 	ID_Recorrido int  null,
@@ -187,13 +206,23 @@ CREATE TABLE [VAMONIUEL].[CABINA]
 
 CREATE TABLE [VAMONIUEL].[RESERVA]
 (
-
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[RESERVA_CODIGO] [decimal](18, 0) NULL,
 	[RESERVA_FECHA] [datetime2](3) NULL,
+	Habilitado bit null,
 	ID_Pasaje int  null,
 	CONSTRAINT FK_Reserva_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
+
+CREATE TABLE [VAMONIUEL].PAGO
+(
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	fecha_pago DATETIME NULL,
+	ID_Pasaje int  null,
+	CONSTRAINT FK_Pago_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
+);
+
+
 --------------------------------------------------------------------------- INSERTS DE VALORES GENERICOS ------------------------------------------------------------------------------------------------
 --CON ESTO INSERTAMOS UN SET DE USUARIOS ADMINISTRADORES
 INSERT INTO VAMONIUEL.[Usuario]([Usuario],[Contrasenia],habilitado) 
@@ -310,8 +339,8 @@ from gd_esquema.Maestra
 where [Cli_Dni]  IS NOT NULL
 
 INSERT INTO [VAMONIUEL].[CRUCERO]
- ([CRU_FABRICANTE],[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR])
- select  distinct [CRU_FABRICANTE] ,[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR]
+ ([CRU_FABRICANTE],[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],[habilitado])
+ select  distinct [CRU_FABRICANTE] ,[CRUCERO_MODELO],[CRUCERO_IDENTIFICADOR],1
 from gd_esquema.Maestra
 
 delete from VAMONIUEL.CABINA
@@ -368,7 +397,7 @@ WHERE [PASAJE_CODIGO] IS NOT NULL
       AND [PASAJE_FECHA_COMPRA] IS NOT NULL
 
 --PRIMERO INSERTO LOS PASAJES Y LUEGO LAS RESERVAS
---VOY A TRATAR DE CREAR LOS PASAJES A TRAVÉS DE INSERCION DE LAS RESERVAS
+--VOY A TRATAR DE CREAR LOS PASAJES A TRAVÃ‰S DE INSERCION DE LAS RESERVAS
 INSERT INTO [VAMONIUEL].[PASAJE] 
 ([PASAJE_CODIGO],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
 SELECT DISTINCT RESERVA_CODIGO,[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA], C.ID
@@ -404,10 +433,17 @@ LEFT JOIN VAMONIUEL.PASAJE P ON
 DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 -------------------------------------------------------------------------------------------------------------------------
 
---execute sp_vinculacion_pasajeTemporalConReservas
 ------------------------------------------- FIN  MIGRACION ----------------------------------------------------------------------------------------------------
 
-------VIEWS---------
+
+------------------------------------------- CREACION DE VISTAS------------------------------------------------------------------------------------------
+GO --Yo voy a tener que consultar esto de tal manera que no se cumpla la condición
+CREATE VIEW VAMONIUEL.cruceros_ocupados_por_fecha AS
+SELECT DISTINCT Cru.[ID],Cru.[CRU_FABRICANTE],Cru.[CRUCERO_MODELO],Cru.[CRUCERO_IDENTIFICADOR],Cru.[habilitado], V.FechaInicio, V.FechaFin
+FROM [GD1C2019].[VAMONIUEL].[CRUCERO] Cru JOIN VAMONIUEL.VIAJE V ON (CRU.ID = V.ID_Crucero)
+where cru.habilitado = 1
+GO
+
 go
 CREATE VIEW VAMONIUEL.tramos_asociados_a_recorridos
 AS
@@ -415,3 +451,81 @@ SELECT r.id idRecorrido,t.ID idTramo, t.PUERTO_DESDE parada1, t.PUERTO_HASTA par
 From VAMONIUEL.RECORRIDO r JOIN VAMONIUEL.TramoXRecorrido tr ON (r.ID = tr.id_recorrido)
 JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
 go
+
+
+------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
+GO --FUNCIONA PERFECTO
+CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
+AS--Cada vez que se loguea algún admin checkeo si hay alguna reserva pa dar de baja
+BEGIN 
+	UPDATE [VAMONIUEL].[RESERVA]
+	SET Habilitado = 0
+	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) > 3--Datediff, al 2do le resto el 1ero
+END
+GO
+
+--drop trigger vamoniuel.dar_de_baja_reservas_por_pago_de_cliente
+GO 
+CREATE TRIGGER VAMONIUEL.dar_de_baja_reservas_por_pago_de_cliente ON VAMONIUEL.PAGO
+INSTEAD OF INSERT
+AS--Cada vez que un cliente quiere pagar, verifico si tiene una reserva valida
+BEGIN 
+	DECLARE @id_reserva int
+	DECLARE @fecha_pago DATETIME
+	DECLARE @id_pasaje int
+	DECLARE @reserva_Fecha DATETIME
+	DECLARE @dias_de_diferencia int
+	DECLARE @limite_de_dias int
+	SET @dias_de_diferencia=0
+	SET @limite_de_dias=3
+
+	--Puede o no tener una reserva asociada
+	SELECT @id_reserva=R.ID, @fecha_pago=i.fecha_pago, @id_pasaje=i.ID_Pasaje, 
+	@reserva_Fecha= R.RESERVA_FECHA 
+	FROM inserted i LEFT JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
+	
+	--Aca habria que observar si la fecha de pago la ingreso a manopla o es un getdate
+	if(@reserva_Fecha is NOT null)
+		--Comparo el anio
+		if (DATEDIFF(YEAR, @reserva_Fecha, @fecha_pago) > 0  )
+		BEGIN SET @dias_de_diferencia=365 END
+		ELSE
+		BEGIN--Estoy en el mismo anio, evaluo el mes
+			if (DATEDIFF(MONTH, @reserva_Fecha, @fecha_pago) > 0 )
+			BEGIN SET @dias_de_diferencia=365 END
+			ELSE--Estoy en el mismo mes, evaluo el dia
+			BEGIN
+				if (DATEDIFF(DAY, @reserva_Fecha, @fecha_pago) > @limite_de_dias )
+				BEGIN SET @dias_de_diferencia=365 END
+			END
+		END
+	
+
+	if( @dias_de_diferencia <= @limite_de_dias)--DIAS BIEN O RESERVA NULL
+		BEGIN--Efectuo el pago normalmente
+		INSERT INTO [VAMONIUEL].[PAGO]([fecha_pago],[ID_Pasaje])
+		VALUES (@fecha_pago, @id_pasaje)
+		END
+	ELSE --Se paso con los dias
+		BEGIN
+		UPDATE [VAMONIUEL].[RESERVA] SET Habilitado = 0 WHERE ID=@id_reserva
+		END
+END
+GO
+
+----Camino 'bueno'
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),4798)
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),NULL)
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2019/06/09',NULL)
+----Camino 'malo'
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2019/05/09',NULL)--Mes mal, entra x reserva nula
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2018/05/09',NULL)--Anio mal, entra x reserva nula
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2019/06/01',9999)--Dia mal, entra x reserva nula
+
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),302270)--TIENE MAL FECHA RESERVA, no entra
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),348784)--TIENE MAL FECHA RESERVA, no entra
+
+--SELECT * FROM VAMONIUEL.PAGO 
+--SELECT * FROM VAMONIUEL.PAGO WHERE ID_Pasaje=302270
+
+--delete from VAMONIUEL.PAGO

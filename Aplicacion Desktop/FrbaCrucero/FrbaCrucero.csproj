@@ -131,11 +131,11 @@
     <Compile Include="ListadoEstadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="PagoReserva\Form1.cs">
+    <Compile Include="PagoReserva\pagoReserva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PagoReserva\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PagoReserva\pagoReserva.Designer.cs">
+      <DependentUpon>pagoReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -168,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeneracionViaje\GenerarViaje.resx">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagoReserva\pagoReserva.resx">
+      <DependentUpon>pagoReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

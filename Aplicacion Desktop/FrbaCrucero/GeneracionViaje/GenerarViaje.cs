@@ -47,17 +47,7 @@ namespace FrbaCrucero.GeneracionViaje
 
         }
         //Los cruceros a mostrar dependeran a que esten disponibles para esa fecha y no asignados a otro recorrido
-        private void cargar_dgv_cruceros_disponibles()
-        {
-            /*
-            Dictionary<string, string> filtrosCruceros = new Dictionary<string, string>();
-            filtrosCruceros.Add("ID_Cliente", Conexion.Filtro.Exacto(id_cliente.ToString()));
-            filtrosCruceros.Add("year(FechaObtenIDos)", Conexion.Filtro.Exacto(ConfigurationHelper.fechaActual.Year.ToString()));//Tienen que ser de este año
-            filtrosCruceros.Add("Utilizados", Conexion.Filtro.Between("0", "cant-1"));//Tienen que estar habilitados
-            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Puntos, ref dgv_Ptos_Cliente, filtrosCruceros);
-            this.dgv_Ptos_Cliente.Sort(this.dgv_Ptos_Cliente.Columns["FechaObtenIDos"], ListSortDirection.Ascending);
-            */
-        }
+        private void cargar_dgv_cruceros_disponibles(){}
 
         private void cargaElComboDeIdsDeCruceros()
         {
@@ -75,7 +65,20 @@ namespace FrbaCrucero.GeneracionViaje
                 cmb_cruceros.Items.Add(listaIdCruceros[i].ToString());
             }
         }
-
+        private void cargaElComboDeIdsDeCrucerosPRUEBA(List<object> lista_id_cruceros)
+        {
+            cmb_cruceros.Items.Clear();
+            List<string> idCruceros = lista_id_cruceros.Select(s => s.ToString()).ToList(); //lista_id_cruceros.Select(s => (string)s).ToList();
+            //var idCruceros = lista_id_cruceros.OfType<string>();
+            /* for (int rows = 0; rows < dgv_cruceros_disponibles.Rows.Count - 1; rows++) { idCruceros.Add(dgv_cruceros_disponibles.Rows[rows].Cells["ID"].Value.ToString());}*/
+            List<int> listaIdCruceros = idCruceros.ConvertAll(int.Parse);
+            listaIdCruceros.Sort();
+            idCruceros = idCruceros.Distinct().ToList();
+            for (int i = 0; i < idCruceros.Count(); i++)
+            {
+                cmb_cruceros.Items.Add(listaIdCruceros[i].ToString());
+            }
+        }
         private void  cargaElComboDeIdsDeRecorridos()
         {
             cmb_recorridos.Items.Clear();
@@ -93,6 +96,59 @@ namespace FrbaCrucero.GeneracionViaje
             }
         }
 
+        //Logica del modulo
+        private void btn_generar_viaje(object sender, EventArgs e)
+        { 
+            DateTime fecha_inicial = Convert.ToDateTime(dtp_fecha_inicio.Value.ToString());
+            DateTime fecha_final = Convert.ToDateTime(dtp_fecha_fin.Value.ToString());
+            //Checkeo las fechas
+            if ( DateTime.Compare(fecha_inicial, fecha_final) < 0)
+            {   //Exijo que seleccione un recorrido y un crucero
+                if (!string.IsNullOrWhiteSpace(cmb_recorridos.Text) && !string.IsNullOrWhiteSpace(cmb_cruceros.Text))
+                { int id_recorrido = Convert.ToInt32(cmb_recorridos.Text.ToString());
+                  int id_crucero = Convert.ToInt32(cmb_cruceros.Text.ToString());
+
+
+                  //Aca resuelvo la creacion del nuevo viaje
+                  //OBS: Podria agregarle los demas campos pero no lo veo necesario
+                  AgregarParaInsert("FechaInicio", Convert.ToDateTime(dtp_fecha_inicio.Value.ToString("yyyy/MM/dd")));
+                  AgregarParaInsert("FechaFin", Convert.ToDateTime(dtp_fecha_fin.Value.ToString("yyyy/MM/dd")));
+                  AgregarParaInsert("ID_Crucero",id_crucero);
+                  AgregarParaInsert("ID_Recorrido", id_recorrido);
+                  int resultado =Conexion.getInstance().Insertar(Conexion.Tabla.VIAJE, datos);//Finalmente aca le adjudico el premio
+                  if (resultado != -1) { MessageBox.Show("Insertaste reeey"); }
+                  else { MessageBox.Show("ERROR DE INSERCION  reeey"); } 
+                    
+                }
+                else { MessageBox.Show("Te falta seleccionar 1 recorrido y 1 crucero"); }
+            }
+            else { MessageBox.Show("Te equivocaste de fecha monster"); }
+            
+        }
+
+        //Voy a hacer que se actualize el dgv cada vez que modifico, o el recorrido, o alguna de las 2 fechas
+        private void cmb_seleccionar_recorrido(object sender, EventArgs e)
+        {
+        //Aca obtengo el id del recorrido que quiero laburar
+        Dictionary<string, string> filtrosRecorrido = new Dictionary<string, string>();
+        filtrosRecorrido.Add("ID", Conexion.Filtro.Exacto(cmb_recorridos.Text.ToString()));
+        //Filtro los cruceros que cumplen dicho criterio DE LA VISTA cruceros_ocupados_por_fecha
+        Dictionary<string, string> filtrosCrucero = new Dictionary<string, string>();
+        filtrosCrucero.Add("habilitado", Conexion.Filtro.Exacto("1"));
+
+        String formatoFechaInicio = Conexion.getInstance().darFormatoFechaYYYYMMDD(dtp_fecha_inicio);
+        String formatoFechaFin = Conexion.getInstance().darFormatoFechaYYYYMMDD(dtp_fecha_fin);
+
+        filtrosCrucero.Add("FechaInicio", Conexion.Filtro.NotBetween(formatoFechaInicio, formatoFechaFin));
+        filtrosCrucero.Add("FechaFin", Conexion.Filtro.NotBetween(formatoFechaInicio, formatoFechaFin));
+        List<string> columnasCrucero = new List<string>();
+        columnasCrucero.Add("distinct ID");
+        //columnasCrucero.Add("CRU_FABRICANTE"); Solo quiero que me traiga el ID para luego cargarlo en el combo
+        List<object> id_cruceros_disponibles = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Cruceros_ocupados_por_fecha, columnasCrucero, filtrosCrucero))["ID"]);
+        cargaElComboDeIdsDeCrucerosPRUEBA(id_cruceros_disponibles);
+
+        }
+
         private void label6_Click(object sender, EventArgs e)
         {
 
@@ -104,26 +160,6 @@ namespace FrbaCrucero.GeneracionViaje
         }
 
 
-        //Logica del modulo
-        private void btn_generar_viaje(object sender, EventArgs e)
-        {   //Exijo que seleccione un recorrido 
-            if ( !string.IsNullOrWhiteSpace(cmb_recorridos.Text) )
-            {
-                //Aca filtro los cruceros que son capaces de efectuar dicho recorrido
-                //Debe estar disponible y no estar haciendo ningun viaje en dicha fecha
-                Dictionary<string, string> filtroCrucerosDisponibles = new Dictionary<string, string>();
-                filtroCrucerosDisponibles.Add("ID_Cliente", Conexion.Filtro.Exacto(cmb_recorridos.SelectedText.ToString()));
-                List<string> columnasCliente = new List<string>();
-                columnasCliente.Add("Total_puntos");
-
-            }
-            
-        }
-
-        private void cmb_seleccionar_recorrido(object sender, EventArgs e)
-        {
-        //Una vez seleccionado el recorrido me tiene que actualizar el dgv de cruceros que pueden ejecutar dicho viaje
-        }
 
 
     }
