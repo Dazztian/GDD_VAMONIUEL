@@ -481,11 +481,9 @@ BEGIN
 	@reserva_Fecha= R.RESERVA_FECHA 
 	FROM inserted i LEFT JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
 	
-	--POR QUE USO DEL CALESCE:
-	--Cuando no tengo reserva, no tengo reserva_fecha, entonces el pago entra de una x eso uso getdate()
 	--Aca habria que observar si la fecha de pago la ingreso a manopla o es un getdate
-	--Comparo el anio
 	if(@reserva_Fecha is NOT null)
+		--Comparo el anio
 		if (DATEDIFF(YEAR, @reserva_Fecha, @fecha_pago) > 0  )
 		BEGIN SET @dias_de_diferencia=365 END
 		ELSE
