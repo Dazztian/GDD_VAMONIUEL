@@ -56,6 +56,18 @@
     <Compile Include="AbmPuerto\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRecorrido\CambiarDestino.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\CambiarDestino.Designer.cs">
+      <DependentUpon>CambiarDestino.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRecorrido\CambiarOrigen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\CambiarOrigen.Designer.cs">
+      <DependentUpon>CambiarOrigen.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRecorrido\CrearRecorrido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +139,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AbmRecorrido\CambiarDestino.resx">
+      <DependentUpon>CambiarDestino.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\CambiarOrigen.resx">
+      <DependentUpon>CambiarOrigen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\CrearRecorrido.resx">
       <DependentUpon>CrearRecorrido.cs</DependentUpon>
     </EmbeddedResource>

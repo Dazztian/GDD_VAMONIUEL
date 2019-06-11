@@ -121,6 +121,7 @@
             this.btnCrearRecorrido.TabIndex = 9;
             this.btnCrearRecorrido.Text = "Crear recorrido";
             this.btnCrearRecorrido.UseVisualStyleBackColor = true;
+            this.btnCrearRecorrido.Click += new System.EventHandler(this.btnCrearRecorrido_Click);
             // 
             // btnLimpiar
             // 
