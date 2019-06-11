@@ -461,17 +461,70 @@ BEGIN
 END
 GO
 
-GO --FUNCIONA PERFECTO
-CREATE TRIGGER VAMONIUEL.dar_de_baja_reservas_por_pago_de_reserva_de_cliente ON VAMONIUEL.PAGO
+--drop trigger vamoniuel.dar_de_baja_reservas_por_pago_de_cliente
+GO 
+CREATE TRIGGER VAMONIUEL.dar_de_baja_reservas_por_pago_de_cliente ON VAMONIUEL.PAGO
 INSTEAD OF INSERT
 AS--Cada vez que un cliente quiere pagar, verifico si tiene una reserva valida
 BEGIN 
-	SELECT R.ID FROM inserted i JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
-	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) < 4--Si se pasa de los dias, devuelve null
+	DECLARE @id_reserva int
+	DECLARE @fecha_pago DATETIME
+	DECLARE @id_pasaje int
+	DECLARE @reserva_Fecha DATETIME
+	DECLARE @dias_de_diferencia int
+	DECLARE @limite_de_dias int
+	SET @dias_de_diferencia=0
+	SET @limite_de_dias=3
 
-	/*
-	UPDATE [VAMONIUEL].[RESERVA]
-	SET Habilitado = 0
-	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) > 3*/--Datediff, al 2do le resto el 1ero
+	--Puede o no tener una reserva asociada
+	SELECT @id_reserva=R.ID, @fecha_pago=i.fecha_pago, @id_pasaje=i.ID_Pasaje, 
+	@reserva_Fecha= R.RESERVA_FECHA 
+	FROM inserted i LEFT JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
+	
+	--POR QUE USO DEL CALESCE:
+	--Cuando no tengo reserva, no tengo reserva_fecha, entonces el pago entra de una x eso uso getdate()
+	--Aca habria que observar si la fecha de pago la ingreso a manopla o es un getdate
+	--Comparo el anio
+	if(@reserva_Fecha is NOT null)
+		if (DATEDIFF(YEAR, @reserva_Fecha, @fecha_pago) > 0  )
+		BEGIN SET @dias_de_diferencia=365 END
+		ELSE
+		BEGIN--Estoy en el mismo anio, evaluo el mes
+			if (DATEDIFF(MONTH, @reserva_Fecha, @fecha_pago) > 0 )
+			BEGIN SET @dias_de_diferencia=365 END
+			ELSE--Estoy en el mismo mes, evaluo el dia
+			BEGIN
+				if (DATEDIFF(DAY, @reserva_Fecha, @fecha_pago) > @limite_de_dias )
+				BEGIN SET @dias_de_diferencia=365 END
+			END
+		END
+	
+
+	if( @dias_de_diferencia <= @limite_de_dias)--DIAS BIEN O RESERVA NULL
+		BEGIN--Efectuo el pago normalmente
+		INSERT INTO [VAMONIUEL].[PAGO]([fecha_pago],[ID_Pasaje])
+		VALUES (@fecha_pago, @id_pasaje)
+		END
+	ELSE --Se paso con los dias
+		BEGIN
+		UPDATE [VAMONIUEL].[RESERVA] SET Habilitado = 0 WHERE ID=@id_reserva
+		END
 END
 GO
+
+----Camino 'bueno'
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),4798)
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),NULL)
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2019/06/09',NULL)
+----Camino 'malo'
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2019/05/09',NULL)--Mes mal, entra x reserva nula
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2018/05/09',NULL)--Anio mal, entra x reserva nula
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES ('2019/06/01',9999)--Dia mal, entra x reserva nula
+
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),302270)--TIENE MAL FECHA RESERVA, no entra
+--INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),348784)--TIENE MAL FECHA RESERVA, no entra
+
+--SELECT * FROM VAMONIUEL.PAGO 
+--SELECT * FROM VAMONIUEL.PAGO WHERE ID_Pasaje=302270
+
+--delete from VAMONIUEL.PAGO
