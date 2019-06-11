@@ -18,6 +18,10 @@ namespace FrbaCrucero.AbmRecorrido
         List<Tramo> tramosModificados = new List<Tramo>();
         Boolean cambioOrigenRecorrido = false;
         Boolean cambioDestinoRecorrido = false;
+        string origenRecorrido;
+        string destinoRecorrido;
+        Dictionary<string,object> tramoAInsertar = new Dictionary<string,object>();
+        Dictionary<string, object> cambioDeRecorrido = new Dictionary<string, object>();
         public ModificarRecorrido(int id)
         {
             InitializeComponent();
@@ -57,6 +61,7 @@ namespace FrbaCrucero.AbmRecorrido
                         dataGridViewTramos.SelectedCells[2].OwningRow.Cells["parada1"].Value = cambiar.origenNuevo;
                         tramosModificados.Add(tramo);
                         cambioOrigenRecorrido = true;
+                        origenRecorrido = tramo.origen;
                     }
                 }
                 else
@@ -106,10 +111,11 @@ namespace FrbaCrucero.AbmRecorrido
                     res = cambiar.ShowDialog();
                     if (res == DialogResult.OK)
                     {
-                        tramo.origen = cambiar.destinoNuevo.ToString();
+                        tramo.destino = cambiar.destinoNuevo.ToString();
                         dataGridViewTramos.SelectedCells[3].OwningRow.Cells["parada2"].Value = cambiar.destinoNuevo;
                         tramosModificados.Add(tramo);
                         cambioDestinoRecorrido = true;
+                        destinoRecorrido = tramo.destino;
                     }
                 }
                 else
@@ -134,6 +140,65 @@ namespace FrbaCrucero.AbmRecorrido
 
                 }
 
+        }
+
+        private void btnPrecio_Click(object sender, EventArgs e)
+        {
+            Tramo tramo = new Tramo();
+            int filaActual = dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].RowIndex;
+            CambiarPrecio cambiar = new CambiarPrecio(Convert.ToDecimal(dataGridViewTramos.Rows[filaActual].Cells["precio"].Value));
+            DialogResult res;
+
+            if (dataGridViewTramos.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("Debe seleccionar un tramo");
+            }
+            else
+            {
+                tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].Value);
+                tramo.origen = dataGridViewTramos.SelectedCells[2].OwningRow.Cells["parada1"].Value.ToString();
+                tramo.destino = dataGridViewTramos.SelectedCells[3].OwningRow.Cells["parada2"].Value.ToString();
+                cambiar = new CambiarPrecio(Convert.ToDecimal(dataGridViewTramos.Rows[filaActual].Cells["Precio"].Value));
+                res = cambiar.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    tramo.precio = cambiar.precioNuevo;
+                    dataGridViewTramos.SelectedCells[4].OwningRow.Cells["Precio"].Value = cambiar.precioNuevo;
+                    tramosModificados.Add(tramo);
+                }
+                    
+            }
+               
+        }
+
+        private void btnDescartar_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if(cambioOrigenRecorrido)
+            {
+                cambioDeRecorrido.Clear();
+                cambioDeRecorrido.Add("PUERTO_DESDE",origenRecorrido);
+                Conexion.getInstance().Modificar(idRecorrido,Conexion.Tabla.Recorrido,cambioDeRecorrido);
+            }
+            if(cambioDestinoRecorrido)
+            {
+                cambioDeRecorrido.Clear();
+                cambioDeRecorrido.Add("PUERTO_HASTA",destinoRecorrido);
+                Conexion.getInstance().Modificar(idRecorrido,Conexion.Tabla.Recorrido,cambioDeRecorrido);
+            }
+            foreach (Tramo tramo in tramosModificados)
+            {
+                tramoAInsertar.Add("PUERTO_DESDE",tramo.origen);
+                tramoAInsertar.Add("PUERTO_HASTA",tramo.destino);
+                tramoAInsertar.Add("RECORRIDO_PRECIO_BASE",tramo.precio);
+                Conexion.getInstance().Modificar(tramo.id,Conexion.Tabla.tramo,tramoAInsertar);
+                tramoAInsertar.Clear();
+            }
+            tramosModificados.Clear();
         }
     }
 }

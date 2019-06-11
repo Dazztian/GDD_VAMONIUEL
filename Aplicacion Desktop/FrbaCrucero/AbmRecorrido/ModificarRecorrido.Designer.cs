@@ -73,6 +73,7 @@
             this.btnPrecio.TabIndex = 3;
             this.btnPrecio.Text = "Modificar precio";
             this.btnPrecio.UseVisualStyleBackColor = true;
+            this.btnPrecio.Click += new System.EventHandler(this.btnPrecio_Click);
             // 
             // btnDestino
             // 
@@ -92,6 +93,7 @@
             this.btnGuardar.TabIndex = 5;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnDescartar
             // 
@@ -101,6 +103,7 @@
             this.btnDescartar.TabIndex = 6;
             this.btnDescartar.Text = "Descartar";
             this.btnDescartar.UseVisualStyleBackColor = true;
+            this.btnDescartar.Click += new System.EventHandler(this.btnDescartar_Click);
             // 
             // ModificarRecorrido
             // 

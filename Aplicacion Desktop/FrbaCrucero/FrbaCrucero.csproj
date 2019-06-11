@@ -68,6 +68,12 @@
     <Compile Include="AbmRecorrido\CambiarOrigen.Designer.cs">
       <DependentUpon>CambiarOrigen.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRecorrido\CambiarPrecio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\CambiarPrecio.Designer.cs">
+      <DependentUpon>CambiarPrecio.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRecorrido\CrearRecorrido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\CambiarOrigen.resx">
       <DependentUpon>CambiarOrigen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\CambiarPrecio.resx">
+      <DependentUpon>CambiarPrecio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\CrearRecorrido.resx">
       <DependentUpon>CrearRecorrido.cs</DependentUpon>
