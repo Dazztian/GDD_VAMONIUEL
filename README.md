@@ -4,7 +4,7 @@ TAREAS:
 5. ABM de Recorrido -FEDE DOS SANTOS
 6. ABM de Crucero -FEDE DOS SANTOS
 7. Generar Viaje. -Diego
-8. Compra y/o reserva de viaje 
+8. Compra y/o reserva de viaje  - FEDE HAZAMA
 9. Pago Reserva. -Diego
 10. Listado Estadístico - FEDE HAZAMA
 
