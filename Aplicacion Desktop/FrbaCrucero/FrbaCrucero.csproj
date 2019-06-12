@@ -44,6 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbmCrucero\Cabina.cs" />
+    <Compile Include="AbmCrucero\ConjuntoCabinas.cs" />
+    <Compile Include="AbmCrucero\CrearCrucero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CrearCrucero.Designer.cs">
+      <DependentUpon>CrearCrucero.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmCrucero\Cruceros.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +153,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AbmCrucero\CrearCrucero.resx">
+      <DependentUpon>CrearCrucero.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\Cruceros.resx">
       <DependentUpon>Cruceros.cs</DependentUpon>
     </EmbeddedResource>
