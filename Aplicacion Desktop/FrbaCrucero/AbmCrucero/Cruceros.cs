@@ -12,6 +12,7 @@ namespace FrbaCrucero.AbmCrucero
 {
     public partial class Cruceros : Form
     {
+        private Dictionary<string, string> filtros = new Dictionary<string, string>();
         public Cruceros()
         {
             InitializeComponent();
@@ -20,11 +21,25 @@ namespace FrbaCrucero.AbmCrucero
         private void Cruceros_Load(object sender, EventArgs e)
         {
             DataTable marca = Conexion.getInstance().conseguirTabla(Conexion.Tabla.Marca, null);
-            marca.Rows.Add("Todas");
             comboBoxMarca.DataSource = marca;
             comboBoxMarca.ValueMember = "Marca";
             comboBoxMarca.DisplayMember = "Marca";
-            comboBoxMarca.SelectedValue = "Todas";
+            comboBoxMarca.SelectedIndex = -1;
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comboBoxMarca.Text))
+                filtros.Add("CRU_FABRICANTE", Conexion.Filtro.Exacto(comboBoxMarca.Text));
+            if (!string.IsNullOrEmpty(txtModelo.Text))
+                filtros.Add("CRUCERO_MODELO", Conexion.Filtro.Exacto(txtModelo.Text));
+            //lleno el dgv
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.CRUCERO, ref dataGridViewCruceros , filtros);
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            new CrearCrucero().ShowDialog();
         }
     }
 }

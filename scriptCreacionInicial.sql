@@ -439,6 +439,12 @@ JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
 go
 
 
+go
+CREATE VIEW VAMONIUEL.TipoCabina
+AS
+SELECT DISTINCT CABINA_TIPO Tipo FROM VAMONIUEL.CABINA
+GO
+
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO
 CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
