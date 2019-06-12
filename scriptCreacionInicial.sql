@@ -430,11 +430,14 @@ FROM [GD1C2019].[VAMONIUEL].[CRUCERO] Cru JOIN VAMONIUEL.VIAJE V ON (CRU.ID = V.
 where cru.habilitado = 1
 GO
 
+go
 CREATE VIEW VAMONIUEL.tramos_asociados_a_recorridos
 AS
-SELECT r.id idRecorrido, t.PUERTO_DESDE parada1, t.PUERTO_HASTA parada2, t.RECORRIDO_PRECIO_BASE Precio
+SELECT r.id idRecorrido,t.ID idTramo, t.PUERTO_DESDE parada1, t.PUERTO_HASTA parada2, t.RECORRIDO_PRECIO_BASE Precio
 From VAMONIUEL.RECORRIDO r JOIN VAMONIUEL.TramoXRecorrido tr ON (r.ID = tr.id_recorrido)
 JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
+go
+
 
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO

@@ -8,8 +8,9 @@ namespace FrbaCrucero.AbmRecorrido
 {
     class Tramo
     {
-        public int origen { get; set; }
-        public int destino { get; set; }
+        public int id { get; set; }
+        public string origen { get; set; }
+        public string destino { get; set; }
         public decimal precio { get; set; }
 
         public Tramo(){}

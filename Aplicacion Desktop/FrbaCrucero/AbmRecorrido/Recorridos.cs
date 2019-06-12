@@ -73,12 +73,15 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-            if (dataGridViewRecorridos.Rows.Count.Equals(0))
+            if (dataGridViewRecorridos.Rows.Count.Equals(0) )
             {
                 MessageBox.Show("Debe seleccionar un recorrido");
             }
             else
                 Conexion.getInstance().deshabilitar(Conexion.Tabla.Recorrido,Convert.ToInt32(dataGridViewRecorridos.SelectedCells[0].OwningRow.Cells["ID"].Value));
+
+            dataGridViewRecorridos.DataSource = null;
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Recorrido, ref dataGridViewRecorridos, filtros);
 
         }
     }

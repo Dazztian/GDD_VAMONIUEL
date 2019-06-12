@@ -3,7 +3,6 @@ GO
 
 DROP TABLE VAMONIUEL.CABINA
 DROP TABLE VAMONIUEL.TramoXPuerto
---DROP TABLE VAMONIUEL.Tramo
 DROP TABLE VAMONIUEL.RecorridoXViaje
 DROP TABLE VAMONIUEL.TramoXRecorrido
 DROP TABLE VAMONIUEL.tramo
@@ -23,8 +22,8 @@ DROP TABLE [VAMONIUEL].[PASAJE]
 DROP TABLE VAMONIUEL.Cliente
 DROP TABLE VAMONIUEL.Usuario
 DROP TABLE VAMONIUEL.Estado_del_Crucero
-DROP VIEW VAMONIUEL.tramos_asociados_a_recorridos
 DROP VIEW VAMONIUEL.cruceros_ocupados_por_fecha
-
 DROP PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
 DROP TRIGGER VAMONIUEL.dar_de_baja_reservas_por_pago_de_cliente
+DROP VIEW VAMONIUEL.tramos_asociados_a_recorridos
+
