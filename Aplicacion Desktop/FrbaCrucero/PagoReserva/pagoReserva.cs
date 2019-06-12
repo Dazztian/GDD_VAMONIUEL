@@ -16,6 +16,14 @@ namespace FrbaCrucero.PagoReserva
         {
             InitializeComponent();
         }
+        private void ReloadForm()
+        {
+            dgv_cliente.DataSource = null; dgv_cliente.Refresh();
+            dgv_crucero.DataSource = null; dgv_crucero.Refresh();
+            dgv_pasaje.DataSource = null; dgv_pasaje.Refresh();
+            dgv_reserva.DataSource = null; dgv_reserva.Refresh();
+            dgv_viaje.DataSource = null; dgv_viaje.Refresh();
+        }
 
         private void mostrar_datos_reserva(object sender, EventArgs e)
         {
@@ -26,7 +34,14 @@ namespace FrbaCrucero.PagoReserva
             columnasReserva.Add("ID");//Aca indicamos las columnas que queremos que nos traiga
             List<object> id_reservas = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.RESERVA, columnasReserva, filtrosReserva))["ID"]);
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.RESERVA, ref dgv_reserva, filtrosReserva);
-            int id_reserva = (int)id_reservas[0];//Obtengo el id_reserva
+            
+            //SI NO EXISTE NINGUNA RESERVA ASOCIADA AL CODIGO
+            if (!Conexion.getInstance().existeRegistro(Conexion.Tabla.RESERVA, columnasReserva, filtrosReserva))
+            {
+                MessageBox.Show("Codigo de reserva erroneo, vuelve a intentarlo con un codigo de reserva nuevo");
+                this.ReloadForm();
+                return;
+            }   else { int id_reserva = (int)id_reservas[0]; }
 
             //PASAJES
             List<string> columnasPasaje = new List<string>();
