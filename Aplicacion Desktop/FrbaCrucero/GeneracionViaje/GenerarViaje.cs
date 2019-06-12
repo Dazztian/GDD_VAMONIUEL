@@ -116,13 +116,13 @@ namespace FrbaCrucero.GeneracionViaje
                   AgregarParaInsert("ID_Crucero",id_crucero);
                   AgregarParaInsert("ID_Recorrido", id_recorrido);
                   int resultado =Conexion.getInstance().Insertar(Conexion.Tabla.VIAJE, datos);//Finalmente aca le adjudico el premio
-                  if (resultado != -1) { MessageBox.Show("Insertaste reeey"); }
-                  else { MessageBox.Show("ERROR DE INSERCION  reeey"); } 
+                  if (resultado != -1) { MessageBox.Show("Insercion exitosa"); }
+                  else { MessageBox.Show("ERROR DE INSERCION "); } 
                     
                 }
                 else { MessageBox.Show("Te falta seleccionar 1 recorrido y 1 crucero"); }
             }
-            else { MessageBox.Show("Te equivocaste de fecha monster"); }
+            else { MessageBox.Show("Te equivocaste de fecha "); }
             
         }
 
