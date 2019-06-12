@@ -438,11 +438,6 @@ From VAMONIUEL.RECORRIDO r JOIN VAMONIUEL.TramoXRecorrido tr ON (r.ID = tr.id_re
 JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
 go
 
-go
-CREATE VIEW VAMONIUEL.Marca
-AS
-SELECT DISTINCT CRU_Fabricante Marca FROM VAMONIUEL.CRUCERO
-go
 
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO
@@ -523,23 +518,21 @@ GO
 
 --Prueba para punto 9, pago de reserva
 
-INSERT INTO [VAMONIUEL].[VIAJE]
-([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
-VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
+--INSERT INTO [VAMONIUEL].[VIAJE]
+--([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
+--VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
 
 
-select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
+--select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
 
-INSERT INTO [VAMONIUEL].[PASAJE]
-([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
-VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1)
+--INSERT INTO [VAMONIUEL].[PASAJE]
+--([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
+--VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
 
-select * from VAMONIUEL.PASAJE where id=331804
+--select * from VAMONIUEL.PASAJE where ID_Viaje=4957
 
-SELECT  * FROM VAMONIUEL.VIAJE WHERE ID_PASAJE  = '331804' AND ID_Crucero is NOT NULL  
+--INSERT INTO [VAMONIUEL].[RESERVA]
+--([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
+--VALUES (12,getdate(),1,368694)
 
-
-
-INSERT INTO [VAMONIUEL].[RESERVA]
-([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
-VALUES (12,getdate(),1,331804)
+--SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
