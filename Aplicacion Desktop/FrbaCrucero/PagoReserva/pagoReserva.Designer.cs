@@ -41,15 +41,18 @@
             this.dgv_crucero = new System.Windows.Forms.DataGridView();
             this.dgv_pasaje = new System.Windows.Forms.DataGridView();
             this.dgv_cliente = new System.Windows.Forms.DataGridView();
+            this.dgv_reserva = new System.Windows.Forms.DataGridView();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_viaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_crucero)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_pasaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_cliente)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_reserva)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_pago_de_reserva
             // 
-            this.btn_pago_de_reserva.Location = new System.Drawing.Point(292, 410);
+            this.btn_pago_de_reserva.Location = new System.Drawing.Point(139, 407);
             this.btn_pago_de_reserva.Name = "btn_pago_de_reserva";
             this.btn_pago_de_reserva.Size = new System.Drawing.Size(109, 69);
             this.btn_pago_de_reserva.TabIndex = 0;
@@ -102,7 +105,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(362, 271);
+            this.label5.Location = new System.Drawing.Point(357, 247);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 13);
             this.label5.TabIndex = 6;
@@ -111,7 +114,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 271);
+            this.label6.Location = new System.Drawing.Point(362, 366);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(39, 13);
             this.label6.TabIndex = 7;
@@ -138,7 +141,7 @@
             // dgv_crucero
             // 
             this.dgv_crucero.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_crucero.Location = new System.Drawing.Point(360, 175);
+            this.dgv_crucero.Location = new System.Drawing.Point(360, 160);
             this.dgv_crucero.Name = "dgv_crucero";
             this.dgv_crucero.Size = new System.Drawing.Size(383, 84);
             this.dgv_crucero.TabIndex = 10;
@@ -146,7 +149,7 @@
             // dgv_pasaje
             // 
             this.dgv_pasaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_pasaje.Location = new System.Drawing.Point(360, 297);
+            this.dgv_pasaje.Location = new System.Drawing.Point(360, 276);
             this.dgv_pasaje.Name = "dgv_pasaje";
             this.dgv_pasaje.Size = new System.Drawing.Size(383, 84);
             this.dgv_pasaje.TabIndex = 11;
@@ -154,16 +157,35 @@
             // dgv_cliente
             // 
             this.dgv_cliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_cliente.Location = new System.Drawing.Point(12, 297);
+            this.dgv_cliente.Location = new System.Drawing.Point(360, 392);
             this.dgv_cliente.Name = "dgv_cliente";
-            this.dgv_cliente.Size = new System.Drawing.Size(316, 84);
+            this.dgv_cliente.Size = new System.Drawing.Size(383, 84);
             this.dgv_cliente.TabIndex = 12;
+            // 
+            // dgv_reserva
+            // 
+            this.dgv_reserva.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_reserva.Location = new System.Drawing.Point(12, 276);
+            this.dgv_reserva.Name = "dgv_reserva";
+            this.dgv_reserva.Size = new System.Drawing.Size(307, 84);
+            this.dgv_reserva.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 247);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(99, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Datos de la reserva";
             // 
             // pagoReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 508);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.dgv_reserva);
             this.Controls.Add(this.dgv_cliente);
             this.Controls.Add(this.dgv_pasaje);
             this.Controls.Add(this.dgv_crucero);
@@ -183,6 +205,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_crucero)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_pasaje)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_cliente)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_reserva)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,5 +226,7 @@
         private System.Windows.Forms.DataGridView dgv_crucero;
         private System.Windows.Forms.DataGridView dgv_pasaje;
         private System.Windows.Forms.DataGridView dgv_cliente;
+        private System.Windows.Forms.DataGridView dgv_reserva;
+        private System.Windows.Forms.Label label7;
     }
 }

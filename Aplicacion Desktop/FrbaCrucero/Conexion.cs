@@ -58,6 +58,10 @@ namespace FrbaCrucero
             {
                 return ">= " + valor;
             }
+            internal static string NotNull()
+            {
+                return "IS NOT NULL " ;
+            }
         }
 
         //Nombres de tablas basicas de la BD
