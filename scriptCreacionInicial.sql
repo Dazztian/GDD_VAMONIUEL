@@ -518,20 +518,23 @@ GO
 
 --Prueba para punto 9, pago de reserva
 
---INSERT INTO [VAMONIUEL].[PASAJE]
---([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
---VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1)
-
---select * from VAMONIUEL.PASAJE where id=331804
---select * from VAMONIUEL.viaje where id_pasaje=331804
-
---SELECT  * FROM VAMONIUEL.VIAJE WHERE ID_PASAJE  = '331804' AND ID_Crucero is NOT NULL  
+INSERT INTO [VAMONIUEL].[VIAJE]
+([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
+VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
 
 
---INSERT INTO [VAMONIUEL].[VIAJE]
---([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Pasaje],[ID_Crucero],[ID_Recorrido])
---VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 331804,12,12)
+select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
 
---INSERT INTO [VAMONIUEL].[RESERVA]
---([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
---VALUES (12,getdate(),1,331804)
+INSERT INTO [VAMONIUEL].[PASAJE]
+([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente])
+VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1)
+
+select * from VAMONIUEL.PASAJE where id=331804
+
+SELECT  * FROM VAMONIUEL.VIAJE WHERE ID_PASAJE  = '331804' AND ID_Crucero is NOT NULL  
+
+
+
+INSERT INTO [VAMONIUEL].[RESERVA]
+([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
+VALUES (12,getdate(),1,331804)
