@@ -452,6 +452,11 @@ From VAMONIUEL.RECORRIDO r JOIN VAMONIUEL.TramoXRecorrido tr ON (r.ID = tr.id_re
 JOIN VAMONIUEL.Tramo t on (tr.id_tramo = t.ID)
 go
 
+go
+CREATE VIEW VAMONIUEL.Marca
+AS
+SELECT DISTINCT CRU_Fabricante Marca FROM VAMONIUEL.CRUCERO
+go
 
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO

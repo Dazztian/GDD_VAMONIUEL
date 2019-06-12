@@ -84,6 +84,7 @@ namespace FrbaCrucero
             public static string Usuario { get { return "VAMONIUEL.Usuario"; } }
             public static string Cruceros_ocupados_por_fecha { get { return "VAMONIUEL.cruceros_ocupados_por_fecha"; } }
             public static string Tramos_asociados_a_recorridos { get { return "VAMONIUEL.tramos_asociados_a_recorridos"; } }
+            public static string Marca { get { return "VAMONIUEL.Marca"; } }
 
             
         }
