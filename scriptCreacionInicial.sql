@@ -446,6 +446,11 @@ AS
 SELECT DISTINCT CABINA_TIPO Tipo FROM VAMONIUEL.CABINA
 GO
 
+go
+CREATE VIEW VAMONIUEL.Marca
+AS
+SELECT DISTINCT CRU_FABRICANTE Marca FROM VAMONIUEL.CRUCERO
+GO
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO
 CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
