@@ -108,21 +108,6 @@ CREATE TABLE [VAMONIUEL].[VIAJE]
 	CONSTRAINT FK_Viaje_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)			
 );
 
-CREATE TABLE [VAMONIUEL].[PASAJE]
-(
-	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[PASAJE_CODIGO] [decimal](18, 0) NULL,
-	[PASAJE_PRECIO] [decimal](18, 2) NULL,
-	[PASAJE_FECHA_COMPRA] [datetime2](3) NULL,
-	[FECHA_SALIDA] [datetime2](3) NULL,
-	[FECHA_LLEGADA] [datetime2](3) NULL,
-	[FECHA_LLEGADA_ESTIMADA] [datetime2](3) NULL,
-	ID_Cliente int not null,
-	ID_Viaje int not null,
-	CONSTRAINT FK_Pasaje_Cliente FOREIGN KEY (ID_Cliente) REFERENCES VAMONIUEL.[Cliente](ID),			
-	CONSTRAINT FK_Pasaje_Viaje FOREIGN KEY (ID_Viaje) REFERENCES VAMONIUEL.[Viaje](ID)	
-);
-
 
 
 CREATE TABLE [VAMONIUEL].Tramo
@@ -189,6 +174,35 @@ CREATE TABLE [VAMONIUEL].[CABINA]
 	ID_Crucero int  null,
 	CONSTRAINT FK_Cabina_Crucero FOREIGN KEY (ID_Crucero) REFERENCES VAMONIUEL.[Crucero](ID)		
 );
+
+CREATE TABLE [VAMONIUEL].[CabinaXViaje]
+(
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	ocupada bit null,
+	ID_Cabina int  null,
+	ID_Viaje int  null,
+	CONSTRAINT FK_CabinaXViaje_Cabina FOREIGN KEY (ID_Cabina) REFERENCES VAMONIUEL.Cabina(ID),
+	CONSTRAINT FK_CabinaXViaje_Viaje FOREIGN KEY (ID_Viaje) REFERENCES VAMONIUEL.Viaje(ID)
+);
+
+
+CREATE TABLE [VAMONIUEL].[PASAJE]
+(
+	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[PASAJE_CODIGO] [decimal](18, 0) NULL,
+	[PASAJE_PRECIO] [decimal](18, 2) NULL,
+	[PASAJE_FECHA_COMPRA] [datetime2](3) NULL,
+	[FECHA_SALIDA] [datetime2](3) NULL,
+	[FECHA_LLEGADA] [datetime2](3) NULL,
+	[FECHA_LLEGADA_ESTIMADA] [datetime2](3) NULL,
+	ID_Cliente int not null,
+	ID_Viaje int not null,
+	ID_CabinaXViaje int  null,
+	CONSTRAINT FK_Pasaje_Cliente FOREIGN KEY (ID_Cliente) REFERENCES VAMONIUEL.[Cliente](ID),			
+	CONSTRAINT FK_Pasaje_Viaje FOREIGN KEY (ID_Viaje) REFERENCES VAMONIUEL.[Viaje](ID),
+	CONSTRAINT FK_Pasaje_CabinaXViaje FOREIGN KEY (ID_CabinaXViaje) REFERENCES VAMONIUEL.CabinaXViaje(ID)	
+);
+
 
 CREATE TABLE [VAMONIUEL].[RESERVA]
 (
