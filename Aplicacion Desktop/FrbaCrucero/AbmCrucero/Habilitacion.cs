@@ -62,6 +62,7 @@ namespace FrbaCrucero.AbmCrucero
                 Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
                 MessageBox.Show("Operacion realizada");
             }
+            Habilitacion_Load(sender, e);
         }
 
         private void btnBajaDefinitiva_Click(object sender, EventArgs e)
@@ -77,6 +78,7 @@ namespace FrbaCrucero.AbmCrucero
                 Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
                 MessageBox.Show("Operacion realizada");
             }
+            Habilitacion_Load(sender, e);
         }
     }
 }

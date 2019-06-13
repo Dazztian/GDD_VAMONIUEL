@@ -43,6 +43,7 @@
             this.dataGridViewTramos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTramos.Location = new System.Drawing.Point(15, 46);
             this.dataGridViewTramos.Name = "dataGridViewTramos";
+            this.dataGridViewTramos.ReadOnly = true;
             this.dataGridViewTramos.Size = new System.Drawing.Size(498, 150);
             this.dataGridViewTramos.TabIndex = 0;
             // 
