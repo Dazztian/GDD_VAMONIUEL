@@ -13,3 +13,4 @@ SELECT convert(datetime, '2016-10-23 20:44:11.500', 121) -- yyyy-mm-dd hh:mm:ss.
 
 
 DER: https://drive.google.com/open?id=10Z3trOf1bdHCGVXr5gFmFxINOT9sWN75
+Link al Estrategia https://docs.google.com/document/d/1FaGA629vz9cDVpSoHk7H_RPFIBMI1AXdwWJlW9QAuh8/edit?usp=sharing
