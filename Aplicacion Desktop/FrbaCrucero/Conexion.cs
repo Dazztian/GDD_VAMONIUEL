@@ -132,6 +132,7 @@ namespace FrbaCrucero
                         {
                             command.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                         }
+                        //Esto es un fix para que no tire error la pantalla, pero no estoy seguro si debe retornar 1 o -1
                         if (DBNull.Value.Equals(command.ExecuteScalar())) { return -1; }
                         else { 
                         return Convert.ToInt32(command.ExecuteScalar()); }
