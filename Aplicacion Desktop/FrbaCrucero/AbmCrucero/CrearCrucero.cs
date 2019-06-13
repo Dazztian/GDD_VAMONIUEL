@@ -112,7 +112,15 @@ namespace FrbaCrucero.AbmCrucero
                     cabinaDatos.Add("CABINA_TIPO_PORC_RECARGO", cabina.recargo);
                     cabinaDatos.Add("ID_CRUCERO", idCrucero);
                     Conexion.getInstance().Insertar(Conexion.Tabla.Cabina, cabinaDatos);
+                    cabinaDatos.Clear();
                 }
+                MessageBox.Show("Se ha creado un nuevo crucero");
+                cruceroDatos.Clear();
+                conjuntoCabinas.Clear();
+                tablaCabinas.Clear();
+                dataGridViewCabinas.DataSource = null;
+                cabinasIndividuales.Clear();
+                MessageBox.Show("Se ha creado un nuevo crucero");
             }
         }
 
@@ -127,7 +135,7 @@ namespace FrbaCrucero.AbmCrucero
             {
                 i=0;
             }
-            while ( i < cabinas.cantidad)
+            for (int j = 0; j < cabinas.cantidad ; j++ )
             {
                 Cabina nuevaCabina = new Cabina();
                 nuevaCabina.tipo = cabinas.tipo;
