@@ -528,12 +528,13 @@ BEGIN
 	DECLARE @id_pasaje int
 	DECLARE @reserva_Fecha DATETIME
 	DECLARE @dias_de_diferencia int
+	DECLARE @medio_de_pago nvarchar(200)
 	DECLARE @limite_de_dias int
 	SET @dias_de_diferencia=0
 	SET @limite_de_dias=3
 
 	--Puede o no tener una reserva asociada
-	SELECT @id_reserva=R.ID, @fecha_pago=i.fecha_pago, @id_pasaje=i.ID_Pasaje, 
+	SELECT @id_reserva=R.ID, @fecha_pago=i.fecha_pago, @id_pasaje=i.ID_Pasaje, @medio_de_pago= i.[medio_de_pago],
 	@reserva_Fecha= R.RESERVA_FECHA 
 	FROM inserted i LEFT JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
 	
@@ -556,8 +557,8 @@ BEGIN
 
 	if( @dias_de_diferencia <= @limite_de_dias)--DIAS BIEN O RESERVA NULL
 		BEGIN--Efectuo el pago normalmente
-		INSERT INTO [VAMONIUEL].[PAGO]([fecha_pago],[ID_Pasaje])
-		VALUES (@fecha_pago, @id_pasaje)
+		INSERT INTO [VAMONIUEL].[PAGO]([fecha_pago],medio_de_pago,[ID_Pasaje])
+		VALUES (@fecha_pago,@medio_de_pago, @id_pasaje)
 		END
 	ELSE --Se paso con los dias
 		BEGIN
