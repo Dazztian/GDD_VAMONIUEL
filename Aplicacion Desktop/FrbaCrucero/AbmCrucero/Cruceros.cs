@@ -53,5 +53,17 @@ namespace FrbaCrucero.AbmCrucero
                 new Habilitacion(Convert.ToInt32(dataGridViewCruceros.SelectedCells[0].OwningRow.Cells["ID"].Value)).ShowDialog();
             }
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCruceros.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("Debe seleccionar un crucero");
+            }
+            else
+            {
+                new ModificarCrucero(Convert.ToInt32(dataGridViewCruceros.SelectedCells[0].OwningRow.Cells["ID"].Value)).ShowDialog();
+            }
+        }
     }
 }
