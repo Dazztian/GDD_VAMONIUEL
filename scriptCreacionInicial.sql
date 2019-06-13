@@ -487,6 +487,32 @@ where  p.PASAJE_FECHA_COMPRA IS NOT NULL
 GROUP BY r.ID, r.RECORRIDO_CODIGO
 ORDER BY 3 DESC 
 GO
+
+--Top 5 de los recorridos con más cabinas libres en cada uno de los viajes realizados.
+GO
+CREATE VIEW VAMONIUEL.recorridos_mas_cabinas_libres_xviaje
+as
+select 
+	top 5 r.ID, r.RECORRIDO_CODIGO , v.ID viaje, v.Origen, v.Destino, count(*) cantidad_cabinas_libres
+from
+	VAMONIUEL.RECORRIDO r join VAMONIUEL.VIAJE v on (r.ID = v.ID_Recorrido) 
+	join VAMONIUEL.CabinaXViaje cxv on (v.ID = cxv.ID_Viaje)
+where
+	cxv.ocupada=0 
+GROUP BY 
+	r.ID, r.RECORRIDO_CODIGO, v.ID, v.Origen, v.Destino
+ORDER BY 6 DESC 
+GO
+
+--Top 5 de los cruceros con mayor cantidad de días fuera de servicio.
+GO
+CREATE VIEW VAMONIUEL.cruceros_mayor_cant_dias_fuera_servicio
+as
+select
+	top 5 cr.ID, cr.CRUCERO_MODELO Modelo, cr.CRU_FABRICANTE Fabricante, (DATEDIFF(day, ec.Fecha_fuera_de_servicio, ec.Fecha_reinicio_de_servicio)) cantidad_dias_fuera_de_servicio
+FROM
+	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
+
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO
 CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
