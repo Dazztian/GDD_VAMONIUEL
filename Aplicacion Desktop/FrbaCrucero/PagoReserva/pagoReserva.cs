@@ -15,9 +15,17 @@ namespace FrbaCrucero.PagoReserva
         public pagoReserva()
         {
             InitializeComponent();
+
+             cmb_medio_de_pago.Items.Add("Efectivo");
+             cmb_medio_de_pago.Items.Add("Debito");
+             cmb_medio_de_pago.Items.Add("Tarjeta de crédito 3 cuotas");
+             cmb_medio_de_pago.Items.Add("Tarjeta de crédito 6 cuotas");
+             cmb_medio_de_pago.Items.Add("Tarjeta de crédito 12 cuotas");
+            
         }
 
         private Dictionary<string, object> datos = new Dictionary<string, object>();
+     
 
         private void ReloadForm()
         {
