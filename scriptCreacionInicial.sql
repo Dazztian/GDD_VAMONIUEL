@@ -246,6 +246,15 @@ INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
 VALUES (1,1),(1,2),(1,3),(1,4),(2,5),(1,6),(1,7),(1,7),(1,8),(1,9)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
+GO
+CREATE TRIGGER VAMONIUEL.genera_cabinas_viaje ON VAMONIUEL.VIAJE AFTER INSERT
+AS
+BEGIN
+	INSERT INTO VAMONIUEL.CabinaXViaje (ocupada, ID_Cabina,ID_Viaje)
+		select 0, c.ID, v.ID
+		from inserted v join VAMONIUEL.CABINA c on (v.ID_Crucero = c.ID_Crucero)
+end
+
 go
 CREATE TRIGGER tr_creacion_tramoxpuerto ON VAMONIUEL.TRAMO
 AFTER INSERT
@@ -425,13 +434,6 @@ SELECT DISTINCT M.[RESERVA_CODIGO],M.[RESERVA_FECHA], P.ID
 FROM gd_esquema.Maestra M
 JOIN VAMONIUEL.PASAJE P ON ( M.RESERVA_CODIGO = P.PASAJE_CODIGO)
 
-
---INSERT INTO [VAMONIUEL].[CabinaXViaje]([ocupada],[ID_Cabina],[ID_Viaje])
-INSERT INTO [VAMONIUEL].[CabinaXViaje]([ID_Viaje])
-SELECT ID_Viaje FROM VAMONIUEL.PASAJE
-
-UPDATE VAMONIUEL.CabinaXViaje SET ocupada=1
-           
 
 	
 ----------BORRO ESTE TRIGGER YA QUE LUEGO DE LA MIGRACION NO ME SIRVE/ME TRAE PROBLEMAS----------------------------------
