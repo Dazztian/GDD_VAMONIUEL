@@ -384,15 +384,6 @@ SELECT DISTINCT M.PUERTO_DESDE, M.PUERTO_HASTA, M.FECHA_SALIDA, M.FECHA_LLEGADA,
 (SELECT  R.ID FROM VAMONIUEL.RECORRIDO R  WHERE M.PUERTO_DESDE = R.PUERTO_DESDE AND M.PUERTO_HASTA = R.PUERTO_HASTA)
 FROM gd_esquema.Maestra M
 
- -------------------------------------------------------------------------------------------------------------------------
---INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ocupada],[ID_Cabina],[ID_Viaje])
-
- INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ID_Cabina],[ID_Viaje])
- SELECT CAB.ID, V.ID FROM [VAMONIUEL].VIAJE V 
- JOIN VAMONIUEL.CABINA CAB ON V.ID_Crucero = CAB.ID_Crucero
-  
- -------------------------------------------------------------------------------------------------------------------------
-
 INSERT INTO [VAMONIUEL].[PASAJE] 
 ([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
 SELECT DISTINCT[PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],
@@ -452,6 +443,7 @@ DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 
 ------------------------------------------- CREACION DE VISTAS------------------------------------------------------------------------------------------
 
+
 GO --Yo voy a tener que consultar esto de tal manera que no se cumpla la condición
 CREATE VIEW VAMONIUEL.cruceros_ocupados_por_fecha AS
 SELECT DISTINCT Cru.[ID],Cru.[CRU_FABRICANTE],Cru.[CRUCERO_MODELO],Cru.[CRUCERO_IDENTIFICADOR],Cru.[habilitado], V.FechaInicio, V.FechaFin
@@ -478,6 +470,20 @@ go
 CREATE VIEW VAMONIUEL.Marca
 AS
 SELECT DISTINCT CRU_FABRICANTE Marca FROM VAMONIUEL.CRUCERO
+GO
+
+--------------------------------  VIEWS PARA LISTADO ESTADISTICO ------------------------------------------------------------------------------------------------
+--View top 5 recorridos con mas pasajes comprados(tomo al pasaje comprado cuando tiene fecha de compra) la otra opcion no me tira resultados por que no hay nada en la tabla de pagos
+GO
+CREATE VIEW VAMONIUEL.recorridos_mayor_pasajes_comprados
+AS
+select top 5 r.ID, r.RECORRIDO_CODIGO , count(*) cantidad_pasajes_comprados
+from VAMONIUEL.VIAJE v join VAMONIUEL.RECORRIDO r ON (v.ID_Recorrido = r.ID)
+	join VAMONIUEL.PASAJE p ON (p.ID_Viaje = v.ID)
+--where exists (select ID_Pasaje from VAMONIUEL.PAGO where ID_Pasaje = p.ID) --esta linea es la que considera a la tabla pagos
+where  p.PASAJE_FECHA_COMPRA IS NOT NULL
+GROUP BY r.ID, r.RECORRIDO_CODIGO
+ORDER BY 3 DESC 
 GO
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO
