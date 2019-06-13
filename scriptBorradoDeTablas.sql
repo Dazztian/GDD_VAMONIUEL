@@ -17,15 +17,15 @@ DROP TABLE VAMONIUEL.PAGO
 DROP TABLE [VAMONIUEL].[PASAJE]
 DROP TABLE VAMONIUEL.Cliente
 DROP TABLE VAMONIUEL.Usuario
-DROP TABLE VAMONIUEL.Estado_del_Crucero
 DROP VIEW VAMONIUEL.cruceros_ocupados_por_fecha
 DROP PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
 DROP TRIGGER VAMONIUEL.dar_de_baja_reservas_por_pago_de_cliente
-DROP TRIGGER VAMONIUEL.genera_cabinas_viaje
 DROP VIEW VAMONIUEL.tramos_asociados_a_recorridos
 DROP VIEW VAMONIUEL.Marca
 DROP VIEW VAMONIUEL.TipoCabina
 DROP VIEW VAMONIUEL.recorridos_mayor_pasajes_comprados
+drop VIEW VAMONIUEL.recorridos_mas_cabinas_libres_xviaje
+drop VIEW VAMONIUEL.cruceros_mayor_cant_dias_fuera_servicio
 DROP TABLE VAMONIUEL.CabinaXViaje
 DROP TABLE VAMONIUEL.CABINA
 DROP TABLE VAMONIUEL.VIAJE

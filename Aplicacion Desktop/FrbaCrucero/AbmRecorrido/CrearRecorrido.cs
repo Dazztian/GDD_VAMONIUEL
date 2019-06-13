@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,6 +93,23 @@ namespace FrbaCrucero.AbmRecorrido
             }
 
             
+        }
+
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            CultureInfo cc = System.Threading.Thread.CurrentThread.CurrentCulture;
+
+            if (char.IsNumber(e.KeyChar) ||
+
+                e.KeyChar.ToString() == cc.NumberFormat.NumberDecimalSeparator
+
+                )
+
+                e.Handled = false;
+
+            else
+
+                e.Handled = true;
         }
     }
 }

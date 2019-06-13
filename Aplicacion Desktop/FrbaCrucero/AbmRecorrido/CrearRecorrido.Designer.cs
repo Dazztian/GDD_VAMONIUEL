@@ -102,6 +102,7 @@
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(121, 20);
             this.txtPrecio.TabIndex = 6;
+            this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecio_KeyPress);
             // 
             // btnAgregarTramo
             // 
@@ -138,6 +139,7 @@
             this.dataGridViewTramos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTramos.Location = new System.Drawing.Point(33, 226);
             this.dataGridViewTramos.Name = "dataGridViewTramos";
+            this.dataGridViewTramos.ReadOnly = true;
             this.dataGridViewTramos.Size = new System.Drawing.Size(313, 126);
             this.dataGridViewTramos.TabIndex = 11;
             // 

@@ -35,6 +35,7 @@
             // 
             // comboBoxOrigen
             // 
+            this.comboBoxOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOrigen.FormattingEnabled = true;
             this.comboBoxOrigen.Location = new System.Drawing.Point(54, 59);
             this.comboBoxOrigen.Name = "comboBoxOrigen";
