@@ -91,7 +91,7 @@ namespace FrbaCrucero
             public static string Tramos_asociados_a_recorridos { get { return "VAMONIUEL.tramos_asociados_a_recorridos"; } }
             public static string Marca { get { return "VAMONIUEL.Marca"; } }
             public static string TipoCabina { get { return "VAMONIUEL.TipoCabina"; } }
-
+            public static string Estado_del_crucero { get { return "VAMONIUEL.Estado_del_Crucero"; } }
             
         }
 

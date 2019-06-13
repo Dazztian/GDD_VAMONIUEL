@@ -120,6 +120,7 @@
             this.btnHabilitacion.TabIndex = 11;
             this.btnHabilitacion.Text = "Habilitacion";
             this.btnHabilitacion.UseVisualStyleBackColor = true;
+            this.btnHabilitacion.Click += new System.EventHandler(this.btnHabilitacion_Click);
             // 
             // Cruceros
             // 

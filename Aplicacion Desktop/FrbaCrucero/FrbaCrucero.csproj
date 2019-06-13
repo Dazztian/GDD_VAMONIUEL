@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbmCrucero\BajaDefinitiva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\BajaDefinitiva.Designer.cs">
+      <DependentUpon>BajaDefinitiva.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmCrucero\Cabina.cs" />
     <Compile Include="AbmCrucero\ConjuntoCabinas.cs" />
     <Compile Include="AbmCrucero\CrearCrucero.cs">
@@ -57,6 +63,18 @@
     </Compile>
     <Compile Include="AbmCrucero\Cruceros.Designer.cs">
       <DependentUpon>Cruceros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\FueraDeServicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\FueraDeServicio.Designer.cs">
+      <DependentUpon>FueraDeServicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\Habilitacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\Habilitacion.Designer.cs">
+      <DependentUpon>Habilitacion.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmPuerto\Form1.cs">
       <SubType>Form</SubType>
@@ -153,11 +171,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AbmCrucero\BajaDefinitiva.resx">
+      <DependentUpon>BajaDefinitiva.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\CrearCrucero.resx">
       <DependentUpon>CrearCrucero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\Cruceros.resx">
       <DependentUpon>Cruceros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\FueraDeServicio.resx">
+      <DependentUpon>FueraDeServicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\Habilitacion.resx">
+      <DependentUpon>Habilitacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\CambiarDestino.resx">
       <DependentUpon>CambiarDestino.cs</DependentUpon>
