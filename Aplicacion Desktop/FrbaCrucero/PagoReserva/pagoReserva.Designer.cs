@@ -52,12 +52,13 @@
             // 
             // btn_pago_de_reserva
             // 
-            this.btn_pago_de_reserva.Location = new System.Drawing.Point(139, 407);
+            this.btn_pago_de_reserva.Location = new System.Drawing.Point(120, 407);
             this.btn_pago_de_reserva.Name = "btn_pago_de_reserva";
             this.btn_pago_de_reserva.Size = new System.Drawing.Size(109, 69);
             this.btn_pago_de_reserva.TabIndex = 0;
             this.btn_pago_de_reserva.Text = "Pagar  Reserva";
             this.btn_pago_de_reserva.UseVisualStyleBackColor = true;
+            this.btn_pago_de_reserva.Click += new System.EventHandler(this.btn_pago_de_reserva_Click);
             // 
             // txt_codigo_reserva
             // 

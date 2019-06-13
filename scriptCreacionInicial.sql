@@ -384,14 +384,7 @@ SELECT DISTINCT M.PUERTO_DESDE, M.PUERTO_HASTA, M.FECHA_SALIDA, M.FECHA_LLEGADA,
 (SELECT  R.ID FROM VAMONIUEL.RECORRIDO R  WHERE M.PUERTO_DESDE = R.PUERTO_DESDE AND M.PUERTO_HASTA = R.PUERTO_HASTA)
 FROM gd_esquema.Maestra M
 
- -------------------------------------------------------------------------------------------------------------------------
---INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ocupada],[ID_Cabina],[ID_Viaje])
 
- INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ID_Cabina],[ID_Viaje])
- SELECT CAB.ID, V.ID FROM [VAMONIUEL].VIAJE V 
- JOIN VAMONIUEL.CABINA CAB ON V.ID_Crucero = CAB.ID_Crucero
-  
- -------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO [VAMONIUEL].[PASAJE] 
 ([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
@@ -425,6 +418,22 @@ LEFT JOIN VAMONIUEL.CLIENTE C ON (M.[CLI_NOMBRE] = C.[CLI_NOMBRE]
       AND M.[CLI_MAIL] = c.[CLI_MAIL]
       AND M.[CLI_FECHA_NAC] = c.[CLI_FECHA_NAC])
 WHERE [PASAJE_CODIGO] IS  NULL    AND [PASAJE_PRECIO] IS  NULL    AND [PASAJE_FECHA_COMPRA] IS  NULL
+
+ -------------------------------------------------------------------------------------------------------------------------
+--INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ocupada],[ID_Cabina],[ID_Viaje])
+
+ INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ID_Cabina],[ID_Viaje])
+ SELECT CAB.ID, V.ID FROM [VAMONIUEL].VIAJE V 
+ JOIN VAMONIUEL.CABINA CAB ON V.ID_Crucero = CAB.ID_Crucero
+ JOIN VAMONIUEL.PASAJE P ON 
+
+
+ --UPDATE VAMONIUEL.CabinaXViaje
+ --SET ocupada=1
+ --WHERE EXISTS (SELECT * FROM VAMONIUEL.PASAJE WHERE ID_Viaje=
+  
+ -------------------------------------------------------------------------------------------------------------------------
+
 
 --Cada vez que cargue una reserva se va a ejecutar un trigger que me va a generar un 'pasaje temporal'
 --Esto funca sin insertar el id_pasaje
@@ -558,21 +567,24 @@ GO
 
 --Prueba para punto 9, pago de reserva
 
---INSERT INTO [VAMONIUEL].[VIAJE]
---([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
---VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
+INSERT INTO [VAMONIUEL].[VIAJE]
+([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
+VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
 
 
---select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
+select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
 
---INSERT INTO [VAMONIUEL].[PASAJE]
---([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
---VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
+INSERT INTO [VAMONIUEL].[PASAJE]
+([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
+VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
 
---select * from VAMONIUEL.PASAJE where ID_Viaje=4957
+select * from VAMONIUEL.PASAJE where ID_Viaje=4957
 
---INSERT INTO [VAMONIUEL].[RESERVA]
---([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
---VALUES (12,getdate(),1,368694)
+INSERT INTO [VAMONIUEL].[RESERVA]
+([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
+VALUES (12,getdate(),1,368694)
 
---SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
+SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
+
+delete  from VAMONIUEL.PAGO
+select * from VAMONIUEL.PAGO
