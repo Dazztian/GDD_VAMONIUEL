@@ -35,6 +35,7 @@ namespace FrbaCrucero.AbmCrucero
                 filtros.Add("CRUCERO_MODELO", Conexion.Filtro.Exacto(txtModelo.Text));
             //lleno el dgv
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.CRUCERO, ref dataGridViewCruceros , filtros);
+            filtros.Clear();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)

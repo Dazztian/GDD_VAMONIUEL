@@ -138,6 +138,7 @@
             this.txtRecargoCabina.Name = "txtRecargoCabina";
             this.txtRecargoCabina.Size = new System.Drawing.Size(121, 20);
             this.txtRecargoCabina.TabIndex = 7;
+            this.txtRecargoCabina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRecargoCabina_KeyPress);
             // 
             // label6
             // 
@@ -154,6 +155,7 @@
             this.txtPisoCabina.Name = "txtPisoCabina";
             this.txtPisoCabina.Size = new System.Drawing.Size(121, 20);
             this.txtPisoCabina.TabIndex = 5;
+            this.txtPisoCabina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPisoCabina_KeyPress);
             // 
             // label5
             // 
@@ -170,6 +172,7 @@
             this.txtCantidadCabinas.Name = "txtCantidadCabinas";
             this.txtCantidadCabinas.Size = new System.Drawing.Size(121, 20);
             this.txtCantidadCabinas.TabIndex = 3;
+            this.txtCantidadCabinas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadCabinas_KeyPress);
             // 
             // label4
             // 

@@ -60,6 +60,7 @@ namespace FrbaCrucero.AbmCrucero
                 baja.Add("Fecha_reinicio_de_servicio", Convert.ToDateTime(fechaAlta.ToString("yyyy/MM/dd")));
                 baja.Add("ID_Crucero",idCrucero);
                 Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
+                MessageBox.Show("Operacion realizada");
             }
         }
 
@@ -74,6 +75,7 @@ namespace FrbaCrucero.AbmCrucero
                 baja.Add("Fecha_baja_definitiva", Convert.ToDateTime(fechaBajaDefinitiva.ToString("yyyy/MM/dd")));
                 baja.Add("ID_Crucero", idCrucero);
                 Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
+                MessageBox.Show("Operacion realizada");
             }
         }
     }
