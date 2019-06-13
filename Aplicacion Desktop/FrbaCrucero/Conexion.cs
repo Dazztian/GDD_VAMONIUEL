@@ -84,6 +84,7 @@ namespace FrbaCrucero
             public static string Rol { get { return "VAMONIUEL.Rol"; } }
             public static string Funcion { get { return "VAMONIUEL.Funcion"; } }
             public static string PASAJE { get { return "[VAMONIUEL].[PASAJE]"; } }
+            public static string Pago { get { return "[VAMONIUEL].[Pago]"; } }
             public static string Cliente { get { return "VAMONIUEL.Cliente"; } }
             public static string Usuario { get { return "VAMONIUEL.Usuario"; } }
             public static string Cruceros_ocupados_por_fecha { get { return "VAMONIUEL.cruceros_ocupados_por_fecha"; } }
@@ -131,7 +132,10 @@ namespace FrbaCrucero
                         {
                             command.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                         }
-                        return Convert.ToInt32(command.ExecuteScalar());
+                        //Esto es un fix para que no tire error la pantalla, pero no estoy seguro si debe retornar 1 o -1
+                        if (DBNull.Value.Equals(command.ExecuteScalar())) { return -1; }
+                        else { 
+                        return Convert.ToInt32(command.ExecuteScalar()); }
 
                     }
                 }

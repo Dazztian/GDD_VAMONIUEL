@@ -23,6 +23,7 @@ DROP TRIGGER VAMONIUEL.dar_de_baja_reservas_por_pago_de_cliente
 DROP VIEW VAMONIUEL.tramos_asociados_a_recorridos
 DROP VIEW VAMONIUEL.Marca
 DROP VIEW VAMONIUEL.TipoCabina
+DROP VIEW VAMONIUEL.recorridos_mayor_pasajes_comprados
 DROP TABLE VAMONIUEL.CabinaXViaje
 DROP TABLE VAMONIUEL.CABINA
 DROP TABLE VAMONIUEL.VIAJE

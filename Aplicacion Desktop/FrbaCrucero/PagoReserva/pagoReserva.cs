@@ -15,7 +15,18 @@ namespace FrbaCrucero.PagoReserva
         public pagoReserva()
         {
             InitializeComponent();
+
+             cmb_medio_de_pago.Items.Add("Efectivo");
+             cmb_medio_de_pago.Items.Add("Debito");
+             cmb_medio_de_pago.Items.Add("Tarjeta de crédito 3 cuotas");
+             cmb_medio_de_pago.Items.Add("Tarjeta de crédito 6 cuotas");
+             cmb_medio_de_pago.Items.Add("Tarjeta de crédito 12 cuotas");
+            
         }
+
+        private Dictionary<string, object> datos = new Dictionary<string, object>();
+     
+
         private void ReloadForm()
         {
             dgv_cliente.DataSource = null; dgv_cliente.Refresh();
@@ -24,9 +35,18 @@ namespace FrbaCrucero.PagoReserva
             dgv_reserva.DataSource = null; dgv_reserva.Refresh();
             dgv_viaje.DataSource = null; dgv_viaje.Refresh();
         }
+        //Lo voy a usar para crear el pago de reserva
+        private void AgregarParaInsert(string nombreCol, object data)
+        {
+            datos[nombreCol] = data;
+        }
+            
 
         private void mostrar_datos_reserva(object sender, EventArgs e)
         {
+
+            if (!string.IsNullOrWhiteSpace(txt_codigo_reserva.Text))
+            {
             //Con esto cargo las reservas
             Dictionary<string, string> filtrosReserva = new Dictionary<string, string>();
             filtrosReserva.Add("RESERVA_CODIGO", Conexion.Filtro.Exacto(txt_codigo_reserva.Text));
@@ -87,8 +107,56 @@ namespace FrbaCrucero.PagoReserva
             Dictionary<string, string> filtrosCrucero = new Dictionary<string, string>();
             filtrosCrucero.Add("ID", Conexion.Filtro.Exacto(id_crucero.ToString()));
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.CRUCERO, ref dgv_crucero, filtrosCrucero);
+            }
+            else { MessageBox.Show("NO PODES VISUALIZAR LOS DATOS ASOCIADOS A LA RESERVA PORQUE NO INGRESASTE CODIGO DE RESERVA "); }
+        }
 
+        private void btn_pago_de_reserva_Click(object sender, EventArgs e)
+        {   //PORQUE YO PUEDO PAGAR LA RESERVA INDEPENDIENTEMENTE DE VISUALIZAR LOS DATOS ASOCIADAS A ESTA O NO
+            if (!string.IsNullOrWhiteSpace(txt_codigo_reserva.Text))
+            {
+                if (!string.IsNullOrEmpty(cmb_medio_de_pago.Text))
+                {
 
+                    Dictionary<string, string> filtrosReserva = new Dictionary<string, string>();
+                    filtrosReserva.Add("RESERVA_CODIGO", Conexion.Filtro.Exacto(txt_codigo_reserva.Text));
+                    List<string> columnasReserva = new List<string>();
+                    columnasReserva.Add("Habilitado");//Aca indicamos las columnas que queremos que nos traiga
+                    List<object> habilitado = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.RESERVA, columnasReserva, filtrosReserva))["Habilitado"]);
+
+                    //SI NO EXISTE NINGUNA RESERVA ASOCIADA AL CODIGO
+                    if (!Conexion.getInstance().existeRegistro(Conexion.Tabla.RESERVA, columnasReserva, filtrosReserva))
+                    {
+                        MessageBox.Show("Codigo de reserva erroneo, vuelve a intentarlo con un codigo de reserva nuevo");
+                        this.ReloadForm();
+                        return;
+                    }
+                    else
+                    {
+                        bool bit_habilitado = (bool)habilitado[0];
+
+                        if (bit_habilitado)//Si la reserva está habilitada...
+                        {
+                            //PASAJES
+                            List<string> columnasPasaje = new List<string>();
+                            columnasPasaje.Add("ID_Pasaje");//Aca indicamos las columnas que queremos que nos traiga
+                            List<object> id_pasajes = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.RESERVA, columnasPasaje, filtrosReserva))["ID_Pasaje"]);
+                            int id_pasaje = (int)id_pasajes[0];//Obtengo el id_pasaje
+
+                            //ACA RESUELVO EL PAGO DE LA RESERVA
+                            AgregarParaInsert("Fecha_Pago", DateTime.Now);
+                            AgregarParaInsert("ID_Pasaje", id_pasaje);
+                            AgregarParaInsert("medio_de_pago", this.cmb_medio_de_pago.GetItemText(this.cmb_medio_de_pago.SelectedItem));
+                            int resultado = Conexion.getInstance().Insertar(Conexion.Tabla.Pago, datos);
+
+                            MessageBox.Show("Insercion exitosa");
+                        }
+                        else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE LA RESERVA NO ESTA HABILITADA "); }
+                    }
+                } else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE NO HAS SELECCIONADO UN METODO DE PAGO "); }
+
+                }
+            else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE NO INGRESASTE CODIGO DE RESERVA "); }
         }
     }
 }

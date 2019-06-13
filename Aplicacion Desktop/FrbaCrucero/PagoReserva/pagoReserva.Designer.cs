@@ -43,6 +43,7 @@
             this.dgv_cliente = new System.Windows.Forms.DataGridView();
             this.dgv_reserva = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
+            this.cmb_medio_de_pago = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_viaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_crucero)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_pasaje)).BeginInit();
@@ -52,16 +53,17 @@
             // 
             // btn_pago_de_reserva
             // 
-            this.btn_pago_de_reserva.Location = new System.Drawing.Point(139, 407);
+            this.btn_pago_de_reserva.Location = new System.Drawing.Point(94, 407);
             this.btn_pago_de_reserva.Name = "btn_pago_de_reserva";
-            this.btn_pago_de_reserva.Size = new System.Drawing.Size(109, 69);
+            this.btn_pago_de_reserva.Size = new System.Drawing.Size(89, 50);
             this.btn_pago_de_reserva.TabIndex = 0;
             this.btn_pago_de_reserva.Text = "Pagar  Reserva";
             this.btn_pago_de_reserva.UseVisualStyleBackColor = true;
+            this.btn_pago_de_reserva.Click += new System.EventHandler(this.btn_pago_de_reserva_Click);
             // 
             // txt_codigo_reserva
             // 
-            this.txt_codigo_reserva.Location = new System.Drawing.Point(53, 116);
+            this.txt_codigo_reserva.Location = new System.Drawing.Point(53, 59);
             this.txt_codigo_reserva.Name = "txt_codigo_reserva";
             this.txt_codigo_reserva.Size = new System.Drawing.Size(214, 20);
             this.txt_codigo_reserva.TabIndex = 1;
@@ -69,7 +71,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 67);
+            this.label1.Location = new System.Drawing.Point(50, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(217, 13);
             this.label1.TabIndex = 2;
@@ -122,7 +124,7 @@
             // 
             // btn_mostrar_datos
             // 
-            this.btn_mostrar_datos.Location = new System.Drawing.Point(53, 175);
+            this.btn_mostrar_datos.Location = new System.Drawing.Point(53, 105);
             this.btn_mostrar_datos.Name = "btn_mostrar_datos";
             this.btn_mostrar_datos.Size = new System.Drawing.Size(214, 52);
             this.btn_mostrar_datos.TabIndex = 8;
@@ -135,7 +137,7 @@
             this.dgv_viaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_viaje.Location = new System.Drawing.Point(360, 43);
             this.dgv_viaje.Name = "dgv_viaje";
-            this.dgv_viaje.Size = new System.Drawing.Size(383, 84);
+            this.dgv_viaje.Size = new System.Drawing.Size(628, 84);
             this.dgv_viaje.TabIndex = 9;
             // 
             // dgv_crucero
@@ -143,7 +145,7 @@
             this.dgv_crucero.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_crucero.Location = new System.Drawing.Point(360, 160);
             this.dgv_crucero.Name = "dgv_crucero";
-            this.dgv_crucero.Size = new System.Drawing.Size(383, 84);
+            this.dgv_crucero.Size = new System.Drawing.Size(628, 84);
             this.dgv_crucero.TabIndex = 10;
             // 
             // dgv_pasaje
@@ -151,7 +153,7 @@
             this.dgv_pasaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_pasaje.Location = new System.Drawing.Point(360, 276);
             this.dgv_pasaje.Name = "dgv_pasaje";
-            this.dgv_pasaje.Size = new System.Drawing.Size(383, 84);
+            this.dgv_pasaje.Size = new System.Drawing.Size(628, 84);
             this.dgv_pasaje.TabIndex = 11;
             // 
             // dgv_cliente
@@ -159,13 +161,13 @@
             this.dgv_cliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_cliente.Location = new System.Drawing.Point(360, 392);
             this.dgv_cliente.Name = "dgv_cliente";
-            this.dgv_cliente.Size = new System.Drawing.Size(383, 84);
+            this.dgv_cliente.Size = new System.Drawing.Size(628, 84);
             this.dgv_cliente.TabIndex = 12;
             // 
             // dgv_reserva
             // 
             this.dgv_reserva.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_reserva.Location = new System.Drawing.Point(12, 276);
+            this.dgv_reserva.Location = new System.Drawing.Point(15, 207);
             this.dgv_reserva.Name = "dgv_reserva";
             this.dgv_reserva.Size = new System.Drawing.Size(307, 84);
             this.dgv_reserva.TabIndex = 13;
@@ -173,17 +175,26 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 247);
+            this.label7.Location = new System.Drawing.Point(12, 177);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(99, 13);
             this.label7.TabIndex = 14;
             this.label7.Text = "Datos de la reserva";
             // 
+            // cmb_medio_de_pago
+            // 
+            this.cmb_medio_de_pago.FormattingEnabled = true;
+            this.cmb_medio_de_pago.Location = new System.Drawing.Point(53, 339);
+            this.cmb_medio_de_pago.Name = "cmb_medio_de_pago";
+            this.cmb_medio_de_pago.Size = new System.Drawing.Size(177, 21);
+            this.cmb_medio_de_pago.TabIndex = 15;
+            // 
             // pagoReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 508);
+            this.ClientSize = new System.Drawing.Size(1015, 531);
+            this.Controls.Add(this.cmb_medio_de_pago);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dgv_reserva);
             this.Controls.Add(this.dgv_cliente);
@@ -228,5 +239,6 @@
         private System.Windows.Forms.DataGridView dgv_cliente;
         private System.Windows.Forms.DataGridView dgv_reserva;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cmb_medio_de_pago;
     }
 }

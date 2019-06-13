@@ -218,6 +218,7 @@ CREATE TABLE [VAMONIUEL].PAGO
 (
 	[ID] [int] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	fecha_pago DATETIME NULL,
+	medio_de_pago nvarchar(200) null,
 	ID_Pasaje int  null,
 	CONSTRAINT FK_Pago_Pasaje FOREIGN KEY (ID_Pasaje) REFERENCES VAMONIUEL.[Pasaje](ID)	
 );
@@ -393,6 +394,7 @@ SELECT DISTINCT M.PUERTO_DESDE, M.PUERTO_HASTA, M.FECHA_SALIDA, M.FECHA_LLEGADA,
 (SELECT  R.ID FROM VAMONIUEL.RECORRIDO R  WHERE M.PUERTO_DESDE = R.PUERTO_DESDE AND M.PUERTO_HASTA = R.PUERTO_HASTA)
 FROM gd_esquema.Maestra M
 
+
 INSERT INTO [VAMONIUEL].[PASAJE] 
 ([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
 SELECT DISTINCT[PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],
@@ -425,6 +427,23 @@ LEFT JOIN VAMONIUEL.CLIENTE C ON (M.[CLI_NOMBRE] = C.[CLI_NOMBRE]
       AND M.[CLI_MAIL] = c.[CLI_MAIL]
       AND M.[CLI_FECHA_NAC] = c.[CLI_FECHA_NAC])
 WHERE [PASAJE_CODIGO] IS  NULL    AND [PASAJE_PRECIO] IS  NULL    AND [PASAJE_FECHA_COMPRA] IS  NULL
+
+ -------------------------------------------------------------------------------------------------------------------------
+--INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ocupada],[ID_Cabina],[ID_Viaje])
+
+/*
+ INSERT INTO [VAMONIUEL].[CabinaXViaje] ([ID_Cabina],[ID_Viaje])
+ SELECT CAB.ID, V.ID FROM [VAMONIUEL].VIAJE V 
+ JOIN VAMONIUEL.CABINA CAB ON V.ID_Crucero = CAB.ID_Crucero
+ JOIN VAMONIUEL.PASAJE P ON 
+ */
+
+ --UPDATE VAMONIUEL.CabinaXViaje
+ --SET ocupada=1
+ --WHERE EXISTS (SELECT * FROM VAMONIUEL.PASAJE WHERE ID_Viaje=
+  
+ -------------------------------------------------------------------------------------------------------------------------
+
 
 --Cada vez que cargue una reserva se va a ejecutar un trigger que me va a generar un 'pasaje temporal'
 --Esto funca sin insertar el id_pasaje
@@ -535,12 +554,13 @@ BEGIN
 	DECLARE @id_pasaje int
 	DECLARE @reserva_Fecha DATETIME
 	DECLARE @dias_de_diferencia int
+	DECLARE @medio_de_pago nvarchar(200)
 	DECLARE @limite_de_dias int
 	SET @dias_de_diferencia=0
 	SET @limite_de_dias=3
 
 	--Puede o no tener una reserva asociada
-	SELECT @id_reserva=R.ID, @fecha_pago=i.fecha_pago, @id_pasaje=i.ID_Pasaje, 
+	SELECT @id_reserva=R.ID, @fecha_pago=i.fecha_pago, @id_pasaje=i.ID_Pasaje, @medio_de_pago= i.[medio_de_pago],
 	@reserva_Fecha= R.RESERVA_FECHA 
 	FROM inserted i LEFT JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
 	
@@ -563,8 +583,8 @@ BEGIN
 
 	if( @dias_de_diferencia <= @limite_de_dias)--DIAS BIEN O RESERVA NULL
 		BEGIN--Efectuo el pago normalmente
-		INSERT INTO [VAMONIUEL].[PAGO]([fecha_pago],[ID_Pasaje])
-		VALUES (@fecha_pago, @id_pasaje)
+		INSERT INTO [VAMONIUEL].[PAGO]([fecha_pago],medio_de_pago,[ID_Pasaje])
+		VALUES (@fecha_pago,@medio_de_pago, @id_pasaje)
 		END
 	ELSE --Se paso con los dias
 		BEGIN
@@ -592,21 +612,24 @@ GO
 
 --Prueba para punto 9, pago de reserva
 
---INSERT INTO [VAMONIUEL].[VIAJE]
---([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
---VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
+INSERT INTO [VAMONIUEL].[VIAJE]
+([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
+VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
 
 
---select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
+select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
 
---INSERT INTO [VAMONIUEL].[PASAJE]
---([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
---VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
+INSERT INTO [VAMONIUEL].[PASAJE]
+([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
+VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
 
---select * from VAMONIUEL.PASAJE where ID_Viaje=4957
+select * from VAMONIUEL.PASAJE where ID_Viaje=4957
 
---INSERT INTO [VAMONIUEL].[RESERVA]
---([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
---VALUES (12,getdate(),1,368694)
+INSERT INTO [VAMONIUEL].[RESERVA]
+([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
+VALUES (12,getdate(),1,368694)
 
---SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
+SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
+
+delete  from VAMONIUEL.PAGO
+select * from VAMONIUEL.PAGO
