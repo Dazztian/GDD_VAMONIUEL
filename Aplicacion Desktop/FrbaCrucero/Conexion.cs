@@ -107,6 +107,43 @@ namespace FrbaCrucero
             return comando;
         }
 
+        public int InsertarCustomizado(string tabla, Dictionary<string, object> data)
+        {
+            try
+            {
+                string comandoString = string.Copy(comandoInsert) + tabla + " (";
+                data.Keys.ToList().ForEach(k => comandoString += k + ", ");
+                comandoString = comandoString.Substring(0, comandoString.Length - 2) + ") VALUES (";
+                data.Keys.ToList().ForEach(k => comandoString += "@" + k + ", ");
+                comandoString = comandoString.Substring(0, comandoString.Length - 2) + "); SELECT SCOPE_IDENTITY();";
+                using (SqlConnection sqlConnection = new SqlConnection(conectionString))
+                {
+                    sqlConnection.Open();
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = sqlConnection;
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = comandoString;
+                        foreach (KeyValuePair<string, object> entry in data)
+                        {
+                            command.Parameters.AddWithValue("@" + entry.Key, entry.Value);
+                        }
+                        //Esto es un fix para que no tire error la pantalla, pero no estoy seguro si debe retornar 1 o -1
+                        if (DBNull.Value.Equals(command.ExecuteScalar())) { return -1; }
+                        else { return Convert.ToInt32(command.ExecuteScalar()); }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //Esto para poder ver el error
+                MessageBox.Show(e.ToString());
+                return -1;
+
+            }
+
+        }
 
         //Recibe el nombre de la tabla sacada de Conexion.Tabla, y un diccionario con el par 
         //("nombre de columna en BD", dato a insertar)
@@ -133,10 +170,11 @@ namespace FrbaCrucero
                             command.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                         }
                         //Esto es un fix para que no tire error la pantalla, pero no estoy seguro si debe retornar 1 o -1
-                        if (DBNull.Value.Equals(command.ExecuteScalar())) { return -1; }
-                        else { 
-                        return Convert.ToInt32(command.ExecuteScalar()); }
-
+                       /* if (DBNull.Value.Equals(command.ExecuteScalar())) { return -1; }
+                        else return 1;//return Convert.ToInt32(command.ExecuteScalar()); 
+                        */
+                        return Convert.ToInt32(command.ExecuteScalar());
+                        
                     }
                 }
             }
