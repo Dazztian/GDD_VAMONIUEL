@@ -344,7 +344,7 @@ GO
  INSERT INTO VAMONIUEL.[Cliente]
 (	[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION],[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC])--, [ID_Usuario])
 select  distinct[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION] ,[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC]
--- ,(select ID from ESKHERE.Usuario where CAST([Cli_Dni] as nvarchar(50)) = Usuario)
+-- ,(select ID from VAMONIUEL.Usuario where CAST([Cli_Dni] as nvarchar(50)) = Usuario)
 from gd_esquema.Maestra
 where [Cli_Dni]  IS NOT NULL
 
@@ -592,6 +592,35 @@ BEGIN
 		END
 END
 GO
+CREATE VIEW VAMONIUEL.Roles_usuario
+AS
+SELECT u.Usuario, r.Nombre as nombre_rol, r.ID as rol_id FROM VAMONIUEL.Usuario u 
+join VAMONIUEL.Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
+join VAMONIUEL.Rol r on r.ID = ru.ID_ROL 
+WHERE r.Habilitado = 1
+GO
+CREATE VIEW [VAMONIUEL].idClientexNombreUsuario
+AS
+SELECT c.ID idCliente , u.Usuario nombreUsr 
+	FROM [VAMONIUEL].Usuario u join [VAMONIUEL].Cliente c 
+		on(u.ID = c.ID_Usuario)
+GO
+CREATE VIEW [VAMONIUEL].funciones_usuarios
+AS
+SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [VAMONIUEL].Usuario u 
+join [VAMONIUEL].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
+join [VAMONIUEL].Rol r on r.ID = ru.ID_ROL 
+join [VAMONIUEL].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
+join [VAMONIUEL].Funcion f on f.ID = rf.ID_Funcion 
+WHERE r.Habilitado = 1
+GO
+/*
+CREATE VIEW [VAMONIUEL].idClientexNombreUsuario_y_numTarjeta_para_compra
+AS
+SELECT c.ID idCliente , u.Usuario nombreUsr, c.numero_tarjeta_credito 
+	FROM [VAMONIUEL].Usuario u join [VAMONIUEL].Cliente c 
+		on(u.ID = c.ID_Usuario)
+GO*/
 
 ----Camino 'bueno'
 --INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),4798)

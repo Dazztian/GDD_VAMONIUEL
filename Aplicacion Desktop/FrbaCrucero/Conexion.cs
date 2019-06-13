@@ -93,6 +93,8 @@ namespace FrbaCrucero
             public static string TipoCabina { get { return "VAMONIUEL.TipoCabina"; } }
             public static string Estado_del_crucero { get { return "VAMONIUEL.Estado_del_Crucero"; } }
             public static string RolesUsuario { get { return "[VAMONIUEL].Roles_usuario"; } }
+            public static string idDelCliente { get { return "[VAMONIUEL].idClientexNombreUsuario"; } }
+            public static string FuncionesUsuarios { get { return "[ESKHERE].funciones_usuarios"; } }
             
         }
 
