@@ -92,6 +92,7 @@ namespace FrbaCrucero
             public static string Marca { get { return "VAMONIUEL.Marca"; } }
             public static string TipoCabina { get { return "VAMONIUEL.TipoCabina"; } }
             public static string Estado_del_crucero { get { return "VAMONIUEL.Estado_del_Crucero"; } }
+            public static string RolesUsuario { get { return "[VAMONIUEL].Roles_usuario"; } }
             
         }
 
@@ -390,6 +391,70 @@ namespace FrbaCrucero
         {
             cambiarHabilitacion(tabla, id, "1");
         }
+        public bool ActualizarContraseña(string contraseña, string usuario)
+        {
+            string comandoString = string.Copy(comandoUpdate) + Tabla.Usuario + " SET contrasenia = HASHBYTES('SHA2_256', @contrasenia), contrasena_autogenerada = 0 WHERE usuario = @usuario";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(conectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = comandoString;
+                        command.Parameters.AddWithValue("@contrasenia", contraseña);
+                        command.Parameters.AddWithValue("@usuario", usuario);
+
+                        command.ExecuteNonQuery();
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool ValidarLogin(string usuario, string contraseña, ref bool contraseñaAutogenerada)
+        {
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "[VAMONIUEL].existe_usuario";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlParameter parameter1 = new SqlParameter("@Usuario", SqlDbType.NVarChar);
+                    parameter1.Direction = ParameterDirection.Input;
+                    parameter1.Value = usuario;
+                    SqlParameter parameter2 = new SqlParameter("@Contrasenia", SqlDbType.NVarChar);
+                    parameter2.Direction = ParameterDirection.Input;
+                    parameter2.Value = contraseña;
+                    SqlParameter parameter3 = new SqlParameter("@resultado", SqlDbType.Bit);
+                    parameter3.Direction = ParameterDirection.Output;
+                    SqlParameter parameter4 = new SqlParameter("@autogenerada", SqlDbType.Bit);
+                    parameter4.Direction = ParameterDirection.Output;
+
+                    command.Parameters.Add(parameter1);
+                    command.Parameters.Add(parameter2);
+                    command.Parameters.Add(parameter3);
+                    command.Parameters.Add(parameter4);
+
+                    command.ExecuteNonQuery();
+
+                    bool resultado = Convert.ToBoolean(command.Parameters["@resultado"].Value);
+                    if (resultado)
+                        contraseñaAutogenerada = Convert.ToBoolean(command.Parameters["@autogenerada"].Value);
+                    return resultado;
+                }
+            }
+        }
+
 
     }
 }
