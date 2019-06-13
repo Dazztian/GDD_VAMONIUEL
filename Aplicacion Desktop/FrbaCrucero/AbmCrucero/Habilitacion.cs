@@ -41,6 +41,10 @@ namespace FrbaCrucero.AbmCrucero
             {
                 txtEstado.Text = "Fuera de servicio";
             }
+            txtId.ReadOnly = true;
+            txtMarca.ReadOnly = true;
+            txtModelo.ReadOnly = true;
+            txtEstado.ReadOnly = true;
         }
 
         private void btnFueraDeServicio_Click(object sender, EventArgs e)
