@@ -91,6 +91,7 @@
             // 
             // cmbAño
             // 
+            this.cmbAño.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAño.FormattingEnabled = true;
             this.cmbAño.Location = new System.Drawing.Point(145, 129);
             this.cmbAño.Name = "cmbAño";
@@ -99,6 +100,7 @@
             // 
             // cmbSemestre
             // 
+            this.cmbSemestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSemestre.FormattingEnabled = true;
             this.cmbSemestre.Location = new System.Drawing.Point(606, 129);
             this.cmbSemestre.Name = "cmbSemestre";
