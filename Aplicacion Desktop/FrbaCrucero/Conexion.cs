@@ -111,6 +111,18 @@ namespace FrbaCrucero
                 comando = comando.Substring(0, comando.Length - 4);
                 return comando;
             }
+            public int logueoAdmin()
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(conectionString))
+                using (var command = 
+                    new SqlCommand("VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin", sqlConnection)
+                {CommandType = CommandType.StoredProcedure })
+                {
+                    sqlConnection.Open();
+                    command.ExecuteNonQuery();
+                }
+                return 1;
+            }
 
             public int InsertarCustomizado(string tabla, Dictionary<string, object> data)
             {

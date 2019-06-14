@@ -44,7 +44,10 @@ namespace FrbaCrucero
             }
             int cantAccesos = Convert.ToInt32(resul["cant_accesos_fallidos"][0]);
             if (Conexion.getInstance().ValidarLogin(txtusuario.Text, txtContraseña.Text, ref cambioContraseña))
-            {
+            {//SI ENTRA ACA ES XQ EL LOGIN FUE EXITOSO
+                Conexion.getInstance().logueoAdmin();//tamo probando
+
+
                 if (cambioContraseña)
                 {
                     if (new Registro_de_Usuario.CambiarContraseña(txtusuario.Text).ShowDialog() != DialogResult.OK)

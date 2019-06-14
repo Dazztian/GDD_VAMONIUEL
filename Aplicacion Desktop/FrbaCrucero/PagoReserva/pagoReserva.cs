@@ -158,5 +158,11 @@ namespace FrbaCrucero.PagoReserva
                 }
             else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE NO INGRESASTE CODIGO DE RESERVA "); }
         }
+
+        private void txt_codigo_reserva_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsNumber(e.KeyChar) && e.KeyChar != (char)8)
+                e.Handled = true;
+        }
     }
 }

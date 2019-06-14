@@ -546,7 +546,12 @@ FROM
 	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
 ORDER BY 5 DESC
 go
+<<<<<<< HEAD
+
+--VIEW para obtener el año minimo
+=======
 --VIEW para obtener el aÃ±o minimo
+>>>>>>> 487316f45b4e03199259e0aea843a1c237d87d44
 go
 CREATE VIEW VAMONIUEL.anio_minimo_de_viaje
 AS
@@ -675,26 +680,25 @@ GO
 
 --delete from VAMONIUEL.PAGO
 
---Prueba para punto 9, pago de reserva
+----------------------------------------Pruebas para punto 9, pago de reserva--------------------------------------------------------
 
-INSERT INTO [VAMONIUEL].[VIAJE]
-([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
-VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
+--INSERT INTO [VAMONIUEL].[VIAJE]
+--([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
+--VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
 
+--select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
 
-select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
+--INSERT INTO [VAMONIUEL].[PASAJE]
+--([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
+--VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
 
-INSERT INTO [VAMONIUEL].[PASAJE]
-([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
-VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
+--select * from VAMONIUEL.PASAJE where ID_Viaje=4957
 
-select * from VAMONIUEL.PASAJE where ID_Viaje=4957
+--INSERT INTO [VAMONIUEL].[RESERVA]
+--([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
+--VALUES (12,getdate(),1,368694)
 
-INSERT INTO [VAMONIUEL].[RESERVA]
-([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
-VALUES (12,getdate(),1,368694)
+--SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
 
-SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
-
-delete  from VAMONIUEL.PAGO
-select * from VAMONIUEL.PAGO
+--delete  from VAMONIUEL.PAGO
+--select * from VAMONIUEL.PAGO
