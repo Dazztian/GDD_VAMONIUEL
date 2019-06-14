@@ -10,5 +10,6 @@ namespace FrbaCrucero
     class ConfigurationHelper
     {
         public static string ConnectionString { get { return Properties.Settings.Default.ConnectionString; } }
+        public static DateTime fechaActual { get { return Properties.Settings.Default.MyDate; } }
     }
 }
