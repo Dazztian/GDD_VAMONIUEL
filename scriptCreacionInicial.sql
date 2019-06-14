@@ -511,13 +511,13 @@ GO
 GO
 CREATE VIEW VAMONIUEL.recorridos_mayor_pasajes_comprados
 AS
-select top 5 r.ID, r.RECORRIDO_CODIGO , count(*) cantidad_pasajes_comprados
+select top 5 r.ID, r.RECORRIDO_CODIGO , v.FechaInicio, count(*) cantidad_pasajes_comprados
 from VAMONIUEL.VIAJE v join VAMONIUEL.RECORRIDO r ON (v.ID_Recorrido = r.ID)
 	join VAMONIUEL.PASAJE p ON (p.ID_Viaje = v.ID)
 --where exists (select ID_Pasaje from VAMONIUEL.PAGO where ID_Pasaje = p.ID) --esta linea es la que considera a la tabla pagos
 where  p.PASAJE_FECHA_COMPRA IS NOT NULL
-GROUP BY r.ID, r.RECORRIDO_CODIGO
-ORDER BY 3 DESC 
+GROUP BY r.ID, r.RECORRIDO_CODIGO,v.FechaInicio
+ORDER BY 4 DESC 
 GO
 
 --Top 5 de los recorridos con más cabinas libres en cada uno de los viajes realizados.
@@ -525,15 +525,15 @@ GO
 CREATE VIEW VAMONIUEL.recorridos_mas_cabinas_libres_xviaje
 as
 select 
-	top 5 r.ID, r.RECORRIDO_CODIGO , v.ID viaje, v.Origen, v.Destino, count(*) cantidad_cabinas_libres
+	top 5 r.ID, r.RECORRIDO_CODIGO , v.ID viaje, v.Origen, v.Destino, v.FechaInicio, count(*) cantidad_cabinas_libres
 from
 	VAMONIUEL.RECORRIDO r join VAMONIUEL.VIAJE v on (r.ID = v.ID_Recorrido) 
 	join VAMONIUEL.CabinaXViaje cxv on (v.ID = cxv.ID_Viaje)
 where
 	cxv.ocupada=0 
 GROUP BY 
-	r.ID, r.RECORRIDO_CODIGO, v.ID, v.Origen, v.Destino
-ORDER BY 6 DESC 
+	r.ID, r.RECORRIDO_CODIGO, v.ID, v.Origen, v.Destino,v.FechaInicio
+ORDER BY 7 DESC 
 GO
 
 --Top 5 de los cruceros con mayor cantidad de días fuera de servicio.
@@ -541,9 +541,10 @@ GO
 CREATE VIEW VAMONIUEL.cruceros_mayor_cant_dias_fuera_servicio
 as
 select
-	top 5 cr.ID, cr.CRUCERO_MODELO Modelo, cr.CRU_FABRICANTE Fabricante, (DATEDIFF(day, ec.Fecha_fuera_de_servicio, ec.Fecha_reinicio_de_servicio)) cantidad_dias_fuera_de_servicio
+	top 5 cr.ID, cr.CRUCERO_MODELO Modelo, cr.CRU_FABRICANTE Fabricante, ec.Fecha_fuera_de_servicio, (DATEDIFF(day, ec.Fecha_fuera_de_servicio, ec.Fecha_reinicio_de_servicio)) cantidad_dias_fuera_de_servicio
 FROM
 	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
+ORDER BY 5 DESC
 go
 
 --VIEW para obtener el año minimo
