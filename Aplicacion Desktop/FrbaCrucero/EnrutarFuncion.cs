@@ -50,7 +50,7 @@ namespace FrbaCrucero
                 new PagoReserva.pagoReserva().Show();
                 break;
                 case Funcion.LISTADO_ESTADISTICO://PENDIENTE DE HACER FEDE HAZAMA
-                new ListadoEstadistico.Form1().Show();
+                new ListadoEstadistico.ListadoEstadistico().Show();
                 break;
 
             }
