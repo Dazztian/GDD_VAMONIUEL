@@ -28,16 +28,15 @@ namespace FrbaCrucero.AbmRol
 
         private void ModificarRol_Load(object sender, EventArgs e)
         {
-            //TO DO
             //obtengo funciones
-            Dictionary<string, List<object>> resul = Conexion.getInstance().ConsultaPlana(/*Conexion.Tabla.Funcion*/"", new List<string>(new string[] { "id", "nombre" }), null);
+            Dictionary<string, List<object>> resul = Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Funcion, new List<string>(new string[] { "id", "nombre" }), null);
             Dictionary<string, string> filtros = new Dictionary<string, string>();
             //cargo todas las funciones
             for (int i = 1; i <= resul["nombre"].Count; i++)
             {
                 filtros["id_rol"] = Conexion.Filtro.Exacto(idRol.ToString());
                 filtros["id_funcion"] = Conexion.Filtro.Exacto(i.ToString());
-                checkedListBoxFuncionalidades.Items.Add(resul["nombre"][i - 1], (Conexion.getInstance().existeRegistro(/*Conexion.Tabla.RolXFuncion*/"", new List<string>(new string[] { "id_rol", "id_funcion" }), filtros)));
+                checkedListBoxFuncionalidades.Items.Add(resul["nombre"][i - 1], (Conexion.getInstance().existeRegistro(Conexion.Tabla.Rol_X_Funcion, new List<string>(new string[] { "id_rol", "id_funcion" }), filtros)));
             }
             //marco funciones existentes al ListBox
             for (int i = 1; i <= checkedListBoxFuncionalidades.Items.Count; i++)
@@ -87,7 +86,7 @@ namespace FrbaCrucero.AbmRol
             foreach (int v in aInsertar)
             {
                 datos["id_funcion"] = v;
-                if (!Conexion.getInstance().InsertarTablaIntermedia(/*Conexion.Tabla.RolXFuncion*/"", "id_rol", "id_funcion", idRol, v))
+                if (!Conexion.getInstance().InsertarTablaIntermedia(Conexion.Tabla.Rol_X_Funcion, "id_rol", "id_funcion", idRol, v))
                 {
                     DialogResult = DialogResult.Abort;
                     return;
@@ -97,7 +96,7 @@ namespace FrbaCrucero.AbmRol
             foreach (int v in aBorrar)
             {
                 datos["id_funcion"] = v;
-                if (!Conexion.getInstance().eliminarTablaIntermedia(/*Conexion.Tabla.RolXFuncion*/"", "id_rol", "id_funcion", idRol, v))
+                if (!Conexion.getInstance().eliminarTablaIntermedia(Conexion.Tabla.Rol_X_Funcion, "id_rol", "id_funcion", idRol, v))
                 {
                     DialogResult = DialogResult.Abort;
                     return;
