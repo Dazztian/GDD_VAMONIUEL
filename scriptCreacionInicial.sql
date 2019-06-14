@@ -546,12 +546,8 @@ FROM
 	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
 ORDER BY 5 DESC
 go
-<<<<<<< HEAD
 
 --VIEW para obtener el año minimo
-=======
---VIEW para obtener el aÃ±o minimo
->>>>>>> 487316f45b4e03199259e0aea843a1c237d87d44
 go
 CREATE VIEW VAMONIUEL.anio_minimo_de_viaje
 AS
