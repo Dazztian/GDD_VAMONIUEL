@@ -34,23 +34,21 @@ namespace FrbaCrucero.AbmRol
                 MessageBox.Show("Se debe ingresar un nombre");
                 return;
             }
-            //TO DO
+
+
             List<string> columnas = new List<string>();
             columnas.Add("Nombre");
             Dictionary<string, string> filtrosNom = new Dictionary<string, string>();
             filtrosNom.Add("Nombre", Conexion.Filtro.Exacto(txtNombre.Text));
-            
-            //checkeo existencia del rol
-            if (!Conexion.getInstance().existeRegistro(/*tabla rol*/"", columnas, filtrosNom))
-            {   
-                // List<int> funciones representa las ids de las funciones
-                //Cambiar por List<Funcion> (funcion -> enum)
-                List<int> funciones = new List<int>();
+
+            if (!Conexion.getInstance().existeRegistro(Conexion.Tabla.Rol, columnas, filtrosNom))
+            {
+                List<Funcion> funciones = new List<Funcion>();
                 for (int i = 0; i < checkedListBoxFuncionalidades.Items.Count; i++)
                 {
                     if (checkedListBoxFuncionalidades.GetItemChecked(i))
                     {
-                        funciones.Add((int)i + 1);
+                        funciones.Add((Funcion)i + 1);
                     }
                 }
                 if (funciones.Count == 0)
@@ -60,11 +58,9 @@ namespace FrbaCrucero.AbmRol
                 }
                 Dictionary<string, object> datos = new Dictionary<string, object>();
                 datos["nombre"] = txtNombre.Text;
-                //inserta nuevo rol
-                //int idinsertada = Conexion.getInstance().Insertar(Conexion.Tabla.Rol, datos);
+                int idinsertada = Conexion.getInstance().Insertar(Conexion.Tabla.Rol, datos);
                 foreach (int f in funciones)
-                    //inserta nuevo rolXfuncion
-                    //Conexion.getInstance().InsertarTablaIntermedia(Conexion.Tabla.RolXFuncion, "id_rol", "id_funcion", idinsertada, f);
+                    Conexion.getInstance().InsertarTablaIntermedia(Conexion.Tabla.Rol_X_Funcion, "id_rol", "id_funcion", idinsertada, f);
                 MessageBox.Show("Rol creado exitosamente");
                 foreach (int i in checkedListBoxFuncionalidades.CheckedIndices)
                 {
@@ -82,6 +78,8 @@ namespace FrbaCrucero.AbmRol
         {
             //obtener funciones de la tabla funcion
             //cargarlas en el listBox
+            Dictionary<string, List<object>> resul = Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Funcion, new List<string>(new string[] { "nombre" }), null);
+            resul["nombre"].ForEach(o => checkedListBoxFuncionalidades.Items.Add(o.ToString(), false));
         }
     }
 }
