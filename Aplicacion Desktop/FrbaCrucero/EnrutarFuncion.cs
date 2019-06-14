@@ -32,13 +32,13 @@ namespace FrbaCrucero
             switch (funcion[index])
             {
                 case Funcion.ABM_Crucero:
-                new AbmCrucero.CrearCrucero().Show(); 
+                new AbmCrucero.Cruceros().Show(); 
                 break;
                 case Funcion.ABM_Recorrido:
-                new AbmRecorrido.CrearRecorrido().Show();
+                new AbmRecorrido.Recorridos().Show();
                 break;
                 case Funcion.ABM_ROL:
-                new AbmRol.CrearRol().Show();
+                new AbmRol.Roles().Show();
                 break;
                 case Funcion.Compra_Reserva_Pasaje://PENDIENTE DE HACER FEDE HAZAMA
                 new CompraPasaje.Form1().Show();

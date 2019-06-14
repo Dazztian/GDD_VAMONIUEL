@@ -35,6 +35,7 @@ namespace FrbaCrucero.AbmRol
         private void Roles_Load(object sender, EventArgs e)
         {
             //cargar tabla roles al dgv
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Rol, ref dataGridViewRoles, null);
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -46,11 +47,15 @@ namespace FrbaCrucero.AbmRol
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
             //habilitar rol seleccionado
+            Conexion.getInstance().habilitar(Conexion.Tabla.Rol ,Convert.ToInt32(dataGridViewRoles.SelectedCells[0].OwningRow.Cells["id"].Value));
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Rol, ref dataGridViewRoles, null);
         }
 
         private void btnDeshabilitar_Click(object sender, EventArgs e)
         {
             //deshabilitar rol seleccionado
+            Conexion.getInstance().deshabilitar(Conexion.Tabla.Rol, Convert.ToInt32(dataGridViewRoles.SelectedCells[0].OwningRow.Cells["id"].Value));
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Rol, ref dataGridViewRoles, null);
         }
     }
 }
