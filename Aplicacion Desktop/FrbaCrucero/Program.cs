@@ -23,6 +23,9 @@ namespace FrbaCrucero
             //FormInicial = new Login();
             //Application.Run(FormInicial);
             //Application.Run(new Login());
+            //Application.Run(new Login());
+            Application.Run(new PantallaInicial());
+
         }
     }
 }
