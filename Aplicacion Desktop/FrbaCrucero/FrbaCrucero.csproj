@@ -149,6 +149,12 @@
     <Compile Include="CompraReservaPasaje\CompraReservaPasaje.Designer.cs">
       <DependentUpon>CompraReservaPasaje.cs</DependentUpon>
     </Compile>
+    <Compile Include="CompraReservaPasaje\ElegirCabina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\ElegirCabina.Designer.cs">
+      <DependentUpon>ElegirCabina.cs</DependentUpon>
+    </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConfigurationHelper.cs" />
     <Compile Include="EnrutarFuncion.cs">
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CompraReservaPasaje\CompraReservaPasaje.resx">
       <DependentUpon>CompraReservaPasaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompraReservaPasaje\ElegirCabina.resx">
+      <DependentUpon>ElegirCabina.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EnrutarFuncion.resx" />
     <EmbeddedResource Include="EnrutarRoles.resx" />

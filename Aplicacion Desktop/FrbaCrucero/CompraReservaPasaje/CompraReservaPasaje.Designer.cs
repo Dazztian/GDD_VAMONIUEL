@@ -107,6 +107,7 @@
             // 
             // cmbViaje
             // 
+            this.cmbViaje.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbViaje.FormattingEnabled = true;
             this.cmbViaje.Location = new System.Drawing.Point(116, 541);
             this.cmbViaje.Name = "cmbViaje";
@@ -130,6 +131,7 @@
             this.btnElegirviaje.TabIndex = 9;
             this.btnElegirviaje.Text = "Elegir viaje";
             this.btnElegirviaje.UseVisualStyleBackColor = true;
+            this.btnElegirviaje.Click += new System.EventHandler(this.btnElegirviaje_Click);
             // 
             // btnBuscarviajes
             // 
