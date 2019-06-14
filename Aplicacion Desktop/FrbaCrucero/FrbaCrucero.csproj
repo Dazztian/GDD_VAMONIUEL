@@ -143,11 +143,35 @@
     <Compile Include="AbmRol\Roles.Designer.cs">
       <DependentUpon>Roles.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompraReservaPasaje\Form1.cs">
+    <Compile Include="CompraReservaPasaje\Compra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompraReservaPasaje\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CompraReservaPasaje\Compra.Designer.cs">
+      <DependentUpon>Compra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\CompraReservaPasaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\CompraReservaPasaje.Designer.cs">
+      <DependentUpon>CompraReservaPasaje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\RegistrarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\RegistrarCliente.Designer.cs">
+      <DependentUpon>RegistrarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\Reserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\Reserva.Designer.cs">
+      <DependentUpon>Reserva.cs</DependentUpon>
+	</Compile>
+    <Compile Include="CompraReservaPasaje\ElegirCabina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\ElegirCabina.Designer.cs">
+      <DependentUpon>ElegirCabina.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConfigurationHelper.cs" />
@@ -249,6 +273,18 @@
     <EmbeddedResource Include="AbmRol\Roles.resx">
       <DependentUpon>Roles.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompraReservaPasaje\CompraReservaPasaje.resx">
+      <DependentUpon>CompraReservaPasaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompraReservaPasaje\RegistrarCliente.resx">
+      <DependentUpon>RegistrarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompraReservaPasaje\Reserva.resx">
+      <DependentUpon>Reserva.cs</DependentUpon>
+	</EmbeddedResource>
+    <EmbeddedResource Include="CompraReservaPasaje\ElegirCabina.resx">
+      <DependentUpon>ElegirCabina.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EnrutarFuncion.resx" />
     <EmbeddedResource Include="EnrutarRoles.resx" />

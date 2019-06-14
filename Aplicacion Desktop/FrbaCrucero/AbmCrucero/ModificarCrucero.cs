@@ -32,16 +32,7 @@ namespace FrbaCrucero.AbmCrucero
             comboBoxMarca.DisplayMember = "Marca";
             comboBoxMarca.SelectedValue = datosCrucero.Rows[0].ItemArray[1].ToString();
             txtModelo.Text = datosCrucero.Rows[0].ItemArray[2].ToString();
-            if (Convert.ToBoolean(datosCrucero.Rows[0].ItemArray[4]))
-            {
-                txtEstado.Text = "Habilitado";
-            }
-            else
-            {
-                txtEstado.Text = "Fuera de servicio";
-            }
             txtId.ReadOnly = true;
-            txtEstado.ReadOnly = true;
             Dictionary<string, string> filtroCabina = new Dictionary<string, string>();
             filtroCabina.Add("ID_Crucero", Conexion.Filtro.Exacto(idCrucero.ToString()));
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Cabina, ref dataGridViewCabinas, filtroCabina);

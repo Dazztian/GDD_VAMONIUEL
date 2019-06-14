@@ -30,7 +30,7 @@ namespace FrbaCrucero
 
         private void btn_compra_reserva_pasaje_Click(object sender, EventArgs e)
         {
-            new CompraPasaje.Form1().Show();
+            new CompraPasaje.CompraReservaPasaje().Show();
         }
     }
 }

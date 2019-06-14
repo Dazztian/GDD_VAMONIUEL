@@ -29,11 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtEstado = new System.Windows.Forms.TextBox();
             this.txtModelo = new System.Windows.Forms.TextBox();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.txtId = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,11 +45,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtEstado);
             this.groupBox1.Controls.Add(this.txtModelo);
             this.groupBox1.Controls.Add(this.txtMarca);
             this.groupBox1.Controls.Add(this.txtId);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
@@ -62,47 +58,31 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crucero";
             // 
-            // txtEstado
-            // 
-            this.txtEstado.Location = new System.Drawing.Point(289, 90);
-            this.txtEstado.Name = "txtEstado";
-            this.txtEstado.Size = new System.Drawing.Size(125, 20);
-            this.txtEstado.TabIndex = 7;
-            // 
             // txtModelo
             // 
-            this.txtModelo.Location = new System.Drawing.Point(289, 64);
+            this.txtModelo.Location = new System.Drawing.Point(289, 79);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(125, 20);
             this.txtModelo.TabIndex = 6;
             // 
             // txtMarca
             // 
-            this.txtMarca.Location = new System.Drawing.Point(289, 38);
+            this.txtMarca.Location = new System.Drawing.Point(289, 53);
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(125, 20);
             this.txtMarca.TabIndex = 5;
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(289, 13);
+            this.txtId.Location = new System.Drawing.Point(289, 28);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(125, 20);
             this.txtId.TabIndex = 4;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(154, 93);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Estado actual";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(154, 67);
+            this.label3.Location = new System.Drawing.Point(154, 82);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 2;
@@ -111,7 +91,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(154, 41);
+            this.label2.Location = new System.Drawing.Point(154, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 1;
@@ -120,7 +100,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(154, 16);
+            this.label1.Location = new System.Drawing.Point(154, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 0;
@@ -188,11 +168,9 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtEstado;
         private System.Windows.Forms.TextBox txtModelo;
         private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.TextBox txtId;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

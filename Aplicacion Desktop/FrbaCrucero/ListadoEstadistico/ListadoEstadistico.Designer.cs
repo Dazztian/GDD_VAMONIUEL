@@ -42,7 +42,7 @@
             // 
             // btnTop5Pasajes
             // 
-            this.btnTop5Pasajes.Location = new System.Drawing.Point(96, 12);
+            this.btnTop5Pasajes.Location = new System.Drawing.Point(96, 37);
             this.btnTop5Pasajes.Name = "btnTop5Pasajes";
             this.btnTop5Pasajes.Size = new System.Drawing.Size(90, 63);
             this.btnTop5Pasajes.TabIndex = 0;
@@ -52,7 +52,7 @@
             // 
             // btnTop5CabinasLibres
             // 
-            this.btnTop5CabinasLibres.Location = new System.Drawing.Point(374, 12);
+            this.btnTop5CabinasLibres.Location = new System.Drawing.Point(374, 37);
             this.btnTop5CabinasLibres.Name = "btnTop5CabinasLibres";
             this.btnTop5CabinasLibres.Size = new System.Drawing.Size(89, 63);
             this.btnTop5CabinasLibres.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             // btnTop5CrucerosDeshabilitados
             // 
-            this.btnTop5CrucerosDeshabilitados.Location = new System.Drawing.Point(675, 12);
+            this.btnTop5CrucerosDeshabilitados.Location = new System.Drawing.Point(675, 37);
             this.btnTop5CrucerosDeshabilitados.Name = "btnTop5CrucerosDeshabilitados";
             this.btnTop5CrucerosDeshabilitados.Size = new System.Drawing.Size(82, 73);
             this.btnTop5CrucerosDeshabilitados.TabIndex = 2;
@@ -91,16 +91,18 @@
             // 
             // cmbAño
             // 
+            this.cmbAño.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAño.FormattingEnabled = true;
-            this.cmbAño.Location = new System.Drawing.Point(145, 129);
+            this.cmbAño.Location = new System.Drawing.Point(140, 140);
             this.cmbAño.Name = "cmbAño";
             this.cmbAño.Size = new System.Drawing.Size(121, 21);
             this.cmbAño.TabIndex = 5;
             // 
             // cmbSemestre
             // 
+            this.cmbSemestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSemestre.FormattingEnabled = true;
-            this.cmbSemestre.Location = new System.Drawing.Point(606, 129);
+            this.cmbSemestre.Location = new System.Drawing.Point(601, 140);
             this.cmbSemestre.Name = "cmbSemestre";
             this.cmbSemestre.Size = new System.Drawing.Size(121, 21);
             this.cmbSemestre.TabIndex = 6;
@@ -108,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(113, 132);
+            this.label1.Location = new System.Drawing.Point(108, 143);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 7;
@@ -117,7 +119,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(549, 132);
+            this.label2.Location = new System.Drawing.Point(544, 143);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 8;

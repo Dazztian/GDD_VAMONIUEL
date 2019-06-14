@@ -17,6 +17,7 @@ namespace FrbaCrucero
         public Login()
         {
             InitializeComponent();
+            btnRegistrar.Hide();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

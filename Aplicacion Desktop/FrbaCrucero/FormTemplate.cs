@@ -94,7 +94,7 @@ namespace FrbaCrucero
         {
             flag = true;
             Close();
-            new CompraPasaje.Form1().Show();
+            new CompraPasaje.CompraReservaPasaje().Show();
         }
         private void Generacion_Viaje_Click(object sender, EventArgs e)
         {

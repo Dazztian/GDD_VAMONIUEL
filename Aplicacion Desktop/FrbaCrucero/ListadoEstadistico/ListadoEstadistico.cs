@@ -27,9 +27,10 @@ namespace FrbaCrucero.ListadoEstadistico
                 cmbAño.Items.Add(año);
             }
             cmbAño.Text = añoactual.ToString();
-            cmbSemestre.Text = "1";
+
             cmbSemestre.Items.Add("1");
             cmbSemestre.Items.Add("2");
+            cmbSemestre.Text = "1";
         }
 
         private void ListadoEstadistico_Load(object sender, EventArgs e)

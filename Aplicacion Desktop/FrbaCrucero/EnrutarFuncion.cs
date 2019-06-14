@@ -41,7 +41,7 @@ namespace FrbaCrucero
                 new AbmRol.Roles().Show();
                 break;
                 case Funcion.Compra_Reserva_Pasaje://PENDIENTE DE HACER FEDE HAZAMA
-                new CompraPasaje.Form1().Show();
+                new CompraPasaje.CompraReservaPasaje().Show();
                 break;
                 case Funcion.Generacion_Viaje:
                 new GeneracionViaje.Form_generar_viaje().Show();
