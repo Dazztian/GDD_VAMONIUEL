@@ -544,8 +544,10 @@ select
 	top 5 cr.ID, cr.CRUCERO_MODELO Modelo, cr.CRU_FABRICANTE Fabricante, (DATEDIFF(day, ec.Fecha_fuera_de_servicio, ec.Fecha_reinicio_de_servicio)) cantidad_dias_fuera_de_servicio
 FROM
 	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
+go
 
 --VIEW para obtener el año minimo
+go
 CREATE VIEW VAMONIUEL.anios_minimo_de_viaje
 AS
 SELECT MIN(YEAR(v.FechaInicio)) anio
