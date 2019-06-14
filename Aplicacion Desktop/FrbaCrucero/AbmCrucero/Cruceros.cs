@@ -32,9 +32,10 @@ namespace FrbaCrucero.AbmCrucero
             if (!string.IsNullOrEmpty(comboBoxMarca.Text))
                 filtros.Add("CRU_FABRICANTE", Conexion.Filtro.Exacto(comboBoxMarca.Text));
             if (!string.IsNullOrEmpty(txtModelo.Text))
-                filtros.Add("CRUCERO_MODELO", Conexion.Filtro.Exacto(txtModelo.Text));
+                filtros.Add("CRUCERO_MODELO", Conexion.Filtro.Libre(txtModelo.Text));
             //lleno el dgv
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.CRUCERO, ref dataGridViewCruceros , filtros);
+            filtros.Clear();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)

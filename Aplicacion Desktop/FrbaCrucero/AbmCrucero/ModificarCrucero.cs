@@ -52,13 +52,10 @@ namespace FrbaCrucero.AbmCrucero
             Dictionary<string, object> modificacion = new Dictionary<string, object>();
             if (!comboBoxMarca.ToString().Equals(datosCrucero.Rows[0].ItemArray[1].ToString()))
             {
-                modificacion.Clear();
                 modificacion.Add("CRU_FABRICANTE", comboBoxMarca.SelectedValue.ToString());
-                //Conexion.getInstance().Modificar(idCrucero, Conexion.Tabla.CRUCERO, modificacion);
             }
             if (!txtModelo.Text.ToString().Equals(datosCrucero.Rows[0].ItemArray[2].ToString()))
             {
-                modificacion.Clear();
                 modificacion.Add("CRUCERO_MODELO", txtModelo.Text.ToString());
                 
             }

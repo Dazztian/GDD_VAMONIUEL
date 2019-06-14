@@ -145,12 +145,25 @@
     </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConfigurationHelper.cs" />
+    <Compile Include="EnrutarFuncion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnrutarFuncion.Designer.cs" />
+    <Compile Include="EnrutarRoles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnrutarRoles.Designer.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTemplate.Designer.cs" />
+    <Compile Include="Funcion.cs" />
     <Compile Include="GeneracionViaje\GenerarViaje.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +176,10 @@
     <Compile Include="ListadoEstadistico\ListadoEstadistico.Designer.cs">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs" />
     <Compile Include="PagoReserva\pagoReserva.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +188,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registro de Usuario\CambiarContraseña.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de Usuario\CambiarContraseña.Designer.cs" />
+    <Compile Include="Registro de Usuario\RegistroUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de Usuario\RegistroUsuario.Designer.cs" />
     <EmbeddedResource Include="AbmCrucero\BajaDefinitiva.resx">
       <DependentUpon>BajaDefinitiva.cs</DependentUpon>
     </EmbeddedResource>
@@ -216,12 +241,19 @@
       <DependentUpon>Roles.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="EnrutarFuncion.resx" />
+    <EmbeddedResource Include="EnrutarRoles.resx" />
+    <EmbeddedResource Include="FormTemplate.resx" />
     <EmbeddedResource Include="GeneracionViaje\GenerarViaje.resx">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
     </EmbeddedResource>
+
     <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
+
+    <EmbeddedResource Include="Login.resx" />
+
     <EmbeddedResource Include="PagoReserva\pagoReserva.resx">
       <DependentUpon>pagoReserva.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,6 +266,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro de Usuario\CambiarContraseña.resx" />
+    <EmbeddedResource Include="Registro de Usuario\RegistroUsuario.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

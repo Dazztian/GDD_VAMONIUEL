@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,7 +121,6 @@ namespace FrbaCrucero.AbmCrucero
                 tablaCabinas.Clear();
                 dataGridViewCabinas.DataSource = null;
                 cabinasIndividuales.Clear();
-                MessageBox.Show("Se ha creado un nuevo crucero");
             }
         }
 
@@ -145,6 +145,35 @@ namespace FrbaCrucero.AbmCrucero
                 cabinasIndividuales.Add(nuevaCabina);
                 i++;
             }
+        }
+
+        private void txtCantidadCabinas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsNumber(e.KeyChar) && e.KeyChar != (char)8)
+                e.Handled = true;
+        }
+
+        private void txtPisoCabina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsNumber(e.KeyChar) && e.KeyChar != (char)8)
+                e.Handled = true;
+        }
+
+        private void txtRecargoCabina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            CultureInfo cc = System.Threading.Thread.CurrentThread.CurrentCulture;
+
+            if (char.IsNumber(e.KeyChar) ||
+
+                e.KeyChar.ToString() == cc.NumberFormat.NumberDecimalSeparator
+
+                )
+
+                e.Handled = false;
+
+            else
+
+                e.Handled = true;
         }
     }
 }

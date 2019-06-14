@@ -95,8 +95,9 @@ namespace FrbaCrucero
             public static string top5Pasajes { get { return "VAMONIUEL.recorridos_mayor_pasajes_comprados"; } }
             public static string top5CabinasLibres{ get { return "VAMONIUEL.recorridos_mas_cabinas_libres_xviaje";}}
             public static string top5CrucerosDeshabilitados { get { return "VAMONIUEL.cruceros_mayor_cant_dias_fuera_servicio"; } }
-
-        }
+            public static string RolesUsuario { get { return "[VAMONIUEL].Roles_usuario"; } }
+            public static string idDelCliente { get { return "[VAMONIUEL].idClientexNombreUsuario"; } }
+            public static string FuncionesUsuarios { get { return "[VAMONIUEL].funciones_usuarios"; } }
 
         private string PonerFiltros(string comando, Dictionary<string, string> filtros)
         {
@@ -110,6 +111,43 @@ namespace FrbaCrucero
             return comando;
         }
 
+        public int InsertarCustomizado(string tabla, Dictionary<string, object> data)
+        {
+            try
+            {
+                string comandoString = string.Copy(comandoInsert) + tabla + " (";
+                data.Keys.ToList().ForEach(k => comandoString += k + ", ");
+                comandoString = comandoString.Substring(0, comandoString.Length - 2) + ") VALUES (";
+                data.Keys.ToList().ForEach(k => comandoString += "@" + k + ", ");
+                comandoString = comandoString.Substring(0, comandoString.Length - 2) + "); SELECT SCOPE_IDENTITY();";
+                using (SqlConnection sqlConnection = new SqlConnection(conectionString))
+                {
+                    sqlConnection.Open();
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = sqlConnection;
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = comandoString;
+                        foreach (KeyValuePair<string, object> entry in data)
+                        {
+                            command.Parameters.AddWithValue("@" + entry.Key, entry.Value);
+                        }
+                        //Esto es un fix para que no tire error la pantalla, pero no estoy seguro si debe retornar 1 o -1
+                        if (DBNull.Value.Equals(command.ExecuteScalar())) { return -1; }
+                        else { return Convert.ToInt32(command.ExecuteScalar()); }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //Esto para poder ver el error
+                MessageBox.Show(e.ToString());
+                return -1;
+
+            }
+
+        }
 
         //Recibe el nombre de la tabla sacada de Conexion.Tabla, y un diccionario con el par 
         //("nombre de columna en BD", dato a insertar)
@@ -135,11 +173,8 @@ namespace FrbaCrucero
                         {
                             command.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                         }
-                        //Esto es un fix para que no tire error la pantalla, pero no estoy seguro si debe retornar 1 o -1
-                        if (DBNull.Value.Equals(command.ExecuteScalar())) { return -1; }
-                        else { 
-                        return Convert.ToInt32(command.ExecuteScalar()); }
-
+                        return Convert.ToInt32(command.ExecuteScalar()); 
+                        
                     }
                 }
             }
@@ -359,6 +394,112 @@ namespace FrbaCrucero
         {
             cambiarHabilitacion(tabla, id, "1");
         }
+        public bool ActualizarContraseña(string contraseña, string usuario)
+        {
+            string comandoString = string.Copy(comandoUpdate) + Tabla.Usuario + " SET contrasenia = HASHBYTES('SHA2_256', @contrasenia), contrasena_autogenerada = 0 WHERE usuario = @usuario";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(conectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = comandoString;
+                        command.Parameters.AddWithValue("@contrasenia", contraseña);
+                        command.Parameters.AddWithValue("@usuario", usuario);
+
+                        command.ExecuteNonQuery();
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool ValidarLogin(string usuario, string contraseña, ref bool contraseñaAutogenerada)
+        {
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "[VAMONIUEL].existe_usuario";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlParameter parameter1 = new SqlParameter("@Usuario", SqlDbType.NVarChar);
+                    parameter1.Direction = ParameterDirection.Input;
+                    parameter1.Value = usuario;
+                    SqlParameter parameter2 = new SqlParameter("@Contrasenia", SqlDbType.NVarChar);
+                    parameter2.Direction = ParameterDirection.Input;
+                    parameter2.Value = contraseña;
+                    SqlParameter parameter3 = new SqlParameter("@resultado", SqlDbType.Bit);
+                    parameter3.Direction = ParameterDirection.Output;
+                    SqlParameter parameter4 = new SqlParameter("@autogenerada", SqlDbType.Bit);
+                    parameter4.Direction = ParameterDirection.Output;
+
+                    command.Parameters.Add(parameter1);
+                    command.Parameters.Add(parameter2);
+                    command.Parameters.Add(parameter3);
+                    command.Parameters.Add(parameter4);
+
+                    command.ExecuteNonQuery();
+
+                    bool resultado = Convert.ToBoolean(command.Parameters["@resultado"].Value);
+                    if (resultado)
+                        contraseñaAutogenerada = Convert.ToBoolean(command.Parameters["@autogenerada"].Value);
+                    return resultado;
+                }
+            }
+        }
+        public int InsertarUsuario(string usuario, string contraseña, string rol)
+        {
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    try
+                    {
+                        command.Connection = connection;
+                        command.CommandText = "[ESKHERE].insertar_usuario";
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        SqlParameter parameter1 = new SqlParameter("@usuario", SqlDbType.NVarChar);
+                        parameter1.Direction = ParameterDirection.Input;
+                        parameter1.Value = usuario;
+                        SqlParameter parameter2 = new SqlParameter("@contrasenia", SqlDbType.NVarChar);
+                        parameter2.Direction = ParameterDirection.Input;
+                        parameter2.Value = contraseña;
+                        SqlParameter parameter3 = new SqlParameter("@nombreTipo", SqlDbType.NVarChar);
+                        parameter3.Direction = ParameterDirection.Input;
+                        parameter3.Value = rol;
+                        SqlParameter retorno = new SqlParameter("@ReturnVal", SqlDbType.Int);
+                        retorno.Direction = ParameterDirection.ReturnValue;
+
+                        command.Parameters.Add(parameter1);
+                        command.Parameters.Add(parameter2);
+                        command.Parameters.Add(parameter3);
+                        command.Parameters.Add(retorno);
+
+                        command.ExecuteNonQuery();
+                        return Convert.ToInt32(retorno.Value);
+                    }
+                    catch (SqlException)
+                    {
+                        return -1;
+                    }
+
+                }
+            }
+        }
+
+
 
     }
 }

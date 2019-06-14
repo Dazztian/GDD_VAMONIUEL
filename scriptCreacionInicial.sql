@@ -232,9 +232,14 @@ VALUES ('admin1',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin3',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin4',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1)
+	   
 
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
 VALUES ('Administrativo'),('Cliente')
+
+
+INSERT INTO [VAMONIUEL].[Rol_X_Usuario]([ID_ROL],[ID_Usuario])
+VALUES (1,1),(2,1)
 
 --Esto hay que actualizarlo segun este TP
 INSERT INTO [VAMONIUEL].[Funcion] 
@@ -344,7 +349,7 @@ GO
  INSERT INTO VAMONIUEL.[Cliente]
 (	[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION],[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC])--, [ID_Usuario])
 select  distinct[CLI_NOMBRE],[CLI_APELLIDO],[CLI_DNI],[CLI_DIRECCION] ,[CLI_TELEFONO],[CLI_MAIL],[CLI_FECHA_NAC]
--- ,(select ID from ESKHERE.Usuario where CAST([Cli_Dni] as nvarchar(50)) = Usuario)
+-- ,(select ID from VAMONIUEL.Usuario where CAST([Cli_Dni] as nvarchar(50)) = Usuario)
 from gd_esquema.Maestra
 where [Cli_Dni]  IS NOT NULL
 
@@ -592,6 +597,64 @@ BEGIN
 		END
 END
 GO
+CREATE VIEW VAMONIUEL.Roles_usuario
+AS
+SELECT u.Usuario, r.Nombre as nombre_rol, r.ID as rol_id FROM VAMONIUEL.Usuario u 
+join VAMONIUEL.Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
+join VAMONIUEL.Rol r on r.ID = ru.ID_ROL 
+WHERE r.Habilitado = 1
+GO
+CREATE VIEW [VAMONIUEL].idClientexNombreUsuario
+AS
+SELECT c.ID idCliente , u.Usuario nombreUsr 
+	FROM [VAMONIUEL].Usuario u join [VAMONIUEL].Cliente c 
+		on(u.ID = c.ID_Usuario)
+GO
+CREATE VIEW [VAMONIUEL].funciones_usuarios
+AS
+SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [VAMONIUEL].Usuario u 
+join [VAMONIUEL].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
+join [VAMONIUEL].Rol r on r.ID = ru.ID_ROL 
+join [VAMONIUEL].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
+join [VAMONIUEL].Funcion f on f.ID = rf.ID_Funcion 
+WHERE r.Habilitado = 1
+GO
+GO
+CREATE PROCEDURE [VAMONIUEL].existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(max), @resultado bit OUTPUT, @autogenerada bit output
+AS
+BEGIN
+	declare @hash binary(32) = (select HASHBYTES('SHA2_256', @Contrasenia))
+	select @resultado = (select case when (select count(*) from VAMONIUEL.Usuario where Contrasenia = @hash and Usuario = @Usuario) >=1 then 1 else 0 end)
+	if(@resultado = 1)
+	begin
+		set @autogenerada = (select contrasena_autogenerada from Usuario where Usuario = @Usuario)
+		update Usuario set [cant_accesos_fallidos] = 0 where Usuario = @Usuario
+	end
+	else
+	begin
+		if(exists(select * from VAMONIUEL.Usuario where Usuario = @Usuario))
+		begin
+			update Usuario set [cant_accesos_fallidos] = ((select cant_accesos_fallidos from VAMONIUEL.Usuario where Usuario = @Usuario) + 1) where Usuario = @Usuario
+		end
+	end
+END
+GO
+CREATE VIEW [ESKHERE].funciones_usuarios
+AS
+SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [ESKHERE].Usuario u 
+join [ESKHERE].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
+join [ESKHERE].Rol r on r.ID = ru.ID_ROL 
+join [ESKHERE].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
+join [ESKHERE].Funcion f on f.ID = rf.ID_Funcion 
+WHERE r.Habilitado = 1
+GO
+/*
+CREATE VIEW [VAMONIUEL].idClientexNombreUsuario_y_numTarjeta_para_compra
+AS
+SELECT c.ID idCliente , u.Usuario nombreUsr, c.numero_tarjeta_credito 
+	FROM [VAMONIUEL].Usuario u join [VAMONIUEL].Cliente c 
+		on(u.ID = c.ID_Usuario)
+GO*/
 
 ----Camino 'bueno'
 --INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),4798)
