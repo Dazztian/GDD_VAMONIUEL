@@ -20,8 +20,7 @@ namespace FrbaCrucero
         private void btn_login_admin_Click(object sender, EventArgs e)
         {
 
-            //AbmCrucero.CrearCrucero().Show(); 
-            //Application.Run(new Login());
+            (new Login()).Show();
         }
 
         private void btn_pago_reserva_Click(object sender, EventArgs e)
