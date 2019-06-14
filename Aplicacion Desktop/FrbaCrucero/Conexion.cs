@@ -99,6 +99,7 @@ namespace FrbaCrucero
             public static string idDelCliente { get { return "[VAMONIUEL].idClientexNombreUsuario"; } }
             public static string FuncionesUsuarios { get { return "[VAMONIUEL].funciones_usuarios"; } }
             public static string AnioMinimo { get { return "VAMONIUEL.anio_minimo_de_viaje"; } }
+            public static string viaje_oyd { get { return "VAMONIUEL.viajes_con_oyd"; } }
         }
             private string PonerFiltros(string comando, Dictionary<string, string> filtros)
             {
