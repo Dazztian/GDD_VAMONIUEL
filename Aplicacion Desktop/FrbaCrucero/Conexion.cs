@@ -94,7 +94,7 @@ namespace FrbaCrucero
             public static string Estado_del_crucero { get { return "VAMONIUEL.Estado_del_Crucero"; } }
             public static string RolesUsuario { get { return "[VAMONIUEL].Roles_usuario"; } }
             public static string idDelCliente { get { return "[VAMONIUEL].idClientexNombreUsuario"; } }
-            public static string FuncionesUsuarios { get { return "[ESKHERE].funciones_usuarios"; } }
+            public static string FuncionesUsuarios { get { return "[VAMONIUEL].funciones_usuarios"; } }
             
         }
 
@@ -456,6 +456,48 @@ namespace FrbaCrucero
                 }
             }
         }
+        public int InsertarUsuario(string usuario, string contraseña, string rol)
+        {
+            using (SqlConnection connection = new SqlConnection(conectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    try
+                    {
+                        command.Connection = connection;
+                        command.CommandText = "[ESKHERE].insertar_usuario";
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        SqlParameter parameter1 = new SqlParameter("@usuario", SqlDbType.NVarChar);
+                        parameter1.Direction = ParameterDirection.Input;
+                        parameter1.Value = usuario;
+                        SqlParameter parameter2 = new SqlParameter("@contrasenia", SqlDbType.NVarChar);
+                        parameter2.Direction = ParameterDirection.Input;
+                        parameter2.Value = contraseña;
+                        SqlParameter parameter3 = new SqlParameter("@nombreTipo", SqlDbType.NVarChar);
+                        parameter3.Direction = ParameterDirection.Input;
+                        parameter3.Value = rol;
+                        SqlParameter retorno = new SqlParameter("@ReturnVal", SqlDbType.Int);
+                        retorno.Direction = ParameterDirection.ReturnValue;
+
+                        command.Parameters.Add(parameter1);
+                        command.Parameters.Add(parameter2);
+                        command.Parameters.Add(parameter3);
+                        command.Parameters.Add(retorno);
+
+                        command.ExecuteNonQuery();
+                        return Convert.ToInt32(retorno.Value);
+                    }
+                    catch (SqlException)
+                    {
+                        return -1;
+                    }
+
+                }
+            }
+        }
+
 
 
     }

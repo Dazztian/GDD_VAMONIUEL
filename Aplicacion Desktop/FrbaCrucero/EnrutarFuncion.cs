@@ -92,7 +92,8 @@ namespace FrbaCrucero
                     resultadoConsulta = (Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Usuario, columnas, filtrosUsr));
                     filtrosUsr = new Dictionary<string, string>();
                     filtrosUsr["id_usuario"] = Conexion.Filtro.Exacto(resultadoConsulta["id"][0].ToString());
-                    idCliente = Convert.ToInt32(Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Empresa, columnas, filtrosUsr)["id"][0]);
+                    //ESTO ESTA PARA CHECKEAR
+                    idCliente = Convert.ToInt32(Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Cliente, columnas, filtrosUsr)["id"][0]);
                 }
                 FormTemplate.idCliente = idCliente;             
             }

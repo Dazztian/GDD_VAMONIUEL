@@ -33,10 +33,10 @@ namespace FrbaCrucero.Registro_de_Usuario
 
                     if (id != -1)
                     {
-                        if (cbbTipo.Text == "Cliente")
+                       /* if (cbbTipo.Text == "Cliente")
                             new Abm_Cliente.AltaCliente(id).ShowDialog();
                         else
-                            new Abm_Empresa_Espectaculo.AltaEmpresa(id).ShowDialog();
+                            new Abm_Empresa_Espectaculo.AltaEmpresa(id).ShowDialog();*/
                         Close();
                         Program.FormInicial.Show();
                     }

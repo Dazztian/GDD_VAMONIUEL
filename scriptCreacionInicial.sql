@@ -614,6 +614,27 @@ join [VAMONIUEL].Rol_X_Funcion rf on rf.ID_Rol = r.ID
 join [VAMONIUEL].Funcion f on f.ID = rf.ID_Funcion 
 WHERE r.Habilitado = 1
 GO
+GO
+CREATE PROCEDURE [VAMONIUEL].existe_usuario @Usuario nvarchar(50), @Contrasenia nvarchar(max), @resultado bit OUTPUT, @autogenerada bit output
+AS
+BEGIN
+	declare @hash binary(32) = (select HASHBYTES('SHA2_256', @Contrasenia))
+	select @resultado = (select case when (select count(*) from VAMONIUEL.Usuario where Contrasenia = @hash and Usuario = @Usuario) >=1 then 1 else 0 end)
+	if(@resultado = 1)
+	begin
+		set @autogenerada = (select contrasena_autogenerada from Usuario where Usuario = @Usuario)
+		update Usuario set [cant_accesos_fallidos] = 0 where Usuario = @Usuario
+	end
+	else
+	begin
+		if(exists(select * from VAMONIUEL.Usuario where Usuario = @Usuario))
+		begin
+			update Usuario set [cant_accesos_fallidos] = ((select cant_accesos_fallidos from VAMONIUEL.Usuario where Usuario = @Usuario) + 1) where Usuario = @Usuario
+		end
+	end
+END
+GO
+
 /*
 CREATE VIEW [VAMONIUEL].idClientexNombreUsuario_y_numTarjeta_para_compra
 AS
