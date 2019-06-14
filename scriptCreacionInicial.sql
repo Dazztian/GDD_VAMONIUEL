@@ -426,7 +426,7 @@ WHERE [PASAJE_CODIGO] IS NOT NULL
       AND [PASAJE_FECHA_COMPRA] IS NOT NULL
 
 --PRIMERO INSERTO LOS PASAJES Y LUEGO LAS RESERVAS
---VOY A TRATAR DE CREAR LOS PASAJES A TRAVÃ‰S DE INSERCION DE LAS RESERVAS
+--VOY A TRATAR DE CREAR LOS PASAJES A TRAVÃƒÂ‰S DE INSERCION DE LAS RESERVAS
 INSERT INTO [VAMONIUEL].[PASAJE] 
 ([PASAJE_CODIGO],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente], ID_VIAJE)
 SELECT DISTINCT RESERVA_CODIGO,[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],
@@ -478,7 +478,7 @@ DROP TRIGGER VAMONIUEL.tr_creacion_recorridoxtramo
 ------------------------------------------- CREACION DE VISTAS------------------------------------------------------------------------------------------
 
 
-GO --Yo voy a tener que consultar esto de tal manera que no se cumpla la condición
+GO --Yo voy a tener que consultar esto de tal manera que no se cumpla la condiciÃ³n
 CREATE VIEW VAMONIUEL.cruceros_ocupados_por_fecha AS
 SELECT DISTINCT Cru.[ID],Cru.[CRU_FABRICANTE],Cru.[CRUCERO_MODELO],Cru.[CRUCERO_IDENTIFICADOR],Cru.[habilitado], V.FechaInicio, V.FechaFin
 FROM [GD1C2019].[VAMONIUEL].[CRUCERO] Cru JOIN VAMONIUEL.VIAJE V ON (CRU.ID = V.ID_Crucero)
@@ -520,7 +520,7 @@ GROUP BY r.ID, r.RECORRIDO_CODIGO,v.FechaInicio
 ORDER BY 4 DESC 
 GO
 
---Top 5 de los recorridos con más cabinas libres en cada uno de los viajes realizados.
+--Top 5 de los recorridos con mÃ¡s cabinas libres en cada uno de los viajes realizados.
 GO
 CREATE VIEW VAMONIUEL.recorridos_mas_cabinas_libres_xviaje
 as
@@ -536,7 +536,7 @@ GROUP BY
 ORDER BY 7 DESC 
 GO
 
---Top 5 de los cruceros con mayor cantidad de días fuera de servicio.
+--Top 5 de los cruceros con mayor cantidad de dÃ­as fuera de servicio.
 GO
 CREATE VIEW VAMONIUEL.cruceros_mayor_cant_dias_fuera_servicio
 as
@@ -546,8 +546,12 @@ FROM
 	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
 ORDER BY 5 DESC
 go
+<<<<<<< HEAD
 
 --VIEW para obtener el año minimo
+=======
+--VIEW para obtener el aÃ±o minimo
+>>>>>>> 487316f45b4e03199259e0aea843a1c237d87d44
 go
 CREATE VIEW VAMONIUEL.anio_minimo_de_viaje
 AS
@@ -558,7 +562,7 @@ GO
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO
 CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
-AS--Cada vez que se loguea algún admin checkeo si hay alguna reserva pa dar de baja
+AS--Cada vez que se loguea algÃºn admin checkeo si hay alguna reserva pa dar de baja
 BEGIN 
 	UPDATE [VAMONIUEL].[RESERVA]
 	SET Habilitado = 0

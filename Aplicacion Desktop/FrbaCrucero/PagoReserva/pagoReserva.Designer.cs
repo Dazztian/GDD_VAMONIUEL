@@ -67,6 +67,7 @@
             this.txt_codigo_reserva.Name = "txt_codigo_reserva";
             this.txt_codigo_reserva.Size = new System.Drawing.Size(214, 20);
             this.txt_codigo_reserva.TabIndex = 1;
+            this.txt_codigo_reserva.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_codigo_reserva_KeyPress);
             // 
             // label1
             // 
