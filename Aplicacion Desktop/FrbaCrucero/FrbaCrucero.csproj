@@ -247,13 +247,10 @@
     <EmbeddedResource Include="GeneracionViaje\GenerarViaje.resx">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
     </EmbeddedResource>
-
     <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
-
     <EmbeddedResource Include="Login.resx" />
-
     <EmbeddedResource Include="PagoReserva\pagoReserva.resx">
       <DependentUpon>pagoReserva.cs</DependentUpon>
     </EmbeddedResource>
