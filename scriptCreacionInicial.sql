@@ -548,7 +548,7 @@ go
 
 --VIEW para obtener el año minimo
 go
-CREATE VIEW VAMONIUEL.anios_minimo_de_viaje
+CREATE VIEW VAMONIUEL.anio_minimo_de_viaje
 AS
 SELECT MIN(YEAR(v.FechaInicio)) anio
 FROM VAMONIUEL.VIAJE V
@@ -656,15 +656,7 @@ BEGIN
 	end
 END
 GO
-CREATE VIEW [VAMONIUEL].funciones_usuarios
-AS
-SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [VAMONIUEL].Usuario u 
-join [VAMONIUEL].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
-join [VAMONIUEL].Rol r on r.ID = ru.ID_ROL 
-join [VAMONIUEL].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
-join [VAMONIUEL].Funcion f on f.ID = rf.ID_Funcion 
-WHERE r.Habilitado = 1
-GO
+
 /*
 CREATE VIEW [VAMONIUEL].idClientexNombreUsuario_y_numTarjeta_para_compra
 AS
@@ -690,26 +682,25 @@ GO*/
 
 --delete from VAMONIUEL.PAGO
 
---Prueba para punto 9, pago de reserva
+----------------------------------------Pruebas para punto 9, pago de reserva--------------------------------------------------------
 
-INSERT INTO [VAMONIUEL].[VIAJE]
-([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
-VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
+--INSERT INTO [VAMONIUEL].[VIAJE]
+--([Origen],[Destino],[FechaInicio],[FechaFin],[CRUCERO_IDENTIFICADOR],[ID_Crucero],[ID_Recorrido])
+--VALUES ('la doce', 'cancun', getdate(),getdate(), 'anismanlomataron', 12,12)
 
+--select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
 
-select * from VAMONIUEL.viaje where [CRUCERO_IDENTIFICADOR]='anismanlomataron'
+--INSERT INTO [VAMONIUEL].[PASAJE]
+--([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
+--VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
 
-INSERT INTO [VAMONIUEL].[PASAJE]
-([PASAJE_CODIGO],[PASAJE_PRECIO],[PASAJE_FECHA_COMPRA],[FECHA_SALIDA],[FECHA_LLEGADA],[FECHA_LLEGADA_ESTIMADA],[ID_Cliente],ID_Viaje)
-VALUES (146546,9999,getdate(),getdate(),getdate(),getdate(),1,4957)
+--select * from VAMONIUEL.PASAJE where ID_Viaje=4957
 
-select * from VAMONIUEL.PASAJE where ID_Viaje=4957
+--INSERT INTO [VAMONIUEL].[RESERVA]
+--([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
+--VALUES (12,getdate(),1,368694)
 
-INSERT INTO [VAMONIUEL].[RESERVA]
-([RESERVA_CODIGO],[RESERVA_FECHA],[Habilitado],[ID_Pasaje])
-VALUES (12,getdate(),1,368694)
+--SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
 
-SELECT * FROM VAMONIUEL.RESERVA WHERE ID_Pasaje=368694
-
-delete  from VAMONIUEL.PAGO
-select * from VAMONIUEL.PAGO
+--delete  from VAMONIUEL.PAGO
+--select * from VAMONIUEL.PAGO
