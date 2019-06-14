@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrbaCrucero.CompraReservaPasaje;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,15 +60,8 @@ namespace FrbaCrucero.CompraPasaje
                 List<object> resultadoConsulta2 = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.recargo_cabina, columnas2, filtros2)["recargo"]));
                 preciomasrecargocabina = preciobase * Convert.ToDouble(resultadoConsulta2[0]);
 
-                DialogResult dialogResult = MessageBox.Show("el precio es "+preciomasrecargocabina.ToString(), "Confirmar Pasaje", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    //do something
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //do something else
-                }
+                new RegistrarCliente(id_viaje,preciobase,preciomasrecargocabina,id_cabinaxviaje).Show();
+                
             }
         }
         private void llenarcombo(string tabla, string columna, Dictionary<string, string> filtros, ref ComboBox combito)

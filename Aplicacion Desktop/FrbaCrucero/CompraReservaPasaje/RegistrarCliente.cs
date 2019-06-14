@@ -14,9 +14,17 @@ namespace FrbaCrucero.CompraReservaPasaje
     {
         Boolean guardado = false;
         int idCliente;
-        public RegistrarCliente()
+        string id_viaje;
+        double preciobase;
+        double preciomasrecargocabina;
+        string id_cabinaxviaje;
+        public RegistrarCliente(string viaje,double precioB,double precioR,string idVxC)
         {
             InitializeComponent();
+            id_viaje = viaje;
+            preciobase = precioB;
+            preciomasrecargocabina = precioR;
+            id_cabinaxviaje = idVxC;
         }
 
         private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
@@ -113,7 +121,7 @@ namespace FrbaCrucero.CompraReservaPasaje
         {
             if (guardado)
             {
-                new Reserva(idCliente).Show();
+                new Reserva(idCliente, id_viaje, preciobase, preciomasrecargocabina, id_cabinaxviaje).Show();
             }
             else
             {
