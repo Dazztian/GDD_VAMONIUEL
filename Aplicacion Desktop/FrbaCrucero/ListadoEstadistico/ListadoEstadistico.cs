@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.ListadoEstadistico
 {
-    public partial class ListadoEstadistico : Form
+    public partial class ListadoEstadistico : FormTemplate
     {
         public ListadoEstadistico()
         {

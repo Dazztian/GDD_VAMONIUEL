@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.CompraPasaje
 {
-    public partial class Form1 : Form
+    public partial class Form1 : FormTemplate
     {
         public Form1()
         {
