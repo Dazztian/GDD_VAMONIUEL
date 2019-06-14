@@ -98,6 +98,7 @@
             this.dataGridViewRecorridos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRecorridos.Location = new System.Drawing.Point(12, 150);
             this.dataGridViewRecorridos.Name = "dataGridViewRecorridos";
+            this.dataGridViewRecorridos.ReadOnly = true;
             this.dataGridViewRecorridos.Size = new System.Drawing.Size(538, 150);
             this.dataGridViewRecorridos.TabIndex = 6;
             // 
