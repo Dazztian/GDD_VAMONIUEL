@@ -95,6 +95,7 @@ namespace FrbaCrucero
             public static string RolesUsuario { get { return "[VAMONIUEL].Roles_usuario"; } }
             public static string idDelCliente { get { return "[VAMONIUEL].idClientexNombreUsuario"; } }
             public static string FuncionesUsuarios { get { return "[VAMONIUEL].funciones_usuarios"; } }
+
             
         }
 

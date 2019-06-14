@@ -71,7 +71,7 @@ namespace FrbaCrucero
             if (usuario != "admin")
             {
                 //me cazo el id del cliente con el usuario
-
+                /*
                 FormTemplate.isAdmin = false;
 
                 List<string> columnas = new List<string>();
@@ -93,11 +93,12 @@ namespace FrbaCrucero
                     filtrosUsr = new Dictionary<string, string>();
                     filtrosUsr["id_usuario"] = Conexion.Filtro.Exacto(resultadoConsulta["id"][0].ToString());
                     //ESTO ESTA PARA CHECKEAR
-                    idCliente = Convert.ToInt32(Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Cliente, columnas, filtrosUsr)["id"][0]);
+                    //idCliente = Convert.ToInt32(Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Cliente, columnas, filtrosUsr)["id"][0]);
                 }
                 FormTemplate.idCliente = idCliente;             
+                */
             }
-            else
+            else//PARA ESTE SOLO NOS INTERESA TRABAJAR CON UN USUARIO ADMIN
             {
                 FormTemplate.isAdmin = true;
             }

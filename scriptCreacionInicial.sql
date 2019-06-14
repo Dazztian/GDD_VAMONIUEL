@@ -237,6 +237,10 @@ VALUES ('admin1',HASHBYTES('SHA2_256', N'w23e'),1),
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
 VALUES ('Administrativo'),('Cliente')
 
+
+INSERT INTO [VAMONIUEL].[Rol_X_Usuario]([ID_ROL],[ID_Usuario])
+VALUES (1,1),(2,1)
+
 --Esto hay que actualizarlo segun este TP
 INSERT INTO [VAMONIUEL].[Funcion] 
 VALUES (1, 'ABM Rol'),(2,'ABM Puerto'),
@@ -635,7 +639,15 @@ BEGIN
 	end
 END
 GO
-
+CREATE VIEW [ESKHERE].funciones_usuarios
+AS
+SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [ESKHERE].Usuario u 
+join [ESKHERE].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
+join [ESKHERE].Rol r on r.ID = ru.ID_ROL 
+join [ESKHERE].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
+join [ESKHERE].Funcion f on f.ID = rf.ID_Funcion 
+WHERE r.Habilitado = 1
+GO
 /*
 CREATE VIEW [VAMONIUEL].idClientexNombreUsuario_y_numTarjeta_para_compra
 AS

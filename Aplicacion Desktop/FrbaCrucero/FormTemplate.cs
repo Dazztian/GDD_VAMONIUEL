@@ -21,9 +21,9 @@ namespace FrbaCrucero
                 ToolStripMenuItem item;
                 switch (f)
                 {
-                    case Funcion.ABM_Crucero:
-                        item = new ToolStripMenuItem("ABM_Crucero");
-                        item.Click += ABM_Crucero_Click;
+                    case Funcion.ABM_ROL:
+                        item = new ToolStripMenuItem("ABM_ROL");
+                        item.Click += ABM_ROL_Click;
                         verToolStripMenuItem.DropDownItems.Add(item);
                         break;
                     case Funcion.ABM_Recorrido:
@@ -31,9 +31,10 @@ namespace FrbaCrucero
                         item.Click += ABM_Recorrido_Click;
                         verToolStripMenuItem.DropDownItems.Add(item);
                         break;
-                    case Funcion.ABM_ROL:
-                        item = new ToolStripMenuItem("ABM_ROL");
-                        item.Click += ABM_ROL_Click;
+                    
+                    case Funcion.ABM_Crucero:
+                        item = new ToolStripMenuItem("ABM_Crucero");
+                        item.Click += ABM_Crucero_Click;
                         verToolStripMenuItem.DropDownItems.Add(item);
                         break;
                     case Funcion.Compra_Reserva_Pasaje:
