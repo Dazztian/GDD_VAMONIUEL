@@ -100,6 +100,10 @@ namespace FrbaCrucero
             public static string FuncionesUsuarios { get { return "[VAMONIUEL].funciones_usuarios"; } }
             public static string AnioMinimo { get { return "VAMONIUEL.anio_minimo_de_viaje"; } }
             public static string viaje_oyd { get { return "VAMONIUEL.viajes_con_oyd"; } }
+            public static string reco_completo { get { return "VAMONIUEL.recorrido_completo_xviaje"; } }
+            public static string cabi_viaje { get { return "VAMONIUEL.cabinas_del_viaje"; } }
+            public static string precio_base_recorrido { get { return "VAMONIUEL.precio_base_recorrido"; } }
+            public static string recargo_cabina { get { return "VAMONIUEL.recargo_cabina_viaje"; } }
         }
             private string PonerFiltros(string comando, Dictionary<string, string> filtros)
             {

@@ -57,7 +57,7 @@ namespace FrbaCrucero.CompraPasaje
         private void btnElegirviaje_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(cmbViaje.Text.ToString())){
-                MessageBox.Show("Seleccione una viaje del listado despegable por favor.");
+                MessageBox.Show("Seleccione un viaje del listado despegable por favor.");
             }
             else
             {
