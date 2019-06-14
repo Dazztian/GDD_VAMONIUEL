@@ -65,7 +65,8 @@ namespace FrbaCrucero
         {
             flag = true;
             Close();
-            Program.FormInicial.Show();
+            (new Login()).Show();
+            //Program.FormInicial.Show();
         }
 
 

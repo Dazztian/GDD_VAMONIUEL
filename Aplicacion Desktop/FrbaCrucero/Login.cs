@@ -75,13 +75,13 @@ namespace FrbaCrucero
             txtContraseña.Text = string.Empty;
             txtusuario.Text = string.Empty;
         }
-
+        /*
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             Hide();
             new Registro_de_Usuario.RegistroUsuario().ShowDialog();
             Show();
-        }
+        }*/
 
     }
 }

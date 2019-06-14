@@ -80,14 +80,15 @@
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // btnRegistrar
-            // 
+            //
+            /*
             this.btnRegistrar.Location = new System.Drawing.Point(63, 179);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(75, 23);
             this.btnRegistrar.TabIndex = 5;
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.UseVisualStyleBackColor = true;
-            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);*/
             // 
             // Login
             // 
