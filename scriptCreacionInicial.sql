@@ -232,6 +232,7 @@ VALUES ('admin1',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin3',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin4',HASHBYTES('SHA2_256', N'w23e'),1),
 	   ('admin5',HASHBYTES('SHA2_256', N'w23e'),1)
+	   
 
 INSERT INTO VAMONIUEL.[Rol] ([Nombre])
 VALUES ('Administrativo'),('Cliente')
