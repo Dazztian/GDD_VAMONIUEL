@@ -36,3 +36,8 @@ drop VIEW VAMONIUEL.Roles_usuario
 drop VIEW [VAMONIUEL].funciones_usuarios
 drop VIEW [VAMONIUEL].idClientexNombreUsuario
 drop PROCEDURE [VAMONIUEL].existe_usuario
+drop view VAMONIUEL.viajes_con_oyd
+drop view VAMONIUEL.recorrido_completo_xviaje
+drop view VAMONIUEL.cabinas_del_viaje
+drop view VAMONIUEL.precio_base_recorrido
+drop view VAMONIUEL.recargo_cabina_viaje

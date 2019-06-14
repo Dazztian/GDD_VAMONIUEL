@@ -34,12 +34,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmbOrigen = new System.Windows.Forms.ComboBox();
             this.cmbDestino = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgv = new System.Windows.Forms.DataGridView();
             this.cmbViaje = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnElegirviaje = new System.Windows.Forms.Button();
             this.btnBuscarviajes = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -94,19 +94,20 @@
             this.cmbDestino.Size = new System.Drawing.Size(192, 21);
             this.cmbDestino.TabIndex = 5;
             // 
-            // dataGridView1
+            // dgv
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 143);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(602, 378);
-            this.dataGridView1.TabIndex = 6;
+            this.dgv.AllowUserToAddRows = false;
+            this.dgv.AllowUserToDeleteRows = false;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Location = new System.Drawing.Point(12, 143);
+            this.dgv.Name = "dgv";
+            this.dgv.ReadOnly = true;
+            this.dgv.Size = new System.Drawing.Size(602, 378);
+            this.dgv.TabIndex = 6;
             // 
             // cmbViaje
             // 
+            this.cmbViaje.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbViaje.FormattingEnabled = true;
             this.cmbViaje.Location = new System.Drawing.Point(116, 541);
             this.cmbViaje.Name = "cmbViaje";
@@ -130,6 +131,7 @@
             this.btnElegirviaje.TabIndex = 9;
             this.btnElegirviaje.Text = "Elegir viaje";
             this.btnElegirviaje.UseVisualStyleBackColor = true;
+            this.btnElegirviaje.Click += new System.EventHandler(this.btnElegirviaje_Click);
             // 
             // btnBuscarviajes
             // 
@@ -150,7 +152,7 @@
             this.Controls.Add(this.btnElegirviaje);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbViaje);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.cmbDestino);
             this.Controls.Add(this.cmbOrigen);
             this.Controls.Add(this.label3);
@@ -159,7 +161,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CompraReservaPasaje";
             this.Text = "CompraReservaPasaje";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,7 +175,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbOrigen;
         private System.Windows.Forms.ComboBox cmbDestino;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.ComboBox cmbViaje;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnElegirviaje;

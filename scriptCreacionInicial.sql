@@ -506,6 +506,53 @@ AS
 SELECT DISTINCT CRU_FABRICANTE Marca FROM VAMONIUEL.CRUCERO
 GO
 
+--------------------------------  VIEWS PARA compra y reservas pasajes ------------------------------------------------------------------------------------------------
+go
+create view VAMONIUEL.viajes_con_oyd
+as
+select v.ID, v.ID_Crucero,v.FechaInicio, r.PUERTO_DESDE origen, r.PUERTO_HASTA destino
+from VAMONIUEl.VIAJE v join VAMONIUEL.RECORRIDO r on (v.ID_Recorrido = r.ID) 
+go
+
+go
+create view VAMONIUEL.recorrido_completo_xviaje
+as
+select 
+	v.ID Viaje, p.Nombre Puerto_por_el_que_pasa
+from 
+	VAMONIUEL.VIAJE v join VAMONIUEL.RECORRIDO r on ( v.ID_Recorrido = r.ID)
+	join VAMONIUEL.TramoXRecorrido trr on (trr.id_recorrido=r.ID)
+	join VAMONIUEL.Tramo tr on ( tr.ID = trr.id_tramo)
+	join VAMONIUEL.TramoXPuerto trp on (trp.id_tramo = tr.ID)
+	join VAMONIUEL.Puerto p on (p.ID = trp.id_puerto)
+go
+
+go
+create view VAMONIUEL.cabinas_del_viaje
+as
+select cxv.ID_Viaje Viaje, cxv.ID ID_Cabina, c.CABINA_TIPO Tipo_de_cabina,c.CABINA_PISO
+from VAMONIUEL.CabinaXViaje cxv join VAMONIUEL.CABINA c on (cxv.ID_Cabina = c.ID)
+go
+
+go
+create view VAMONIUEL.precio_base_recorrido
+as
+select v.ID viaje, r.ID recorrido, sum(tr.RECORRIDO_PRECIO_BASE) precio_del_recorrido
+FROM	
+	VAMONIUEL.VIAJE v join VAMONIUEL.RECORRIDO r on (r.ID=v.ID_Recorrido)
+	join VAMONIUEL.TramoXRecorrido trr on ( trr.id_recorrido=r.ID)
+	join VAMONIUEL.Tramo tr on (trr.id_tramo = tr.id)
+group by v.id , r.ID
+go
+
+go
+create view VAMONIUEL.recargo_cabina_viaje
+as
+select cxv.ID cabina, c.CABINA_TIPO_PORC_RECARGO recargo
+from
+	VAMONIUEL.CABINA c  join VAMONIUEL.CabinaXViaje cxv on (cxv.ID_Cabina = c.ID)
+go
+
 --------------------------------  VIEWS PARA LISTADO ESTADISTICO ------------------------------------------------------------------------------------------------
 --View top 5 recorridos con mas pasajes comprados(tomo al pasaje comprado cuando tiene fecha de compra) la otra opcion no me tira resultados por que no hay nada en la tabla de pagos
 GO
