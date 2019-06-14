@@ -92,7 +92,10 @@ namespace FrbaCrucero
             public static string Marca { get { return "VAMONIUEL.Marca"; } }
             public static string TipoCabina { get { return "VAMONIUEL.TipoCabina"; } }
             public static string Estado_del_crucero { get { return "VAMONIUEL.Estado_del_Crucero"; } }
-            
+            public static string top5Pasajes { get { return "VAMONIUEL.recorridos_mayor_pasajes_comprados"; } }
+            public static string top5CabinasLibres{ get { return "VAMONIUEL.recorridos_mas_cabinas_libres_xviaje";}}
+            public static string top5CrucerosDeshabilitados { get { return "VAMONIUEL.cruceros_mayor_cant_dias_fuera_servicio"; } }
+
         }
 
         private string PonerFiltros(string comando, Dictionary<string, string> filtros)

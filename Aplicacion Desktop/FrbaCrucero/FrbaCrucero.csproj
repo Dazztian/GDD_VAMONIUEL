@@ -76,12 +76,6 @@
     <Compile Include="AbmCrucero\Habilitacion.Designer.cs">
       <DependentUpon>Habilitacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCrucero\ModificarCrucero.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmCrucero\ModificarCrucero.Designer.cs">
-      <DependentUpon>ModificarCrucero.cs</DependentUpon>
-    </Compile>
     <Compile Include="AbmPuerto\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,11 +157,11 @@
     <Compile Include="GeneracionViaje\GenerarViaje.Designer.cs">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="PagoReserva\pagoReserva.cs">
       <SubType>Form</SubType>
@@ -191,9 +185,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\Habilitacion.resx">
       <DependentUpon>Habilitacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AbmCrucero\ModificarCrucero.resx">
-      <DependentUpon>ModificarCrucero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\CambiarDestino.resx">
       <DependentUpon>CambiarDestino.cs</DependentUpon>
@@ -227,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeneracionViaje\GenerarViaje.resx">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\pagoReserva.resx">
       <DependentUpon>pagoReserva.cs</DependentUpon>
