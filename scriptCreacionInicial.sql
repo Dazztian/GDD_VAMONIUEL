@@ -506,6 +506,14 @@ AS
 SELECT DISTINCT CRU_FABRICANTE Marca FROM VAMONIUEL.CRUCERO
 GO
 
+--------------------------------  VIEWS PARA compra y reservas pasajes ------------------------------------------------------------------------------------------------
+go
+create view VAMONIUEL.viajes_con_oyd
+as
+select v.ID, v.ID_Crucero,v.FechaInicio, r.PUERTO_DESDE origen, r.PUERTO_HASTA destino
+from VAMONIUEl.VIAJE v join VAMONIUEL.RECORRIDO r on (v.ID_Recorrido = r.ID) 
+go
+
 --------------------------------  VIEWS PARA LISTADO ESTADISTICO ------------------------------------------------------------------------------------------------
 --View top 5 recorridos con mas pasajes comprados(tomo al pasaje comprado cuando tiene fecha de compra) la otra opcion no me tira resultados por que no hay nada en la tabla de pagos
 GO

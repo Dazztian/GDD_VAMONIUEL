@@ -36,3 +36,4 @@ drop VIEW VAMONIUEL.Roles_usuario
 drop VIEW [VAMONIUEL].funciones_usuarios
 drop VIEW [VAMONIUEL].idClientexNombreUsuario
 drop PROCEDURE [VAMONIUEL].existe_usuario
+drop view VAMONIUEL.viajes_con_oyd
