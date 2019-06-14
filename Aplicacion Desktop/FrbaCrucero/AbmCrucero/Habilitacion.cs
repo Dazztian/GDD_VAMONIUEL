@@ -33,18 +33,9 @@ namespace FrbaCrucero.AbmCrucero
             txtId.Text = idCrucero.ToString();
             txtMarca.Text = datosCrucero.Rows[0].ItemArray[1].ToString();
             txtModelo.Text = datosCrucero.Rows[0].ItemArray[2].ToString();
-            if (Convert.ToBoolean(datosCrucero.Rows[0].ItemArray[4]))
-            {
-                txtEstado.Text = "Habilitado";
-            }
-            else
-            {
-                txtEstado.Text = "Fuera de servicio";
-            }
             txtId.ReadOnly = true;
             txtMarca.ReadOnly = true;
             txtModelo.ReadOnly = true;
-            txtEstado.ReadOnly = true;
         }
 
         private void btnFueraDeServicio_Click(object sender, EventArgs e)
