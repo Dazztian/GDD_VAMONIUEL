@@ -658,13 +658,6 @@ BEGIN
 END
 GO
 
-/*
-CREATE VIEW [VAMONIUEL].idClientexNombreUsuario_y_numTarjeta_para_compra
-AS
-SELECT c.ID idCliente , u.Usuario nombreUsr, c.numero_tarjeta_credito 
-	FROM [VAMONIUEL].Usuario u join [VAMONIUEL].Cliente c 
-		on(u.ID = c.ID_Usuario)
-GO*/
 
 ----Camino 'bueno'
 --INSERT INTO [VAMONIUEL].[PAGO] ([fecha_pago],[ID_Pasaje])  VALUES (GETDATE(),4798)
