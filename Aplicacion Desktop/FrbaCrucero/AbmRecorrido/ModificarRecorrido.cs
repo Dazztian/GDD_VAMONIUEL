@@ -39,7 +39,7 @@ namespace FrbaCrucero.AbmRecorrido
         {
             Tramo tramo = new Tramo();
             Tramo tramoAnterior = new Tramo();
-            int filaActual = dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].RowIndex;
+            int filaActual = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].RowIndex;
             CambiarOrigen cambiar = new CambiarOrigen(dataGridViewTramos.Rows[filaActual].Cells["parada1"].Value.ToString());
             DialogResult res;
             
@@ -50,15 +50,15 @@ namespace FrbaCrucero.AbmRecorrido
             else
                 if (filaActual.Equals(0))
                 {
-                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].Value);
-                    tramo.destino = dataGridViewTramos.SelectedCells[3].OwningRow.Cells["parada2"].Value.ToString();
-                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[4].OwningRow.Cells["Precio"].Value);
+                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].Value);
+                    tramo.destino = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada2"].Value.ToString();
+                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["Precio"].Value);
                     cambiar = new CambiarOrigen(dataGridViewTramos.Rows[filaActual].Cells["parada1"].Value.ToString());
                     res = cambiar.ShowDialog();
                     if (res == DialogResult.OK)
                     {
                         tramo.origen = cambiar.origenNuevo.ToString();
-                        dataGridViewTramos.SelectedCells[2].OwningRow.Cells["parada1"].Value = cambiar.origenNuevo;
+                        dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada1"].Value = cambiar.origenNuevo;
                         tramosModificados.Add(tramo);
                         cambioOrigenRecorrido = true;
                         origenRecorrido = tramo.origen;
@@ -66,9 +66,9 @@ namespace FrbaCrucero.AbmRecorrido
                 }
                 else
                 {
-                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].Value);
-                    tramo.destino = dataGridViewTramos.SelectedCells[3].OwningRow.Cells["parada2"].Value.ToString();
-                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[4].OwningRow.Cells["Precio"].Value);
+                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].Value);
+                    tramo.destino = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada2"].Value.ToString();
+                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["Precio"].Value);
                     tramoAnterior.id = Convert.ToInt32(dataGridViewTramos.Rows[filaActual - 1].Cells["idTramo"].Value);
                     tramoAnterior.origen = dataGridViewTramos.Rows[filaActual - 1].Cells["parada1"].Value.ToString();
                     tramoAnterior.precio = Convert.ToDecimal(dataGridViewTramos.Rows[filaActual - 1].Cells["idTramo"].Value);
@@ -78,7 +78,7 @@ namespace FrbaCrucero.AbmRecorrido
                     {
                         tramo.origen = cambiar.origenNuevo.ToString();
                         tramoAnterior.destino = cambiar.origenNuevo.ToString();
-                        dataGridViewTramos.SelectedCells[2].OwningRow.Cells["parada1"].Value = cambiar.origenNuevo;
+                        dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada1"].Value = cambiar.origenNuevo;
                         dataGridViewTramos.Rows[filaActual - 1].Cells["parada2"].Value = cambiar.origenNuevo;
                         tramosModificados.Add(tramo);
                         tramosModificados.Add(tramoAnterior);
@@ -92,7 +92,7 @@ namespace FrbaCrucero.AbmRecorrido
         {
             Tramo tramo = new Tramo();
             Tramo tramoPosterior = new Tramo();
-            int filaActual = dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].RowIndex;
+            int filaActual = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].RowIndex;
             CambiarDestino cambiar = new CambiarDestino(dataGridViewTramos.Rows[filaActual].Cells["parada2"].Value.ToString());
             DialogResult res;
 
@@ -104,15 +104,15 @@ namespace FrbaCrucero.AbmRecorrido
                 //revisar count
                 if (filaActual.Equals(dataGridViewTramos.Rows.Count - 2))
                 {
-                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].Value);
-                    tramo.origen = dataGridViewTramos.SelectedCells[2].OwningRow.Cells["parada1"].Value.ToString();
-                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[4].OwningRow.Cells["Precio"].Value);
+                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].Value);
+                    tramo.origen = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada1"].Value.ToString();
+                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["Precio"].Value);
                     cambiar = new CambiarDestino(dataGridViewTramos.Rows[filaActual].Cells["parada2"].Value.ToString());
                     res = cambiar.ShowDialog();
                     if (res == DialogResult.OK)
                     {
                         tramo.destino = cambiar.destinoNuevo.ToString();
-                        dataGridViewTramos.SelectedCells[3].OwningRow.Cells["parada2"].Value = cambiar.destinoNuevo;
+                        dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada2"].Value = cambiar.destinoNuevo;
                         tramosModificados.Add(tramo);
                         cambioDestinoRecorrido = true;
                         destinoRecorrido = tramo.destino;
@@ -120,9 +120,9 @@ namespace FrbaCrucero.AbmRecorrido
                 }
                 else
                 {
-                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].Value);
-                    tramo.origen = dataGridViewTramos.SelectedCells[2].OwningRow.Cells["parada1"].Value.ToString();
-                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[4].OwningRow.Cells["Precio"].Value);
+                    tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].Value);
+                    tramo.origen = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada1"].Value.ToString();
+                    tramo.precio = Convert.ToDecimal(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["Precio"].Value);
                     tramoPosterior.id = Convert.ToInt32(dataGridViewTramos.Rows[filaActual + 1].Cells["idTramo"].Value);
                     tramoPosterior.destino = dataGridViewTramos.Rows[filaActual + 1].Cells["parada2"].Value.ToString();
                     tramoPosterior.precio = Convert.ToDecimal(dataGridViewTramos.Rows[filaActual + 1].Cells["idTramo"].Value);
@@ -132,7 +132,7 @@ namespace FrbaCrucero.AbmRecorrido
                     {
                         tramo.destino = cambiar.destinoNuevo.ToString();
                         tramoPosterior.origen = cambiar.destinoNuevo.ToString();
-                        dataGridViewTramos.SelectedCells[3].OwningRow.Cells["parada2"].Value = cambiar.destinoNuevo;
+                        dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada2"].Value = cambiar.destinoNuevo;
                         dataGridViewTramos.Rows[filaActual + 1].Cells["parada1"].Value = cambiar.destinoNuevo;
                         tramosModificados.Add(tramo);
                         tramosModificados.Add(tramoPosterior);
@@ -145,7 +145,7 @@ namespace FrbaCrucero.AbmRecorrido
         private void btnPrecio_Click(object sender, EventArgs e)
         {
             Tramo tramo = new Tramo();
-            int filaActual = dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].RowIndex;
+            int filaActual = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].RowIndex;
             CambiarPrecio cambiar = new CambiarPrecio(Convert.ToDecimal(dataGridViewTramos.Rows[filaActual].Cells["precio"].Value));
             DialogResult res;
 
@@ -155,15 +155,15 @@ namespace FrbaCrucero.AbmRecorrido
             }
             else
             {
-                tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[1].OwningRow.Cells["idTramo"].Value);
-                tramo.origen = dataGridViewTramos.SelectedCells[2].OwningRow.Cells["parada1"].Value.ToString();
-                tramo.destino = dataGridViewTramos.SelectedCells[3].OwningRow.Cells["parada2"].Value.ToString();
+                tramo.id = Convert.ToInt32(dataGridViewTramos.SelectedCells[0].OwningRow.Cells["idTramo"].Value);
+                tramo.origen = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada1"].Value.ToString();
+                tramo.destino = dataGridViewTramos.SelectedCells[0].OwningRow.Cells["parada2"].Value.ToString();
                 cambiar = new CambiarPrecio(Convert.ToDecimal(dataGridViewTramos.Rows[filaActual].Cells["Precio"].Value));
                 res = cambiar.ShowDialog();
                 if (res == DialogResult.OK)
                 {
                     tramo.precio = cambiar.precioNuevo;
-                    dataGridViewTramos.SelectedCells[4].OwningRow.Cells["Precio"].Value = cambiar.precioNuevo;
+                    dataGridViewTramos.SelectedCells[0].OwningRow.Cells["Precio"].Value = cambiar.precioNuevo;
                     tramosModificados.Add(tramo);
                 }
                     
@@ -198,6 +198,7 @@ namespace FrbaCrucero.AbmRecorrido
                 Conexion.getInstance().Modificar(tramo.id,Conexion.Tabla.tramo,tramoAInsertar);
                 tramoAInsertar.Clear();
             }
+            MessageBox.Show("Recorrido modificado");
             tramosModificados.Clear();
         }
     }
