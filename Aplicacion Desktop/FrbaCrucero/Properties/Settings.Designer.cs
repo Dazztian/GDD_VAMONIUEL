@@ -33,5 +33,14 @@ namespace FrbaCrucero.Properties {
                 return ((string)(this["ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("06/14/2019 00:46:00")]
+        public global::System.DateTime MyDate {
+            get {
+                return ((global::System.DateTime)(this["MyDate"]));
+            }
+        }
     }
 }

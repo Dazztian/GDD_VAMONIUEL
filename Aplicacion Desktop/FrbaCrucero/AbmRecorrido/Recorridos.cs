@@ -20,16 +20,6 @@ namespace FrbaCrucero.AbmRecorrido
             InitializeComponent();
         }
 
-        private void MostrarResultado(DialogResult dr)
-        {
-            if (dr == DialogResult.OK)
-                MessageBox.Show("Se actualizó correctamente");
-            if (dr == DialogResult.Abort)
-                MessageBox.Show("Se encontró un error fatal y se abortó la actualización");
-            if (dr == DialogResult.Cancel)
-                MessageBox.Show("Se canceló la solicitud");
-        }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtOrigen.Text = txtDestino.Text = string.Empty;
@@ -58,7 +48,7 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            MostrarResultado(new CrearRecorrido().ShowDialog());
+            new CrearRecorrido().ShowDialog();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
