@@ -111,7 +111,7 @@ namespace FrbaCrucero
         {
             flag = true;
             Close();
-            new ListadoEstadistico.Form1().Show();
+            new ListadoEstadistico.ListadoEstadistico().Show();
         }
 
 

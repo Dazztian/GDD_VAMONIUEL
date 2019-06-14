@@ -98,7 +98,7 @@ namespace FrbaCrucero
             public static string RolesUsuario { get { return "[VAMONIUEL].Roles_usuario"; } }
             public static string idDelCliente { get { return "[VAMONIUEL].idClientexNombreUsuario"; } }
             public static string FuncionesUsuarios { get { return "[VAMONIUEL].funciones_usuarios"; } }
-
+        }
             private string PonerFiltros(string comando, Dictionary<string, string> filtros)
             {
                 comando += " WHERE ";
