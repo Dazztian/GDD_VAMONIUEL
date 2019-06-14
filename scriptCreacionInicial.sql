@@ -244,13 +244,20 @@ VALUES (1,1),(1,2),(1,3),(1,4),(1,5)
 
 --Esto hay que actualizarlo segun este TP
 INSERT INTO [VAMONIUEL].[Funcion] 
-VALUES (1, 'ABM Rol'),(4,'ABM Puerto'),
-(5, 'ABM Recorrido'), (6, 'ABM Crucero')
-, (7, 'Generar viaje'), (8, 'Compra y/o reserva de viaje')
-, (9, 'Pago Reserva'), (10, 'Listado estadistico')
+VALUES (1, 'ABM Crucero'), (2, 'ABM Recorrido'), (3, 'ABM Rol'),
+(4,'Compra y/o reserva de viaje'),(5, 'Generar viaje'),
+(6, 'Pago Reserva'),(7, 'Listado estadistico')
+
+
+--INSERT INTO [VAMONIUEL].[Funcion] 
+--VALUES (1, 'ABM Rol'),(4,'ABM Puerto'),
+--(5, 'ABM Recorrido'), (6, 'ABM Crucero')
+--, (7, 'Generar viaje'), (8, 'Compra y/o reserva de viaje')
+--, (9, 'Pago Reserva'), (10, 'Listado estadistico')
+
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
-VALUES (1,1),(1,4),(2,5),(1,6),(1,7),(1,7),(1,8),(1,9),(1,10)
+VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
 GO
