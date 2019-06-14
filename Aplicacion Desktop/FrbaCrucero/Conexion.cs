@@ -468,7 +468,7 @@ namespace FrbaCrucero
                         try
                         {
                             command.Connection = connection;
-                            command.CommandText = "[ESKHERE].insertar_usuario";
+                            command.CommandText = "[VAMONIUEL].insertar_usuario";
                             command.CommandType = CommandType.StoredProcedure;
 
                             SqlParameter parameter1 = new SqlParameter("@usuario", SqlDbType.NVarChar);
