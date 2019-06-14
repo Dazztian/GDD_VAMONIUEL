@@ -143,11 +143,11 @@
     <Compile Include="AbmRol\Roles.Designer.cs">
       <DependentUpon>Roles.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompraReservaPasaje\Form1.cs">
+    <Compile Include="CompraReservaPasaje\CompraReservaPasaje.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompraReservaPasaje\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CompraReservaPasaje\CompraReservaPasaje.Designer.cs">
+      <DependentUpon>CompraReservaPasaje.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConfigurationHelper.cs" />
@@ -249,6 +249,9 @@
     <EmbeddedResource Include="AbmRol\Roles.resx">
       <DependentUpon>Roles.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompraReservaPasaje\CompraReservaPasaje.resx">
+      <DependentUpon>CompraReservaPasaje.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EnrutarFuncion.resx" />
     <EmbeddedResource Include="EnrutarRoles.resx" />
