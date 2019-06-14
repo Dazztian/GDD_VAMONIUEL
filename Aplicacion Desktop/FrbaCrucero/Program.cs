@@ -17,9 +17,8 @@ namespace FrbaCrucero
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //FormInicial = new Login();
-            //Application.Run(FormInicial);
-            Application.Run(new Login());
+            //Application.Run(new Login());
+            Application.Run(new PantallaInicial());
         }
     }
 }
