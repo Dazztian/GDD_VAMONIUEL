@@ -239,17 +239,18 @@ VALUES ('Administrativo'),('Cliente')
 
 
 INSERT INTO [VAMONIUEL].[Rol_X_Usuario]([ID_ROL],[ID_Usuario])
-VALUES (1,1),(2,1)
+VALUES (1,1),(1,2),(1,3),(1,4),(1,5)
+--,(2,1) ESTO ESTA COMENTADO XQ EN ESTE TP QUEREMOS QUE HAYA SOLO 1 ROL, EL DE ADMIN!!!
 
 --Esto hay que actualizarlo segun este TP
 INSERT INTO [VAMONIUEL].[Funcion] 
-VALUES (1, 'ABM Rol'),(2,'ABM Puerto'),
-(3,'ABM Puerto'),(4, 'ABM Recorrido'), (5, 'ABM Crucero')
-, (6, 'Generar viaje'), (7, 'Compra y/o reserva de viaje')
-, (8, 'Pago Reserva'), (9, 'Listado estadistico')
+VALUES (1, 'ABM Rol'),(4,'ABM Puerto'),
+(5, 'ABM Recorrido'), (6, 'ABM Crucero')
+, (7, 'Generar viaje'), (8, 'Compra y/o reserva de viaje')
+, (9, 'Pago Reserva'), (10, 'Listado estadistico')
 
 INSERT INTO VAMONIUEL.[Rol_X_Funcion]   ([ID_ROL],ID_Funcion)
-VALUES (1,1),(1,2),(1,3),(1,4),(2,5),(1,6),(1,7),(1,7),(1,8),(1,9)
+VALUES (1,1),(1,4),(2,5),(1,6),(1,7),(1,7),(1,8),(1,9),(1,10)
 
 -------------------------------------------------------- TRIGGERS -------------------------------------------------------------------------------
 GO
@@ -639,13 +640,13 @@ BEGIN
 	end
 END
 GO
-CREATE VIEW [ESKHERE].funciones_usuarios
+CREATE VIEW [VAMONIUEL].funciones_usuarios
 AS
-SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [ESKHERE].Usuario u 
-join [ESKHERE].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
-join [ESKHERE].Rol r on r.ID = ru.ID_ROL 
-join [ESKHERE].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
-join [ESKHERE].Funcion f on f.ID = rf.ID_Funcion 
+SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [VAMONIUEL].Usuario u 
+join [VAMONIUEL].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
+join [VAMONIUEL].Rol r on r.ID = ru.ID_ROL 
+join [VAMONIUEL].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
+join [VAMONIUEL].Funcion f on f.ID = rf.ID_Funcion 
 WHERE r.Habilitado = 1
 GO
 /*
