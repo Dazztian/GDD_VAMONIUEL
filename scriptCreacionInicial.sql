@@ -544,9 +544,10 @@ select
 	top 5 cr.ID, cr.CRUCERO_MODELO Modelo, cr.CRU_FABRICANTE Fabricante, (DATEDIFF(day, ec.Fecha_fuera_de_servicio, ec.Fecha_reinicio_de_servicio)) cantidad_dias_fuera_de_servicio
 FROM
 	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
-
+go
 --VIEW para obtener el año minimo
-CREATE VIEW VAMONIUEL.anios_minimo_de_viaje
+go
+CREATE VIEW VAMONIUEL.anio_minimo_de_viaje
 AS
 SELECT MIN(YEAR(v.FechaInicio)) anio
 FROM VAMONIUEL.VIAJE V
@@ -654,15 +655,7 @@ BEGIN
 	end
 END
 GO
-CREATE VIEW [VAMONIUEL].funciones_usuarios
-AS
-SELECT u.Usuario, r.Nombre as nombre_rol, f.nombre as nombre_funcion, f.ID as funcion_id FROM [VAMONIUEL].Usuario u 
-join [VAMONIUEL].Rol_X_Usuario ru on ru.ID_Usuario = u.ID 
-join [VAMONIUEL].Rol r on r.ID = ru.ID_ROL 
-join [VAMONIUEL].Rol_X_Funcion rf on rf.ID_Rol = r.ID 
-join [VAMONIUEL].Funcion f on f.ID = rf.ID_Funcion 
-WHERE r.Habilitado = 1
-GO
+
 /*
 CREATE VIEW [VAMONIUEL].idClientexNombreUsuario_y_numTarjeta_para_compra
 AS
