@@ -537,6 +537,13 @@ select
 FROM
 	VAMONIUEL.CRUCERO cr join VAMONIUEL.Estado_del_Crucero ec on (cr.ID=ec.ID_Crucero)
 
+--VIEW para obtener el año minimo
+CREATE VIEW VAMONIUEL.anios_minimo_de_viaje
+AS
+SELECT MIN(YEAR(v.FechaInicio)) anio
+FROM VAMONIUEL.VIAJE V
+GO
+
 ------------------------------------------- CREACION DE STORED PROCEDURES------------------------------------------------------------------------------------------
 GO --FUNCIONA PERFECTO
 CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
