@@ -93,7 +93,7 @@
             this.btn_pago_reserva.UseVisualStyleBackColor = true;
             this.btn_pago_reserva.Click += new System.EventHandler(this.btn_pago_reserva_Click);
             // 
-            // Form1
+            // PantallaInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,8 +104,8 @@
             this.Controls.Add(this.btn_compra_reserva_pasaje);
             this.Controls.Add(this.btn_login_admin);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "PantallaInicial";
+            this.Text = "FRBA Cruceros";
             this.ResumeLayout(false);
             this.PerformLayout();
 
