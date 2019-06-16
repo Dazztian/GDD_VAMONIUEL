@@ -121,7 +121,8 @@ namespace FrbaCrucero.CompraReservaPasaje
         {
             if (guardado)
             {
-                new Reserva(idCliente, id_viaje, preciobase, preciomasrecargocabina, id_cabinaxviaje).Show();
+                new Reserva(idCliente, id_viaje, preciobase, preciomasrecargocabina, id_cabinaxviaje).ShowDialog();
+                this.Close();
             }
             else
             {
@@ -130,16 +131,9 @@ namespace FrbaCrucero.CompraReservaPasaje
             
         }
 
-        private void btnComprar_Click(object sender, EventArgs e)
+        private void RegistrarCliente_Load(object sender, EventArgs e)
         {
-            if (guardado)
-            {
-                new Compra().Show();
-            }
-            else
-            {
-                MessageBox.Show("Debe guardar sus datos antes");
-            }
+
         }
     }
 }

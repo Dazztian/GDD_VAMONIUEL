@@ -45,7 +45,6 @@
             this.btnCliente = new System.Windows.Forms.Button();
             this.btnContinuar = new System.Windows.Forms.Button();
             this.btnReservar = new System.Windows.Forms.Button();
-            this.btnComprar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dateTimePickerNacimiento
@@ -185,30 +184,19 @@
             // 
             // btnReservar
             // 
-            this.btnReservar.Location = new System.Drawing.Point(98, 306);
+            this.btnReservar.Location = new System.Drawing.Point(181, 312);
             this.btnReservar.Name = "btnReservar";
             this.btnReservar.Size = new System.Drawing.Size(97, 37);
             this.btnReservar.TabIndex = 44;
-            this.btnReservar.Text = "Reservar";
+            this.btnReservar.Text = "Siguiente";
             this.btnReservar.UseVisualStyleBackColor = true;
             this.btnReservar.Click += new System.EventHandler(this.btnReservar_Click);
-            // 
-            // btnComprar
-            // 
-            this.btnComprar.Location = new System.Drawing.Point(253, 306);
-            this.btnComprar.Name = "btnComprar";
-            this.btnComprar.Size = new System.Drawing.Size(97, 37);
-            this.btnComprar.TabIndex = 45;
-            this.btnComprar.Text = "Comprar";
-            this.btnComprar.UseVisualStyleBackColor = true;
-            this.btnComprar.Click += new System.EventHandler(this.btnComprar_Click);
             // 
             // RegistrarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(473, 361);
-            this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.btnReservar);
             this.Controls.Add(this.btnContinuar);
             this.Controls.Add(this.btnCliente);
@@ -228,6 +216,7 @@
             this.Controls.Add(this.label1);
             this.Name = "RegistrarCliente";
             this.Text = "RegistrarCliente";
+            this.Load += new System.EventHandler(this.RegistrarCliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,7 +241,6 @@
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Button btnContinuar;
         private System.Windows.Forms.Button btnReservar;
-        private System.Windows.Forms.Button btnComprar;
 
     }
 }
