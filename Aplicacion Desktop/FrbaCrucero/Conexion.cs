@@ -104,6 +104,7 @@ namespace FrbaCrucero
             public static string cabi_viaje { get { return "VAMONIUEL.cabinas_del_viaje"; } }
             public static string precio_base_recorrido { get { return "VAMONIUEL.precio_base_recorrido"; } }
             public static string recargo_cabina { get { return "VAMONIUEL.recargo_cabina_viaje"; } }
+            public static string cabinaxviaje { get { return "[VAMONIUEL].[CabinaXViaje]"; } }
         }
             private string PonerFiltros(string comando, Dictionary<string, string> filtros)
             {
@@ -191,7 +192,10 @@ namespace FrbaCrucero
                             {
                                 command.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                             }
-                            return Convert.ToInt32(command.ExecuteScalar());
+                        object result = command.ExecuteScalar();
+                        if (DBNull.Value.Equals(result))
+                            return -1;
+                        else return Convert.ToInt32(result);
 
                         }
                     }
