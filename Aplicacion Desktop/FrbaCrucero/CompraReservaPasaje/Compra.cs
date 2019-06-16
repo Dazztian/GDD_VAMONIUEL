@@ -12,6 +12,7 @@ namespace FrbaCrucero.CompraReservaPasaje
 {
     public partial class Compra : Form
     {
+        public string mediopago { get; set; }
         public Compra()
         {
             InitializeComponent();
@@ -24,6 +25,19 @@ namespace FrbaCrucero.CompraReservaPasaje
             comboBoxPago.Items.Add("Tarjeta de crédito 3 cuotas");
             comboBoxPago.Items.Add("Tarjeta de crédito 6 cuotas");
             comboBoxPago.Items.Add("Tarjeta de crédito 12 cuotas");
+            comboBoxPago.Text = "Efectivo";
+        }
+
+        private void comboBoxPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Confirmar_Click(object sender, EventArgs e)
+        {
+            mediopago =comboBoxPago.Text.ToString();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
