@@ -133,26 +133,32 @@ namespace FrbaCrucero.PagoReserva
                     }
                     else
                     {
-                        bool bit_habilitado = (bool)habilitado[0];
-
-                        if (bit_habilitado)//Si la reserva está habilitada...
+                        //Si no es nula hago la ejecucion normal
+                        //if (habilitado != null)
+                        try 
                         {
-                            //PASAJES
-                            List<string> columnasPasaje = new List<string>();
-                            columnasPasaje.Add("ID_Pasaje");//Aca indicamos las columnas que queremos que nos traiga
-                            List<object> id_pasajes = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.RESERVA, columnasPasaje, filtrosReserva))["ID_Pasaje"]);
-                            int id_pasaje = (int)id_pasajes[0];//Obtengo el id_pasaje
+                            bool bit_habilitado = (bool)habilitado[0];
 
-                            //ACA RESUELVO EL PAGO DE LA RESERVA
-                            AgregarParaInsert("Fecha_Pago", DateTime.Now);
-                            AgregarParaInsert("ID_Pasaje", id_pasaje);
-                            AgregarParaInsert("medio_de_pago", this.cmb_medio_de_pago.GetItemText(this.cmb_medio_de_pago.SelectedItem));
-                            int resultado = Conexion.getInstance().Insertar(Conexion.Tabla.Pago, datos);
+                            if (bit_habilitado)//Si la reserva está habilitada...
+                            {
+                                //PASAJES
+                                List<string> columnasPasaje = new List<string>();
+                                columnasPasaje.Add("ID_Pasaje");//Aca indicamos las columnas que queremos que nos traiga
+                                List<object> id_pasajes = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.RESERVA, columnasPasaje, filtrosReserva))["ID_Pasaje"]);
+                                int id_pasaje = (int)id_pasajes[0];//Obtengo el id_pasaje
 
-                            MessageBox.Show("Insercion exitosa");
-                            this.Close();
-                        }
-                        else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE LA RESERVA NO ESTA HABILITADA "); }
+                                //ACA RESUELVO EL PAGO DE LA RESERVA
+                                AgregarParaInsert("Fecha_Pago", DateTime.Now);
+                                AgregarParaInsert("ID_Pasaje", id_pasaje);
+                                AgregarParaInsert("medio_de_pago", this.cmb_medio_de_pago.GetItemText(this.cmb_medio_de_pago.SelectedItem));
+                                int resultado = Conexion.getInstance().Insertar(Conexion.Tabla.Pago, datos);
+
+                                MessageBox.Show("Insercion exitosa");
+                                this.Close();
+                            }
+                            else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE LA RESERVA NO ESTA HABILITADA "); }
+                        }//Este mensaje se da cuando recien se carga la BD
+                        catch { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE LA RESERVA NO ESTA HABILITADA "); }
                     }
                 } else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE NO HAS SELECCIONADO UN METODO DE PAGO "); }
 
