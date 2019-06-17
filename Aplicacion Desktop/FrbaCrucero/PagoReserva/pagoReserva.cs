@@ -153,8 +153,11 @@ namespace FrbaCrucero.PagoReserva
                                 AgregarParaInsert("medio_de_pago", this.cmb_medio_de_pago.GetItemText(this.cmb_medio_de_pago.SelectedItem));
                                 int resultado = Conexion.getInstance().Insertar(Conexion.Tabla.Pago, datos);
 
+                                //TENGO UN PROBLEMA SIEMPRE DEVUELVE -1, TENGO QUE ARREGLAR ESO
+                                /* VER COMO RESOLVER ESTO
                                 if (resultado == -1) { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE LA RESERVA ESTA FUERA DE FECHA"); }
-                                
+                                else { MessageBox.Show("Pago realizado exitosamente"); }
+                                */
                                 this.Close();
                             }
                             else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE LA RESERVA NO ESTA HABILITADA "); }
