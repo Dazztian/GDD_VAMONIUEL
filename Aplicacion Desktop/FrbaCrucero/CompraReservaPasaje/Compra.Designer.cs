@@ -30,6 +30,7 @@
         {
             this.comboBoxPago = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Confirmar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxPago
@@ -38,8 +39,9 @@
             this.comboBoxPago.FormattingEnabled = true;
             this.comboBoxPago.Location = new System.Drawing.Point(82, 58);
             this.comboBoxPago.Name = "comboBoxPago";
-            this.comboBoxPago.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPago.Size = new System.Drawing.Size(174, 21);
             this.comboBoxPago.TabIndex = 0;
+            this.comboBoxPago.SelectedIndexChanged += new System.EventHandler(this.comboBoxPago_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -50,11 +52,22 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Medio de pago";
             // 
+            // Confirmar
+            // 
+            this.Confirmar.Location = new System.Drawing.Point(112, 116);
+            this.Confirmar.Name = "Confirmar";
+            this.Confirmar.Size = new System.Drawing.Size(75, 23);
+            this.Confirmar.TabIndex = 2;
+            this.Confirmar.Text = "Aceptar";
+            this.Confirmar.UseVisualStyleBackColor = true;
+            this.Confirmar.Click += new System.EventHandler(this.Confirmar_Click);
+            // 
             // Compra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 261);
+            this.ClientSize = new System.Drawing.Size(316, 176);
+            this.Controls.Add(this.Confirmar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxPago);
             this.Name = "Compra";
@@ -69,5 +82,6 @@
 
         private System.Windows.Forms.ComboBox comboBoxPago;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Confirmar;
     }
 }

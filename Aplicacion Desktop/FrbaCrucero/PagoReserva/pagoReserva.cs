@@ -147,9 +147,10 @@ namespace FrbaCrucero.PagoReserva
                             AgregarParaInsert("Fecha_Pago", DateTime.Now);
                             AgregarParaInsert("ID_Pasaje", id_pasaje);
                             AgregarParaInsert("medio_de_pago", this.cmb_medio_de_pago.GetItemText(this.cmb_medio_de_pago.SelectedItem));
-                            int resultado = Conexion.getInstance().InsertarCustomizado(Conexion.Tabla.Pago, datos);
+                            int resultado = Conexion.getInstance().Insertar(Conexion.Tabla.Pago, datos);
 
                             MessageBox.Show("Insercion exitosa");
+                            this.Close();
                         }
                         else { MessageBox.Show("NO PODES EFECTUAR EL PAGO PORQUE LA RESERVA NO ESTA HABILITADA "); }
                     }

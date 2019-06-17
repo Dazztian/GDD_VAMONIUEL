@@ -60,7 +60,8 @@ namespace FrbaCrucero.CompraPasaje
                 List<object> resultadoConsulta2 = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.recargo_cabina, columnas2, filtros2)["recargo"]));
                 preciomasrecargocabina = preciobase * Convert.ToDouble(resultadoConsulta2[0]);
 
-                new RegistrarCliente(id_viaje,preciobase,preciomasrecargocabina,id_cabinaxviaje).Show();
+                new RegistrarCliente(id_viaje,preciobase,preciomasrecargocabina,id_cabinaxviaje).ShowDialog();
+                this.Close();
                 
             }
         }

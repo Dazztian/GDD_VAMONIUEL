@@ -510,7 +510,7 @@ GO
 go
 create view VAMONIUEL.viajes_con_oyd
 as
-select v.ID, v.ID_Crucero,v.FechaInicio, r.PUERTO_DESDE origen, r.PUERTO_HASTA destino
+select v.ID, v.ID_Crucero,v.FechaInicio,v.FechaFin, r.PUERTO_DESDE origen, r.PUERTO_HASTA destino
 from VAMONIUEl.VIAJE v join VAMONIUEL.RECORRIDO r on (v.ID_Recorrido = r.ID) 
 go
 
@@ -532,6 +532,7 @@ create view VAMONIUEL.cabinas_del_viaje
 as
 select cxv.ID_Viaje Viaje, cxv.ID ID_Cabina, c.CABINA_TIPO Tipo_de_cabina,c.CABINA_PISO
 from VAMONIUEL.CabinaXViaje cxv join VAMONIUEL.CABINA c on (cxv.ID_Cabina = c.ID)
+where cxv.ocupada  = 0
 go
 
 go
@@ -655,6 +656,7 @@ BEGIN
 		BEGIN--Efectuo el pago normalmente
 		INSERT INTO [VAMONIUEL].[PAGO]([fecha_pago],medio_de_pago,[ID_Pasaje])
 		VALUES (@fecha_pago,@medio_de_pago, @id_pasaje)
+		UPDATE [VAMONIUEL].[RESERVA] SET Habilitado = 0 WHERE ID=@id_reserva
 		END
 	ELSE --Se paso con los dias
 		BEGIN

@@ -33,6 +33,7 @@
             this.btnReservar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewViaje = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCliente)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewViaje)).BeginInit();
             this.SuspendLayout();
@@ -83,11 +84,22 @@
             this.dataGridViewViaje.Size = new System.Drawing.Size(518, 79);
             this.dataGridViewViaje.TabIndex = 4;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(293, 256);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Comprar (pagar)";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Reserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 291);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridViewViaje);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnReservar);
@@ -110,5 +122,6 @@
         private System.Windows.Forms.Button btnReservar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridViewViaje;
+        private System.Windows.Forms.Button button1;
     }
 }
