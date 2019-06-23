@@ -122,7 +122,7 @@ namespace FrbaCrucero.GeneracionViaje
                 }
                 else { MessageBox.Show("Te falta seleccionar 1 recorrido y 1 crucero"); }
             }
-            else { MessageBox.Show("Te equivocaste de fecha "); }
+            else { MessageBox.Show("ERROR, la fecha de finalizacion debe ser posterior a la de inicio "); }
             
         }
 
