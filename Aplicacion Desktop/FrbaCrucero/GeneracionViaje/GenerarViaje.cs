@@ -15,7 +15,10 @@ namespace FrbaCrucero.GeneracionViaje
         public Form_generar_viaje()
         {
             InitializeComponent();
+            dtp_fecha_inicio.MinDate = ConfigurationHelper.fechaActual;
+            dtp_fecha_fin.MinDate = ConfigurationHelper.fechaActual;
         }
+        
 
         int id_cliente;
         private List<TextBox> textos = new List<TextBox>();
