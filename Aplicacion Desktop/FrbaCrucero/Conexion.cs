@@ -53,6 +53,10 @@ namespace FrbaCrucero
             {
                 return "<= " + valor;
             }
+            public static string IN(string valor)
+            {
+                return "IN ( " + valor + ")";
+            }
 
             internal static string MayorIgual(string valor)
             {
