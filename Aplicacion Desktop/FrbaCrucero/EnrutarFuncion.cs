@@ -68,8 +68,12 @@ namespace FrbaCrucero
             FormTemplate.Funciones = funcion;
             FormTemplate.usuario = usuario;
 
+
             if (usuario != "admin")
             {
+                FormTemplate.isAdmin = false;
+                FormTemplate.isClient = true;
+
                 //me cazo el id del cliente con el usuario
                 /*
                 FormTemplate.isAdmin = false;
