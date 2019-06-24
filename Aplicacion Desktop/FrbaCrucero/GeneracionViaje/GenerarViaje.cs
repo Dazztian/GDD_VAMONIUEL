@@ -19,7 +19,7 @@ namespace FrbaCrucero.GeneracionViaje
             dtp_fecha_fin.MinDate = ConfigurationHelper.fechaActual;
         }
         
-
+        
         int id_cliente;
         private List<TextBox> textos = new List<TextBox>();
         private Dictionary<string, object> datos = new Dictionary<string, object>();
@@ -33,13 +33,13 @@ namespace FrbaCrucero.GeneracionViaje
              
         private void FormGenerarViajes(object sender, EventArgs e)
         {
+
                 //Obtengo todos los recorridos del sistema
                 Dictionary<string, string> filtrosRecorridos = new Dictionary<string, string>();
                 Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Recorrido, ref dgv_recorridos_disponibles, filtrosRecorridos);
-    
-                //Obtengo todos los cruceros  del sistema, capaz de hacer algun recorrido
-                //Dictionary<string, string> filtrosCruceros = new Dictionary<string, string>();
-                //Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.CRUCERO, ref dgv_cruceros_disponibles, filtrosCruceros);
+
+                MessageBox.Show("Seleccione un recorrido, a partir del mismo se mostraran los cruceros disponibles");
+   
         }
 
         //CUANDO CAMBIO EL DTP ACTUALIZO LOS CRUCEROS DISPONIBLES
@@ -113,6 +113,31 @@ namespace FrbaCrucero.GeneracionViaje
                   
                   int id_recorrido = Convert.ToInt32(lbl_id_recorrido.Text.ToString());
                   int id_crucero = Convert.ToInt32(lbl_id_crucero.Text.ToString());
+
+
+                  Dictionary<string, string> filtrosCrucero = new Dictionary<string, string>();
+                  filtrosCrucero.Add("ID", Conexion.Filtro.Exacto(lbl_id_crucero.Text.ToString()));
+                  List<string> columnasCrucero = new List<string>();
+                  columnasCrucero.Add("CRUCERO_IDENTIFICADOR");
+                  List<object> crucero_identificador = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.CRUCERO, columnasCrucero, filtrosCrucero))["CRUCERO_IDENTIFICADOR"]);
+                  string string_crucero_identificador = String.Concat(crucero_identificador.Select(o => o.ToString()));
+                  AgregarParaInsert("CRUCERO_IDENTIFICADOR", string_crucero_identificador);
+
+
+                  Dictionary<string, string> filtrosRecorrido= new Dictionary<string, string>();
+                  filtrosRecorrido.Add("ID", Conexion.Filtro.Exacto(lbl_id_recorrido.Text.ToString()));
+                  List<string> columnasReccoridoOrigen = new List<string>();
+                  columnasReccoridoOrigen.Add("PUERTO_DESDE");
+                  List<object> origen = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Recorrido, columnasReccoridoOrigen, filtrosRecorrido))["PUERTO_DESDE"]);
+                  string string_origen = String.Concat(origen.Select(o => o.ToString()));
+                  AgregarParaInsert("Origen", string_origen);
+
+                  List<string> columnasReccoridoDestino = new List<string>();
+                  columnasReccoridoDestino.Add("PUERTO_HASTA");
+                  List<object> destino = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.Recorrido, columnasReccoridoDestino, filtrosRecorrido))["PUERTO_HASTA"]);
+                  string string_destino = String.Concat(destino.Select(o => o.ToString()));
+                  AgregarParaInsert("Destino", string_destino); 
+
 
 
                   //Aca resuelvo la creacion del nuevo viaje
@@ -196,7 +221,6 @@ namespace FrbaCrucero.GeneracionViaje
 
             string id_obtenidas = String.Concat(id_cruceros_disponibles.Select(o => o.ToString() + ","));
             id_obtenidas = id_obtenidas.Remove(id_obtenidas.Length - 1);
-            MessageBox.Show(id_obtenidas);
 
             Dictionary<string, string> filtrosCruceroAMostrar = new Dictionary<string, string>();
             filtrosCruceroAMostrar.Add("ID", Conexion.Filtro.IN(id_obtenidas));
