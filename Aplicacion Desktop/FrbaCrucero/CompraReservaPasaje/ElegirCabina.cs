@@ -24,7 +24,7 @@ namespace FrbaCrucero.CompraPasaje
             id_viaje = idv;
             Dictionary<string, string> filtros = new Dictionary<string, string>();
             filtros.Add("Viaje", Conexion.Filtro.Exacto(id_viaje));
-            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.reco_completo, ref dgvReco, filtros);
+            //Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.reco_completo, ref dgvReco, filtros);
 
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.cabi_viaje, ref dgvCab, filtros);
             //llenarcombo(Conexion.Tabla.cabi_viaje, "ID_Cabina", filtros, ref cmbIDCab);

@@ -39,7 +39,11 @@
             this.btnElegirviaje = new System.Windows.Forms.Button();
             this.btnBuscarviajes = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.dgvReco = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReco)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -143,11 +147,40 @@
             this.label5.Size = new System.Drawing.Size(0, 13);
             this.label5.TabIndex = 11;
             // 
+            // dgvReco
+            // 
+            this.dgvReco.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReco.Location = new System.Drawing.Point(646, 143);
+            this.dgvReco.Name = "dgvReco";
+            this.dgvReco.Size = new System.Drawing.Size(542, 378);
+            this.dgvReco.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 127);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(90, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Viajes disponibles";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(646, 124);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(196, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Recorrido completo para el viaje elegido";
+            // 
             // CompraReservaPasaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 644);
+            this.ClientSize = new System.Drawing.Size(1212, 644);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.dgvReco);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnBuscarviajes);
             this.Controls.Add(this.btnElegirviaje);
@@ -162,6 +195,7 @@
             this.Name = "CompraReservaPasaje";
             this.Text = "CompraReservaPasaje";
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReco)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,5 +214,8 @@
         private System.Windows.Forms.Button btnElegirviaje;
         private System.Windows.Forms.Button btnBuscarviajes;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dgvReco;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

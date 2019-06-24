@@ -73,6 +73,9 @@ namespace FrbaCrucero.CompraPasaje
             DataGridViewRow selectedRow = dgv.Rows[index];
             id_viaje = selectedRow.Cells[0].Value.ToString();
             label5.Text = selectedRow.Cells[0].Value.ToString();
+            Dictionary<string, string> filtros_reco = new Dictionary<string, string>();
+            filtros_reco.Add("Viaje", Conexion.Filtro.Exacto(id_viaje));
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.reco_completo, ref dgvReco, filtros_reco);
         }
     }
 }

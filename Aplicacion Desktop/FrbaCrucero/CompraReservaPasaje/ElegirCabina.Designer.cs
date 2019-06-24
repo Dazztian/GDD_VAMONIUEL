@@ -32,11 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnElegir = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.dgvReco = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCab)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvReco)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvCab
@@ -79,26 +76,6 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Cabinas disponibles";
             // 
-            // dgvReco
-            // 
-            this.dgvReco.AllowUserToAddRows = false;
-            this.dgvReco.AllowUserToDeleteRows = false;
-            this.dgvReco.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReco.Location = new System.Drawing.Point(668, 38);
-            this.dgvReco.Name = "dgvReco";
-            this.dgvReco.ReadOnly = true;
-            this.dgvReco.Size = new System.Drawing.Size(421, 388);
-            this.dgvReco.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(668, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(132, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Recorrido del viaje elegido";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -111,10 +88,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1101, 562);
+            this.ClientSize = new System.Drawing.Size(659, 562);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.dgvReco);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnElegir);
             this.Controls.Add(this.label1);
@@ -123,7 +98,6 @@
             this.Text = "ElegirCabina";
             this.Load += new System.EventHandler(this.ElegirCabina_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCab)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvReco)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,8 +109,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnElegir;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dgvReco;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
     }
 }
