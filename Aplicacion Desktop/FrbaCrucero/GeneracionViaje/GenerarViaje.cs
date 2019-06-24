@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.GeneracionViaje
 {
-    public partial class Form_generar_viaje : Form//Template
+    public partial class Form_generar_viaje : FormTemplate
     {
         public Form_generar_viaje()
         {
