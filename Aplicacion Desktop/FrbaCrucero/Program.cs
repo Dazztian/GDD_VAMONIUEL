@@ -17,7 +17,8 @@ namespace FrbaCrucero
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PantallaInicial());
+            //Application.Run(new PantallaInicial());
+            Application.Run(new GeneracionViaje.Form_generar_viaje());
 
         }
     }

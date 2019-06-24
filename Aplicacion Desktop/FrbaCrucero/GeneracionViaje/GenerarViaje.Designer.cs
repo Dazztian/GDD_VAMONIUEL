@@ -41,6 +41,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cmb_cruceros = new System.Windows.Forms.ComboBox();
             this.cmb_recorridos = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lbl_id_recorrido = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbl_id_crucero = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_cruceros_disponibles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_recorridos_disponibles)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +56,7 @@
             this.dgv_cruceros_disponibles.Name = "dgv_cruceros_disponibles";
             this.dgv_cruceros_disponibles.Size = new System.Drawing.Size(328, 150);
             this.dgv_cruceros_disponibles.TabIndex = 0;
+            this.dgv_cruceros_disponibles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clicl_crucero_elegido);
             // 
             // label1
             // 
@@ -96,6 +101,7 @@
             this.dgv_recorridos_disponibles.Name = "dgv_recorridos_disponibles";
             this.dgv_recorridos_disponibles.Size = new System.Drawing.Size(314, 150);
             this.dgv_recorridos_disponibles.TabIndex = 4;
+            this.dgv_recorridos_disponibles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbl_click_recorrido);
             // 
             // button1
             // 
@@ -126,7 +132,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(493, 246);
+            this.label5.Location = new System.Drawing.Point(407, 242);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(118, 13);
             this.label5.TabIndex = 9;
@@ -135,7 +141,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(495, 317);
+            this.label6.Location = new System.Drawing.Point(409, 313);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 10;
@@ -145,7 +151,7 @@
             // cmb_cruceros
             // 
             this.cmb_cruceros.FormattingEnabled = true;
-            this.cmb_cruceros.Location = new System.Drawing.Point(498, 351);
+            this.cmb_cruceros.Location = new System.Drawing.Point(412, 347);
             this.cmb_cruceros.Name = "cmb_cruceros";
             this.cmb_cruceros.Size = new System.Drawing.Size(121, 21);
             this.cmb_cruceros.TabIndex = 13;
@@ -153,17 +159,55 @@
             // cmb_recorridos
             // 
             this.cmb_recorridos.FormattingEnabled = true;
-            this.cmb_recorridos.Location = new System.Drawing.Point(498, 273);
+            this.cmb_recorridos.Location = new System.Drawing.Point(412, 269);
             this.cmb_recorridos.Name = "cmb_recorridos";
             this.cmb_recorridos.Size = new System.Drawing.Size(121, 21);
             this.cmb_recorridos.TabIndex = 14;
             this.cmb_recorridos.SelectedValueChanged += new System.EventHandler(this.cmb_seleccionar_recorrido);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(583, 245);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(121, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Recorrido Seleccionado";
+            // 
+            // lbl_id_recorrido
+            // 
+            this.lbl_id_recorrido.AutoSize = true;
+            this.lbl_id_recorrido.Location = new System.Drawing.Point(583, 277);
+            this.lbl_id_recorrido.Name = "lbl_id_recorrido";
+            this.lbl_id_recorrido.Size = new System.Drawing.Size(0, 13);
+            this.lbl_id_recorrido.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(583, 317);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(112, 13);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "Crucero Seleccionado";
+            // 
+            // lbl_id_crucero
+            // 
+            this.lbl_id_crucero.AutoSize = true;
+            this.lbl_id_crucero.Location = new System.Drawing.Point(583, 347);
+            this.lbl_id_crucero.Name = "lbl_id_crucero";
+            this.lbl_id_crucero.Size = new System.Drawing.Size(0, 13);
+            this.lbl_id_crucero.TabIndex = 18;
             // 
             // Form_generar_viaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(738, 479);
+            this.Controls.Add(this.lbl_id_crucero);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lbl_id_recorrido);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.cmb_recorridos);
             this.Controls.Add(this.cmb_cruceros);
             this.Controls.Add(this.label6);
@@ -202,5 +246,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmb_cruceros;
         private System.Windows.Forms.ComboBox cmb_recorridos;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbl_id_recorrido;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbl_id_crucero;
     }
 }

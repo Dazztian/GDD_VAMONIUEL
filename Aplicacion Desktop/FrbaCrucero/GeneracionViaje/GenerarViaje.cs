@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.GeneracionViaje
 {
-    public partial class Form_generar_viaje : FormTemplate
+    public partial class Form_generar_viaje : Form//Template
     {
         public Form_generar_viaje()
         {
@@ -101,7 +101,8 @@ namespace FrbaCrucero.GeneracionViaje
 
         //Logica del modulo
         private void btn_generar_viaje(object sender, EventArgs e)
-        { 
+        {
+            
             DateTime fecha_inicial = Convert.ToDateTime(dtp_fecha_inicio.Value.ToString());
             DateTime fecha_final = Convert.ToDateTime(dtp_fecha_fin.Value.ToString());
             //Checkeo las fechas
@@ -160,6 +161,20 @@ namespace FrbaCrucero.GeneracionViaje
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void clicl_crucero_elegido(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;// get the Row Index
+            DataGridViewRow selectedRow = dgv_cruceros_disponibles.Rows[index];
+            lbl_id_crucero.Text = selectedRow.Cells[0].Value.ToString();
+        }
+
+        private void lbl_click_recorrido(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;// get the Row Index
+            DataGridViewRow selectedRow = dgv_recorridos_disponibles.Rows[index];
+            lbl_id_recorrido.Text = selectedRow.Cells[0].Value.ToString();
         }
 
 
