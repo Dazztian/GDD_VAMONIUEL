@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.dgvCab = new System.Windows.Forms.DataGridView();
-            this.cmbIDCab = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnElegir = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvReco = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReco)).BeginInit();
             this.SuspendLayout();
@@ -49,15 +49,7 @@
             this.dgvCab.ReadOnly = true;
             this.dgvCab.Size = new System.Drawing.Size(604, 388);
             this.dgvCab.TabIndex = 0;
-            // 
-            // cmbIDCab
-            // 
-            this.cmbIDCab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbIDCab.FormattingEnabled = true;
-            this.cmbIDCab.Location = new System.Drawing.Point(499, 459);
-            this.cmbIDCab.Name = "cmbIDCab";
-            this.cmbIDCab.Size = new System.Drawing.Size(136, 21);
-            this.cmbIDCab.TabIndex = 1;
+            this.dgvCab.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCab_CellClick);
             // 
             // label1
             // 
@@ -107,17 +99,25 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Recorrido del viaje elegido";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(525, 462);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(0, 13);
+            this.label5.TabIndex = 7;
+            // 
             // ElegirCabina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1101, 562);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgvReco);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnElegir);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cmbIDCab);
             this.Controls.Add(this.dgvCab);
             this.Name = "ElegirCabina";
             this.Text = "ElegirCabina";
@@ -132,11 +132,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvCab;
-        private System.Windows.Forms.ComboBox cmbIDCab;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnElegir;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvReco;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
     }
 }

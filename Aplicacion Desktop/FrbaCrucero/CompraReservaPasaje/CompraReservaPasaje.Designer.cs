@@ -35,10 +35,10 @@
             this.cmbOrigen = new System.Windows.Forms.ComboBox();
             this.cmbDestino = new System.Windows.Forms.ComboBox();
             this.dgv = new System.Windows.Forms.DataGridView();
-            this.cmbViaje = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnElegirviaje = new System.Windows.Forms.Button();
             this.btnBuscarviajes = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,15 +104,7 @@
             this.dgv.ReadOnly = true;
             this.dgv.Size = new System.Drawing.Size(602, 378);
             this.dgv.TabIndex = 6;
-            // 
-            // cmbViaje
-            // 
-            this.cmbViaje.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbViaje.FormattingEnabled = true;
-            this.cmbViaje.Location = new System.Drawing.Point(116, 541);
-            this.cmbViaje.Name = "cmbViaje";
-            this.cmbViaje.Size = new System.Drawing.Size(121, 21);
-            this.cmbViaje.TabIndex = 7;
+            this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             // 
             // label4
             // 
@@ -143,15 +135,23 @@
             this.btnBuscarviajes.UseVisualStyleBackColor = true;
             this.btnBuscarviajes.Click += new System.EventHandler(this.btnBuscarviajes_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(121, 548);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(0, 13);
+            this.label5.TabIndex = 11;
+            // 
             // CompraReservaPasaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(626, 644);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnBuscarviajes);
             this.Controls.Add(this.btnElegirviaje);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.cmbViaje);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.cmbDestino);
             this.Controls.Add(this.cmbOrigen);
@@ -176,9 +176,9 @@
         private System.Windows.Forms.ComboBox cmbOrigen;
         private System.Windows.Forms.ComboBox cmbDestino;
         private System.Windows.Forms.DataGridView dgv;
-        private System.Windows.Forms.ComboBox cmbViaje;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnElegirviaje;
         private System.Windows.Forms.Button btnBuscarviajes;
+        private System.Windows.Forms.Label label5;
     }
 }

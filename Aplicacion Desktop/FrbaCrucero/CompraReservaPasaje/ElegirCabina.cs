@@ -27,7 +27,7 @@ namespace FrbaCrucero.CompraPasaje
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.reco_completo, ref dgvReco, filtros);
 
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.cabi_viaje, ref dgvCab, filtros);
-            llenarcombo(Conexion.Tabla.cabi_viaje, "ID_Cabina", filtros, ref cmbIDCab);
+            //llenarcombo(Conexion.Tabla.cabi_viaje, "ID_Cabina", filtros, ref cmbIDCab);
         }
 
         private void ElegirCabina_Load(object sender, EventArgs e)
@@ -38,13 +38,13 @@ namespace FrbaCrucero.CompraPasaje
         private void btnElegir_Click(object sender, EventArgs e)
         {
 
-            if (string.IsNullOrWhiteSpace(cmbIDCab.Text.ToString()))
+            if (string.IsNullOrWhiteSpace(id_cabinaxviaje))
             {
-                MessageBox.Show("Seleccione una cabina del listado despegable por favor.");
+                MessageBox.Show("Seleccione una cabina del listado de cabinas por favor.");
             }
             else
             {
-                id_cabinaxviaje = cmbIDCab.Text.ToString();
+                //id_cabinaxviaje = cmbIDCab.Text.ToString();
 
                 Dictionary<string, string> filtros = new Dictionary<string, string>();
                 filtros.Add("viaje", Conexion.Filtro.Exacto(id_viaje));
@@ -54,7 +54,7 @@ namespace FrbaCrucero.CompraPasaje
                 preciobase=Convert.ToDouble(resultadoConsulta[0].ToString());
 
                 Dictionary<string, string> filtros2 = new Dictionary<string, string>();
-                filtros2.Add("cabina", Conexion.Filtro.Exacto(cmbIDCab.Text.ToString()));
+                filtros2.Add("cabina", Conexion.Filtro.Exacto(id_cabinaxviaje));
                 List<string> columnas2 = new List<string>();
                 columnas2.Add("recargo");
                 List<object> resultadoConsulta2 = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.recargo_cabina, columnas2, filtros2)["recargo"]));
@@ -78,5 +78,12 @@ namespace FrbaCrucero.CompraPasaje
             //combito.Text = resultadoConsulta[0].ToString();
         }
 
+        private void dgvCab_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;// get the Row Index
+            DataGridViewRow selectedRow = dgvCab.Rows[index];
+            id_cabinaxviaje = selectedRow.Cells[1].Value.ToString();
+            label5.Text = selectedRow.Cells[1].Value.ToString();
+        }
     }
 }

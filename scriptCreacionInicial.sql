@@ -489,7 +489,7 @@ GO
 go
 create view VAMONIUEL.viajes_con_oyd
 as
-select v.ID, v.ID_Crucero,v.FechaInicio,v.FechaFin, r.PUERTO_DESDE origen, r.PUERTO_HASTA destino
+select v.ID ID_de_viaje, v.ID_Crucero,v.FechaInicio,v.FechaFin, r.PUERTO_DESDE origen, r.PUERTO_HASTA destino
 from VAMONIUEl.VIAJE v join VAMONIUEL.RECORRIDO r on (v.ID_Recorrido = r.ID) 
 go
 

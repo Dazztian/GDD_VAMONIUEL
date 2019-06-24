@@ -35,7 +35,7 @@ namespace FrbaCrucero.CompraReservaPasaje
             filtro.Add("ID", Conexion.Filtro.Exacto(idCliente.ToString()));
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Cliente, ref dataGridViewCliente, filtro);
             Dictionary<string, string> filtroViaje = new Dictionary<string, string>();
-            filtroViaje.Add("ID", Conexion.Filtro.Exacto(id_viaje.ToString()));
+            filtroViaje.Add("ID_de_viaje", Conexion.Filtro.Exacto(id_viaje.ToString()));
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.viaje_oyd, ref dataGridViewViaje, filtroViaje);
         }
 

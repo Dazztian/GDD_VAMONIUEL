@@ -12,6 +12,7 @@ namespace FrbaCrucero.CompraPasaje
 {
     public partial class CompraReservaPasaje : FormTemplate
     {
+        string id_viaje;
         public CompraReservaPasaje()
         {
             InitializeComponent();
@@ -25,10 +26,10 @@ namespace FrbaCrucero.CompraPasaje
 
         private void btnBuscarviajes_Click(object sender, EventArgs e)
         {
-            cmbViaje.Items.Clear();
+            //cmbViaje.Items.Clear();
             Dictionary<string, string> filtros = this.ArmaFiltro(cmbOrigen.Text, cmbDestino.Text, dtpFechaviaje.Value.ToString("yyyy/MM/dd"));
             Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.viaje_oyd, ref dgv, filtros);
-            llenarcombo(Conexion.Tabla.viaje_oyd, "ID",filtros,ref cmbViaje);
+            //llenarcombo(Conexion.Tabla.viaje_oyd, "ID",filtros,ref cmbViaje);
            
 
         }
@@ -56,14 +57,22 @@ namespace FrbaCrucero.CompraPasaje
 
         private void btnElegirviaje_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(cmbViaje.Text.ToString())){
-                MessageBox.Show("Seleccione un viaje del listado despegable por favor.");
+            if (string.IsNullOrWhiteSpace(id_viaje)){
+                MessageBox.Show("Seleccione un viaje del despegable por favor.");
             }
             else
             {
-                ElegirCabina elegirCabin = new ElegirCabina(cmbViaje.Text.ToString());
+                ElegirCabina elegirCabin = new ElegirCabina(id_viaje);
                 elegirCabin.ShowDialog();
             }
+        }
+
+        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;// get the Row Index
+            DataGridViewRow selectedRow = dgv.Rows[index];
+            id_viaje = selectedRow.Cells[0].Value.ToString();
+            label5.Text = selectedRow.Cells[0].Value.ToString();
         }
     }
 }

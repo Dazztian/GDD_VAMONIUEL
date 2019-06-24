@@ -99,6 +99,8 @@ namespace FrbaCrucero.CompraReservaPasaje
                     datos.Add("CLI_FECHA_NAC", Convert.ToDateTime(dateTimePickerNacimiento.Value.ToString("yyyy/MM/dd")));
                     Conexion.getInstance().Modificar(idCliente, Conexion.Tabla.Cliente, datos);
                     guardado = true;
+                    MessageBox.Show("Se guardo exitosamente.");
+
                 }
                 else
                 {
@@ -113,8 +115,10 @@ namespace FrbaCrucero.CompraReservaPasaje
                     datos.Add("CLI_FECHA_NAC", Convert.ToDateTime(dateTimePickerNacimiento.Value.ToString("yyyy/MM/dd")));
                     idCliente = Conexion.getInstance().Insertar(Conexion.Tabla.Cliente, datos);
                     guardado = true;
+                    MessageBox.Show("Se guardo exitosamente.");
                 }
             }
+            
         }
 
         private void btnReservar_Click(object sender, EventArgs e)
