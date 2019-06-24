@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.AbmRol
 {
-    public partial class Roles : Form//Template
+    public partial class Roles : FormTemplate
     {
         public Roles()
         {

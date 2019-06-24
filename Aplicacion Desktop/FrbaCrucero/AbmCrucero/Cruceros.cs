@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.AbmCrucero
 {
-    public partial class Cruceros : Form
+    public partial class Cruceros : FormTemplate
     {
         private Dictionary<string, string> filtros = new Dictionary<string, string>();
         public Cruceros()

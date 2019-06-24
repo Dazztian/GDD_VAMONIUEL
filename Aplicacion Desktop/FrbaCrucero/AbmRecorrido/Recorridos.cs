@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.AbmRecorrido
 {
-    public partial class Recorridos : Form
+    public partial class Recorridos : FormTemplate
     {
         private Dictionary<string, string> filtros = new Dictionary<string, string>();
         private Dictionary<string, bool> datos = new Dictionary<string, bool>();

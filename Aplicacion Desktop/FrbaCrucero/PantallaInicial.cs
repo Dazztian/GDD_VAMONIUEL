@@ -25,12 +25,12 @@ namespace FrbaCrucero
 
         private void btn_pago_reserva_Click(object sender, EventArgs e)
         {
-            new PagoReserva.pagoReserva().Show();
+            (new PagoReserva.pagoReserva()).Show();
         }
 
         private void btn_compra_reserva_pasaje_Click(object sender, EventArgs e)
         {
-            new CompraPasaje.CompraReservaPasaje().Show();
+            (new CompraPasaje.CompraReservaPasaje()).Show();
         }
     }
 }

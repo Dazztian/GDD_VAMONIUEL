@@ -66,12 +66,6 @@ namespace FrbaCrucero
             flag = true;
             Close();
 
-            /*Application.OpenForms
-            .OfType<Form>()
-            .Where(form => String.Equals(form.Name, "PantallaInicial"))
-            .ToList()
-            .ForEach(form => form.Close());*/
-
             //(new FormTemplate()).Show();
             //(new PantallaInicial()).Show();
             //(new Login()).Show();
@@ -82,45 +76,45 @@ namespace FrbaCrucero
         {
             flag = true;
             Close();
-            new AbmCrucero.CrearCrucero().Show();
+            (new AbmCrucero.Cruceros()).Show();
         }
 
         private void ABM_Recorrido_Click(object sender, EventArgs e)
         {
             flag = true;
             Close();
-            new AbmRecorrido.CrearRecorrido().Show();
+            (new AbmRecorrido.Recorridos()).Show();
         }
         private void ABM_ROL_Click(object sender, EventArgs e)
         {
             flag = true;
             Close();
-            new AbmRol.CrearRol().Show();
+            (new AbmRol.Roles()).Show();
         }
 
         private void Compra_Reserva_Pasaje_Click(object sender, EventArgs e)
         {
             flag = true;
             Close();
-            new CompraPasaje.CompraReservaPasaje().Show();
+            (new CompraPasaje.CompraReservaPasaje()).Show();
         }
         private void Generacion_Viaje_Click(object sender, EventArgs e)
         {
             flag = true;
             Close();
-            new GeneracionViaje.Form_generar_viaje().Show();
+            (new GeneracionViaje.Form_generar_viaje()).Show();
         }
         private void Pago_Reserva_Click(object sender, EventArgs e)
         {
             flag = true;
             Close();
-            new PagoReserva.pagoReserva().Show();
+            (new PagoReserva.pagoReserva()).Show();
         }
          private void LISTADO_ESTADISTICO_Click(object sender, EventArgs e)
         {
             flag = true;
             Close();
-            new ListadoEstadistico.ListadoEstadistico().Show();
+            (new ListadoEstadistico.ListadoEstadistico()).Show();
         }
 
 
