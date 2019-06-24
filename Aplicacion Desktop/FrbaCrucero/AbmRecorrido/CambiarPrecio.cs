@@ -35,7 +35,7 @@ namespace FrbaCrucero.AbmRecorrido
         {
             CultureInfo cc = System.Threading.Thread.CurrentThread.CurrentCulture;
 
-            if (char.IsNumber(e.KeyChar) ||
+            if (char.IsNumber(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back) ||
 
                 e.KeyChar.ToString() == cc.NumberFormat.NumberDecimalSeparator
 

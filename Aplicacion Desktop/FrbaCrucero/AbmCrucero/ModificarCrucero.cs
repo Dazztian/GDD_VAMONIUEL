@@ -25,7 +25,7 @@ namespace FrbaCrucero.AbmCrucero
             Dictionary<string, string> filtroCrucero = new Dictionary<string, string>();
             filtroCrucero.Add("ID", Conexion.Filtro.Exacto(idCrucero.ToString()));
             datosCrucero = Conexion.getInstance().conseguirTabla(Conexion.Tabla.CRUCERO, filtroCrucero);
-            txtId.Text = idCrucero.ToString();
+            txtId.Text = datosCrucero.Rows[0].ItemArray[3].ToString();
             DataTable marca = Conexion.getInstance().conseguirTabla(Conexion.Tabla.Marca, null);
             comboBoxMarca.DataSource = marca;
             comboBoxMarca.ValueMember = "Marca";

@@ -30,7 +30,7 @@ namespace FrbaCrucero.AbmCrucero
             datosCrucero = Conexion.getInstance().conseguirTabla(Conexion.Tabla.CRUCERO, filtroCrucero);
             habilitacion = Conexion.getInstance().conseguirTabla(Conexion.Tabla.Estado_del_crucero, filtroHabilitacion);
             dataGridViewEstados.DataSource = habilitacion;
-            txtId.Text = idCrucero.ToString();
+            txtId.Text = datosCrucero.Rows[0].ItemArray[3].ToString();
             txtMarca.Text = datosCrucero.Rows[0].ItemArray[1].ToString();
             txtModelo.Text = datosCrucero.Rows[0].ItemArray[2].ToString();
             txtId.ReadOnly = true;
