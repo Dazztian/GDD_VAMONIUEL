@@ -49,7 +49,7 @@
             // 
             this.verToolStripMenuItem.Name = "verToolStripMenuItem";
             this.verToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
-            this.verToolStripMenuItem.Text = "Ver";
+            this.verToolStripMenuItem.Text = "Ver MENU";
             // 
             // cerrarSesionToolStripMenuItem
             // 

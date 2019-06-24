@@ -65,8 +65,16 @@ namespace FrbaCrucero
         {
             flag = true;
             Close();
-            (new Login()).Show();
-            //Program.FormInicial.Show();
+
+            /*Application.OpenForms
+            .OfType<Form>()
+            .Where(form => String.Equals(form.Name, "PantallaInicial"))
+            .ToList()
+            .ForEach(form => form.Close());*/
+
+            //(new FormTemplate()).Show();
+            //(new PantallaInicial()).Show();
+            //(new Login()).Show();
         }
 
 
