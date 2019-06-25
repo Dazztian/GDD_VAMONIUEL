@@ -90,6 +90,7 @@
             this.Controls.Add(this.btnBaja);
             this.Name = "FueraDeServicio";
             this.Text = " ";
+            this.Load += new System.EventHandler(this.FueraDeServicio_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -40,36 +40,61 @@ namespace FrbaCrucero.AbmCrucero
 
         private void btnFueraDeServicio_Click(object sender, EventArgs e)
         {
-            FueraDeServicio fueraDeServicio = new FueraDeServicio();
-            DialogResult res = fueraDeServicio.ShowDialog();
-            Dictionary<string, object> baja = new Dictionary<string, object>();
-            if (res == DialogResult.OK)
+            if (tieneBajaDefinitiva())
             {
-                DateTime fechaBaja = fueraDeServicio.fechaBaja;
-                DateTime fechaAlta = fueraDeServicio.fechaAlta;
-                baja.Add("Fecha_fuera_de_servicio", Convert.ToDateTime(fechaBaja.ToString("yyyy/MM/dd")));
-                baja.Add("Fecha_reinicio_de_servicio", Convert.ToDateTime(fechaAlta.ToString("yyyy/MM/dd")));
-                baja.Add("ID_Crucero",idCrucero);
-                Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
-                MessageBox.Show("Operacion realizada");
+                MessageBox.Show("Ya esta dada la baja definitiva de este crucero. No puede puede ponerlo fuera de servicio");
             }
-            Habilitacion_Load(sender, e);
+            else
+            {
+                FueraDeServicio fueraDeServicio = new FueraDeServicio();
+                DialogResult res = fueraDeServicio.ShowDialog();
+                Dictionary<string, object> baja = new Dictionary<string, object>();
+                if (res == DialogResult.OK && fueraDeServicio.bajaCorrecta)
+                {
+                    DateTime fechaBaja = fueraDeServicio.fechaBaja;
+                    DateTime fechaAlta = fueraDeServicio.fechaAlta;
+                    baja.Add("Fecha_fuera_de_servicio", Convert.ToDateTime(fechaBaja.ToString("yyyy/MM/dd")));
+                    baja.Add("Fecha_reinicio_de_servicio", Convert.ToDateTime(fechaAlta.ToString("yyyy/MM/dd")));
+                    baja.Add("ID_Crucero", idCrucero);
+                    Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
+                    MessageBox.Show("Operacion realizada");
+                }
+                Habilitacion_Load(sender, e);
+            }
         }
 
         private void btnBajaDefinitiva_Click(object sender, EventArgs e)
         {
-            BajaDefinitiva bajaDefinitiva = new BajaDefinitiva();
-            DialogResult res = bajaDefinitiva.ShowDialog();
-            Dictionary<string, object> baja = new Dictionary<string, object>();
-            if (res == DialogResult.OK)
+            if (tieneBajaDefinitiva())
             {
-                DateTime fechaBajaDefinitiva = bajaDefinitiva.fechaBajaDefinitiva;
-                baja.Add("Fecha_baja_definitiva", Convert.ToDateTime(fechaBajaDefinitiva.ToString("yyyy/MM/dd")));
-                baja.Add("ID_Crucero", idCrucero);
-                Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
-                MessageBox.Show("Operacion realizada");
+                MessageBox.Show("Ya esta dada la baja definitiva de este crucero");
             }
-            Habilitacion_Load(sender, e);
+            else
+            {
+                BajaDefinitiva bajaDefinitiva = new BajaDefinitiva();
+                DialogResult res = bajaDefinitiva.ShowDialog();
+                Dictionary<string, object> baja = new Dictionary<string, object>();
+                if (res == DialogResult.OK)
+                {
+                    DateTime fechaBajaDefinitiva = bajaDefinitiva.fechaBajaDefinitiva;
+                    baja.Add("Fecha_baja_definitiva", Convert.ToDateTime(fechaBajaDefinitiva.ToString("yyyy/MM/dd")));
+                    baja.Add("ID_Crucero", idCrucero);
+                    Conexion.getInstance().Insertar(Conexion.Tabla.Estado_del_crucero, baja);
+                    MessageBox.Show("Operacion realizada");
+                }
+                Habilitacion_Load(sender, e);
+            }
+        }
+
+        private Boolean tieneBajaDefinitiva()
+        {
+            List<string> columnas = new List<string>();
+            columnas.Add("ID_Crucero");
+            columnas.Add("Fecha_baja_definitiva");
+            Dictionary<string, string> filtros = new Dictionary<string, string>();
+            filtros.Add("ID_Crucero", Conexion.Filtro.Exacto(idCrucero.ToString()));
+            filtros.Add("Fecha_baja_definitiva", Conexion.Filtro.NotNull());
+            return Conexion.getInstance().existeRegistro(Conexion.Tabla.Estado_del_crucero, columnas, filtros);
         }
     }
 }
