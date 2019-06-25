@@ -56,29 +56,21 @@ namespace FrbaCrucero.AbmCrucero
             }
             else
             {
-                if (conjuntoCabinas.Any(cabina => cabina.tipo == comboBoxTipoCabina.Text && cabina.piso == Convert.ToInt32(txtPisoCabina.Text)))
-                {
-                    MessageBox.Show("Ya cargo un conjunto de cabinas de ese tipo en ese piso");
-                }
-                else
-                {
-                    ConjuntoCabinas cabinas = new ConjuntoCabinas();
-                    cabinas.tipo = comboBoxTipoCabina.Text;
-                    cabinas.cantidad = Convert.ToInt32(txtCantidadCabinas.Text);
-                    cabinas.piso = Convert.ToInt32(txtPisoCabina.Text);
-                    cabinas.recargo = Convert.ToDecimal(txtRecargoCabina.Text);
-                    conjuntoCabinas.Add(cabinas);
-                    DataRow row = tablaCabinas.NewRow();
-                    row[0] = cabinas.tipo;
-                    row[1] = cabinas.cantidad;
-                    row[2] = cabinas.piso;
-                    row[3] = cabinas.recargo;
-
-                    tablaCabinas.Rows.Add(row);
-                    dataGridViewCabinas.DataSource = null;
-                    dataGridViewCabinas.DataSource = tablaCabinas;
-                    generarCabinasIndividuales(cabinas);
-                }
+                ConjuntoCabinas cabinas = new ConjuntoCabinas();
+                cabinas.tipo = comboBoxTipoCabina.Text;
+                cabinas.cantidad = Convert.ToInt32(txtCantidadCabinas.Text);
+                cabinas.piso = Convert.ToInt32(txtPisoCabina.Text);
+                cabinas.recargo = Convert.ToDecimal(txtRecargoCabina.Text);
+                conjuntoCabinas.Add(cabinas);
+                DataRow row = tablaCabinas.NewRow();
+                row[0] = cabinas.tipo;
+                row[1] = cabinas.cantidad;
+                row[2] = cabinas.piso;
+                row[3] = cabinas.recargo;
+                tablaCabinas.Rows.Add(row);
+                dataGridViewCabinas.DataSource = null;
+                dataGridViewCabinas.DataSource = tablaCabinas;
+                generarCabinasIndividuales(cabinas);
             }
         }
 

@@ -29,21 +29,15 @@ namespace FrbaCrucero.AbmRecorrido
         {
             dataGridViewRecorridos.DataSource = null;
             filtros.Clear();
-            if (Controls.OfType<TextBox>().All(t => string.IsNullOrEmpty(t.Text)))
-            {
-                MessageBox.Show("Se debe ingresar algun filtro");
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(txtOrigen.Text))
-                    //ingresar nombre columna
-                    filtros.Add("[PUERTO_DESDE]", Conexion.Filtro.Libre(txtOrigen.Text));
-                if (!string.IsNullOrEmpty(txtDestino.Text))
-                    //ingresar nombre columna
-                    filtros.Add("[PUERTO_HASTA]", Conexion.Filtro.Libre(txtDestino.Text));
-                //lleno el dgv
-                Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Recorrido, ref dataGridViewRecorridos, filtros);
-            }
+            
+            if (!string.IsNullOrEmpty(txtOrigen.Text))
+                //ingresar nombre columna
+                filtros.Add("[PUERTO_DESDE]", Conexion.Filtro.Libre(txtOrigen.Text));
+            if (!string.IsNullOrEmpty(txtDestino.Text))
+                //ingresar nombre columna
+                filtros.Add("[PUERTO_HASTA]", Conexion.Filtro.Libre(txtDestino.Text));
+            //lleno el dgv
+            Conexion.getInstance().LlenarDataGridView(Conexion.Tabla.Recorrido, ref dataGridViewRecorridos, filtros);
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
