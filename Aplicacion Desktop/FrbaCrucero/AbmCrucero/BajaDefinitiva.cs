@@ -16,6 +16,7 @@ namespace FrbaCrucero.AbmCrucero
         public BajaDefinitiva()
         {
             InitializeComponent();
+            dateTimePickerBaja.MinDate = ConfigurationHelper.fechaActual;
         }
 
         private void btnBaja_Click(object sender, EventArgs e)

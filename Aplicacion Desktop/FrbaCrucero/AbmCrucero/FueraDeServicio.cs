@@ -14,6 +14,7 @@ namespace FrbaCrucero.AbmCrucero
     {
         public DateTime fechaBaja;
         public DateTime fechaAlta;
+        public Boolean bajaCorrecta = false;
         public FueraDeServicio()
         {
             InitializeComponent();
@@ -25,8 +26,15 @@ namespace FrbaCrucero.AbmCrucero
             {
                 fechaBaja = Convert.ToDateTime(dateTimePickerInicio.Value.ToString());
                 fechaAlta = Convert.ToDateTime(dateTimePickerFin.Value.ToString());
+                bajaCorrecta = true;
             }
             else { MessageBox.Show("Error en las fechas"); }
+        }
+
+        private void FueraDeServicio_Load(object sender, EventArgs e)
+        {
+            dateTimePickerInicio.MinDate = ConfigurationHelper.fechaActual;
+            dateTimePickerFin.MinDate = ConfigurationHelper.fechaActual;
         }
     }
 }
