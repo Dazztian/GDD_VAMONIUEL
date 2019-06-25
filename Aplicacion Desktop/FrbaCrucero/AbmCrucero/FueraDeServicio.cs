@@ -28,7 +28,7 @@ namespace FrbaCrucero.AbmCrucero
                 fechaAlta = Convert.ToDateTime(dateTimePickerFin.Value.ToString());
                 bajaCorrecta = true;
             }
-            else { MessageBox.Show("Error en las fechas"); }
+            else { MessageBox.Show("Error en las fechas, fecha inicial debe ser anterior a la fecha final"); }
         }
 
         private void FueraDeServicio_Load(object sender, EventArgs e)
