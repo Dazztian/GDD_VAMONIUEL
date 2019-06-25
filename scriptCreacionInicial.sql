@@ -542,6 +542,15 @@ FROM
 	[GD1C2019].[VAMONIUEL].[RESERVA]
 go
 
+go
+create view VAMONIUEL.proxima_recorrido_codigo_a_ins
+as
+SELECT 
+	MAX([RECORRIDO_CODIGO]) +1 cod
+FROM 
+	[GD1C2019].[VAMONIUEL].[RECORRIDO]
+go
+
 --------------------------------  VIEWS PARA LISTADO ESTADISTICO ------------------------------------------------------------------------------------------------
 --View top 5 recorridos con mas pasajes comprados(tomo al pasaje comprado cuando tiene fecha de compra) la otra opcion no me tira resultados por que no hay nada en la tabla de pagos
 GO
