@@ -101,7 +101,7 @@
             this.btnDescartar.Name = "btnDescartar";
             this.btnDescartar.Size = new System.Drawing.Size(95, 23);
             this.btnDescartar.TabIndex = 6;
-            this.btnDescartar.Text = "Descartar";
+            this.btnDescartar.Text = "Volver";
             this.btnDescartar.UseVisualStyleBackColor = true;
             this.btnDescartar.Click += new System.EventHandler(this.btnDescartar_Click);
             // 

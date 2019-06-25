@@ -91,6 +91,7 @@ namespace FrbaCrucero.AbmRecorrido
                     tramoXRecorrido.Clear();
                 }
                 MessageBox.Show("Recorrido creado");
+                this.Close();
             }
 
             
