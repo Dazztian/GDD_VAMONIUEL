@@ -41,3 +41,4 @@ drop view VAMONIUEL.recorrido_completo_xviaje
 drop view VAMONIUEL.cabinas_del_viaje
 drop view VAMONIUEL.precio_base_recorrido
 drop view VAMONIUEL.recargo_cabina_viaje
+drop view VAMONIUEL.proxima_reserva_codigo_a_ins

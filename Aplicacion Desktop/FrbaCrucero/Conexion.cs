@@ -109,7 +109,9 @@ namespace FrbaCrucero
             public static string precio_base_recorrido { get { return "VAMONIUEL.precio_base_recorrido"; } }
             public static string recargo_cabina { get { return "VAMONIUEL.recargo_cabina_viaje"; } }
             public static string cabinaxviaje { get { return "[VAMONIUEL].[CabinaXViaje]"; } }
+            public static string proxima_reserva_codigo_a_ins { get { return "[VAMONIUEL].[proxima_reserva_codigo_a_ins]"; } }
         }
+
             private string PonerFiltros(string comando, Dictionary<string, string> filtros)
             {
                 comando += " WHERE ";

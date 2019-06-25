@@ -65,13 +65,23 @@ namespace FrbaCrucero.CompraReservaPasaje
                 datos.Add("ID_CabinaXViaje", id_cabinaxviaje);
                 int idPasaje = Conexion.getInstance().Insertar(Conexion.Tabla.PASAJE, datos);
 
+                List<string> col = new List<string>();
+                col.Add("cod");
+                List<object> prox_cod = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.proxima_reserva_codigo_a_ins, col, null))["cod"]);
+                int reserva_codigo = Convert.ToInt32(prox_cod[0]);
+
                 Dictionary<string, object> datosReserva = new Dictionary<string, object>();
                 datosReserva.Add("RESERVA_FECHA", fechaCompra);
+                datosReserva.Add("RESERVA_CODIGO", reserva_codigo);
                 datosReserva.Add("Habilitado", true);
                 datosReserva.Add("ID_Pasaje", idPasaje);
                 int idReserva = Conexion.getInstance().Insertar(Conexion.Tabla.RESERVA, datosReserva);
 
-                MessageBox.Show("Reserva realizada.");
+                Dictionary<string, object> datosCabina = new Dictionary<string, object>();
+                datosCabina.Add("ocupada", 1);
+                Conexion.getInstance().Modificar(Convert.ToInt32(id_cabinaxviaje), Conexion.Tabla.cabinaxviaje, datosCabina);
+
+                MessageBox.Show("Reserva realizada. Codigo de reserva: "+ reserva_codigo.ToString());
                 this.Close();
             }
 
