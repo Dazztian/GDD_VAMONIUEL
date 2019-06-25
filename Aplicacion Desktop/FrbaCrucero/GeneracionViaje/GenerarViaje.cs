@@ -110,7 +110,8 @@ namespace FrbaCrucero.GeneracionViaje
 
                 if (!String.IsNullOrEmpty(lbl_id_recorrido.Text.ToString())/* && !String.IsNullOrEmpty(lbl_id_crucero.Text.ToString())*/)
                 {
-                  
+                  if (!String.IsNullOrEmpty(lbl_id_crucero.Text.ToString()))
+                  {
                   int id_recorrido = Convert.ToInt32(lbl_id_recorrido.Text.ToString());
                   int id_crucero = Convert.ToInt32(lbl_id_crucero.Text.ToString());
 
@@ -149,9 +150,9 @@ namespace FrbaCrucero.GeneracionViaje
                   int resultado =Conexion.getInstance().Insertar(Conexion.Tabla.VIAJE, datos);//Finalmente aca le adjudico el premio
                   if (resultado != -1) { MessageBox.Show("Insercion exitosa"); }
                   else { MessageBox.Show("ERROR DE INSERCION "); } 
-                    
+                  } else {MessageBox.Show("Se necesita seleccionar 1 crucero");}
                 }
-                else { MessageBox.Show("Se necesita seleccionar 1 recorrido y 1 crucero"); }
+                else { MessageBox.Show("Se necesita seleccionar 1 recorrido"); }
             }
             else { MessageBox.Show("ERROR, la fecha de finalizacion debe ser posterior a la de inicio "); }
             
