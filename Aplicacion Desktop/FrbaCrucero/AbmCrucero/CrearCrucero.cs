@@ -94,6 +94,7 @@ namespace FrbaCrucero.AbmCrucero
         {
             Dictionary<string,object> cruceroDatos = new Dictionary<string,object>();
             Dictionary<string,object> cabinaDatos = new Dictionary<string,object>();
+            string identificador;
             int idCrucero;
             if (comboBoxMarca.SelectedIndex == -1 || string.IsNullOrEmpty(txtModelo.Text) || conjuntoCabinas.Count.Equals(0))
             {
@@ -103,6 +104,8 @@ namespace FrbaCrucero.AbmCrucero
             {
                 cruceroDatos.Add("CRU_FABRICANTE",comboBoxMarca.Text.ToString());
                 cruceroDatos.Add("CRUCERO_MODELO", txtModelo.Text.ToString());
+                identificador = generarIdentificador(comboBoxMarca.Text.ToString(), txtModelo.Text.ToString());
+                cruceroDatos.Add("CRUCERO_IDENTIFICADOR", identificador);
                 cruceroDatos.Add("Habilitado", true);
                 idCrucero = Conexion.getInstance().Insertar(Conexion.Tabla.CRUCERO, cruceroDatos);
                 foreach (Cabina cabina in cabinasIndividuales)
@@ -115,7 +118,7 @@ namespace FrbaCrucero.AbmCrucero
                     Conexion.getInstance().Insertar(Conexion.Tabla.Cabina, cabinaDatos);
                     cabinaDatos.Clear();
                 }
-                MessageBox.Show("Se ha creado un nuevo crucero");
+                MessageBox.Show("Se ha creado un nuevo crucero. Su identificador es: " + identificador);
                 cruceroDatos.Clear();
                 conjuntoCabinas.Clear();
                 tablaCabinas.Clear();
@@ -163,7 +166,7 @@ namespace FrbaCrucero.AbmCrucero
         {
             CultureInfo cc = System.Threading.Thread.CurrentThread.CurrentCulture;
 
-            if (char.IsNumber(e.KeyChar) ||
+            if (char.IsNumber(e.KeyChar) || e.KeyChar==Convert.ToChar(Keys.Back) ||
 
                 e.KeyChar.ToString() == cc.NumberFormat.NumberDecimalSeparator
 
@@ -174,6 +177,33 @@ namespace FrbaCrucero.AbmCrucero
             else
 
                 e.Handled = true;
+        }
+
+        private string generarIdentificador(string marca,string modelo)
+        {
+            string identificador = marca + "-" + modelo;
+
+            identificador = identificador.Replace(" ", "");
+            identificador = existeIdentificador(identificador);
+            return identificador;
+        }
+
+        private string existeIdentificador(string identificador)
+        {
+            List<string> columnas = new List<string>();
+            Dictionary<string, string> filtros = new Dictionary<string, string>();
+            columnas.Add("CRUCERO_IDENTIFICADOR");
+            filtros.Add("CRUCERO_IDENTIFICADOR", Conexion.Filtro.Exacto(identificador));
+            if (Conexion.getInstance().existeRegistro(Conexion.Tabla.CRUCERO, columnas, filtros))
+            {
+                return existeIdentificador(identificador + "1");
+            }
+            else
+            {
+                return identificador;
+            }
+            columnas.Clear();
+            filtros.Clear();
         }
     }
 }

@@ -37,13 +37,15 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnHabilitacion = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtIdentificador = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCruceros)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewCruceros
             // 
             this.dataGridViewCruceros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCruceros.Location = new System.Drawing.Point(12, 138);
+            this.dataGridViewCruceros.Location = new System.Drawing.Point(12, 180);
             this.dataGridViewCruceros.Name = "dataGridViewCruceros";
             this.dataGridViewCruceros.ReadOnly = true;
             this.dataGridViewCruceros.Size = new System.Drawing.Size(497, 149);
@@ -61,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(149, 59);
+            this.label2.Location = new System.Drawing.Point(149, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 2;
@@ -78,14 +80,14 @@
             // 
             // txtModelo
             // 
-            this.txtModelo.Location = new System.Drawing.Point(240, 56);
+            this.txtModelo.Location = new System.Drawing.Point(240, 62);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(121, 20);
             this.txtModelo.TabIndex = 7;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(286, 96);
+            this.btnBuscar.Location = new System.Drawing.Point(286, 138);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 8;
@@ -95,9 +97,9 @@
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(61, 308);
+            this.btnNuevo.Location = new System.Drawing.Point(27, 350);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(75, 23);
+            this.btnNuevo.Size = new System.Drawing.Size(136, 44);
             this.btnNuevo.TabIndex = 9;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
@@ -105,9 +107,9 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(223, 308);
+            this.btnModificar.Location = new System.Drawing.Point(189, 350);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(75, 23);
+            this.btnModificar.Size = new System.Drawing.Size(136, 44);
             this.btnModificar.TabIndex = 10;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -115,19 +117,37 @@
             // 
             // btnHabilitacion
             // 
-            this.btnHabilitacion.Location = new System.Drawing.Point(383, 308);
+            this.btnHabilitacion.Location = new System.Drawing.Point(349, 350);
             this.btnHabilitacion.Name = "btnHabilitacion";
-            this.btnHabilitacion.Size = new System.Drawing.Size(75, 23);
+            this.btnHabilitacion.Size = new System.Drawing.Size(136, 44);
             this.btnHabilitacion.TabIndex = 11;
-            this.btnHabilitacion.Text = "Habilitacion";
+            this.btnHabilitacion.Text = "Administrar baja temporal/definitiva";
             this.btnHabilitacion.UseVisualStyleBackColor = true;
             this.btnHabilitacion.Click += new System.EventHandler(this.btnHabilitacion_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(149, 97);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Identificador";
+            // 
+            // txtIdentificador
+            // 
+            this.txtIdentificador.Location = new System.Drawing.Point(240, 94);
+            this.txtIdentificador.Name = "txtIdentificador";
+            this.txtIdentificador.Size = new System.Drawing.Size(121, 20);
+            this.txtIdentificador.TabIndex = 13;
             // 
             // Cruceros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 343);
+            this.ClientSize = new System.Drawing.Size(521, 423);
+            this.Controls.Add(this.txtIdentificador);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnHabilitacion);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnNuevo);
@@ -157,5 +177,7 @@
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnHabilitacion;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtIdentificador;
     }
 }
