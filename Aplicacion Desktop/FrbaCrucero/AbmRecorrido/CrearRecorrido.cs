@@ -77,6 +77,11 @@ namespace FrbaCrucero.AbmRecorrido
                 destino = tramos.Last().destino;
                 recorrido.Add("PUERTO_DESDE",origen);
                 recorrido.Add("PUERTO_HASTA",destino);
+                List<string> col = new List<string>();
+                col.Add("cod");
+                List<object> prox_cod = ((Conexion.getInstance().ConsultaPlana(Conexion.Tabla.proxima_recorrido_codigo_a_ins, col, null))["cod"]);
+                int recorrido_codigo = Convert.ToInt32(prox_cod[0]);
+                recorrido.Add("RECORRIDO_CODIGO", recorrido_codigo);
                 idRecorrido = Conexion.getInstance().Insertar(Conexion.Tabla.Recorrido,recorrido);
                 foreach (Tramo tramo in tramos)
                 {
