@@ -599,6 +599,7 @@ BEGIN
 	UPDATE [VAMONIUEL].[RESERVA]
 	SET Habilitado = 0
 	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) > 3--Datediff, al 2do le resto el 1ero
+--Deberia resolver con  un cursor el desocupar las cabinasXViaje asociadas
 END
 GO
 
@@ -615,13 +616,15 @@ BEGIN
 	DECLARE @dias_de_diferencia int
 	DECLARE @medio_de_pago nvarchar(200)
 	DECLARE @limite_de_dias int
+	DECLARE @id_cabina int
 	SET @dias_de_diferencia=0
 	SET @limite_de_dias=3
 
 	--Puede o no tener una reserva asociada
 	SELECT @id_reserva=R.ID, @fecha_pago=i.fecha_pago, @id_pasaje=i.ID_Pasaje, @medio_de_pago= i.[medio_de_pago],
-	@reserva_Fecha= R.RESERVA_FECHA 
+	@reserva_Fecha= R.RESERVA_FECHA, @id_cabina=P.id_cabinaxviaje
 	FROM inserted i LEFT JOIN VAMONIUEL.RESERVA R ON I.ID_PASAJE = R.ID_Pasaje
+	JOIN VAMONIUEL.PASAJE P ON I.ID_PASAJE = P.ID
 	
 	--Aca habria que observar si la fecha de pago la ingreso a manopla o es un getdate
 	if(@reserva_Fecha is NOT null)
@@ -637,8 +640,7 @@ BEGIN
 				if (DATEDIFF(DAY, @reserva_Fecha, @fecha_pago) > @limite_de_dias )
 				BEGIN SET @dias_de_diferencia=365 END
 			END
-		END
-	
+		END	
 
 	if( @dias_de_diferencia <= @limite_de_dias)--DIAS BIEN O RESERVA NULL
 		BEGIN--Efectuo el pago normalmente
@@ -649,8 +651,10 @@ BEGIN
 	ELSE --Se paso con los dias
 		BEGIN
 		UPDATE [VAMONIUEL].[RESERVA] SET Habilitado = 0 WHERE ID=@id_reserva
+		UPDATE VAMONIUEL.CabinaXViaje SET Ocupada= 0 WHERE ID=@id_cabina
 		END
 END
+
 GO
 CREATE VIEW VAMONIUEL.Roles_usuario
 AS
