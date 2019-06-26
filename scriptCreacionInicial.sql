@@ -607,10 +607,45 @@ AS--Cada vez que se loguea algún admin checkeo si hay alguna reserva pa dar de 
 BEGIN 
 	UPDATE [VAMONIUEL].[RESERVA]
 	SET Habilitado = 0
-	WHERE DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) > 3--Datediff, al 2do le resto el 1ero
---Deberia resolver con  un cursor el desocupar las cabinasXViaje asociadas
+	WHERE (DATEDIFF(YEAR, RESERVA_FECHA, GETDATE()) > 0 ) OR
+		  (DATEDIFF(MONTH, RESERVA_FECHA, GETDATE()) > 0 ) OR
+		  (DATEDIFF(DAY, RESERVA_FECHA, GETDATE()) > 3 )
 END
 GO
+
+--GO 
+--CREATE PROCEDURE VAMONIUEL.dar_de_baja_reservas_por_logueo_de_admin
+--AS--Cada vez que se loguea algún admin checkeo si hay alguna reserva pa dar de baja
+--BEGIN 
+--	DECLARE @id_reserva int
+--	DECLARE @id_cabinaxviaje int
+--	DECLARE @limite_de_dias int
+--	SET @limite_de_dias=3
+
+--	DECLARE  c1 CURSOR FOR
+--	--Me traigo el id de la reserva y la de cabinaocupada para luego updatear 
+--	--si me pase con la fecha de reserva
+--	SELECT R.id, P.ID_CabinaXViaje FROM VAMONIUEL.RESERVA R 
+--	JOIN VAMONIUEL.PASAJE P ON R.ID_Pasaje = P.ID
+--	JOIN VAMONIUEL.CabinaXViaje CABXVIAJE ON P.ID_CabinaXViaje = CABXVIAJE.ID
+--	WHERE (DATEDIFF(YEAR, R.RESERVA_FECHA, GETDATE()) > 0 ) OR
+--		  (DATEDIFF(MONTH, R.RESERVA_FECHA, GETDATE()) > 0 ) OR
+--		  (DATEDIFF(DAY, R.RESERVA_FECHA, GETDATE()) > @limite_de_dias )
+
+--	OPEN C1
+--	FETCH NEXT FROM C1 INTO  @id_reserva, @id_Cabinaxviaje
+--	WHILE @@FETCH_STATUS=0
+--	BEGIN
+--		UPDATE [VAMONIUEL].[RESERVA] SET Habilitado = 0 WHERE ID=@id_reserva
+--		UPDATE VAMONIUEL.CabinaXViaje SET Ocupada= 0 WHERE ID=@id_Cabinaxviaje
+
+--		FETCH NEXT FROM C1 INTO  @id_reserva, @id_Cabinaxviaje
+--	END
+
+--	CLOSE C1
+--	DEALLOCATE C1
+--END
+
 
 --drop trigger vamoniuel.dar_de_baja_reservas_por_pago_de_cliente
 GO 
@@ -663,6 +698,7 @@ BEGIN
 		UPDATE VAMONIUEL.CabinaXViaje SET Ocupada= 0 WHERE ID=@id_cabina
 		END
 END
+GO
 
 GO
 CREATE VIEW VAMONIUEL.Roles_usuario
