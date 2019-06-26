@@ -71,7 +71,7 @@ namespace FrbaCrucero.CompraReservaPasaje
                 int reserva_codigo = Convert.ToInt32(prox_cod[0]);
 
                 Dictionary<string, object> datosReserva = new Dictionary<string, object>();
-                datosReserva.Add("RESERVA_FECHA", fechaCompra);
+                datosReserva.Add("RESERVA_FECHA", Convert.ToDateTime(fechaCompra));
                 datosReserva.Add("RESERVA_CODIGO", reserva_codigo);
                 datosReserva.Add("Habilitado", true);
                 datosReserva.Add("ID_Pasaje", idPasaje);
@@ -119,7 +119,7 @@ namespace FrbaCrucero.CompraReservaPasaje
                 int idPasaje = Conexion.getInstance().Insertar(Conexion.Tabla.PASAJE, datos);
      
                 Dictionary<string, object> datosPago = new Dictionary<string, object>();
-                datosPago.Add("fecha_pago", fechaCompra.ToString("yyyy/MM/dd"));
+                datosPago.Add("fecha_pago", Convert.ToDateTime( fechaCompra.ToString("yyyy/MM/dd")));
                 datosPago.Add("ID_Pasaje", idPasaje);
                 datosPago.Add("medio_de_pago", mediopago1); 
                 int idReserva = Conexion.getInstance().Insertar(Conexion.Tabla.Pago, datosPago);
